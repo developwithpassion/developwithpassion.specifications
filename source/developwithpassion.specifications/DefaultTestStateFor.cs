@@ -9,10 +9,10 @@ namespace developwithpassion.specifications
     {
         SUT sut;
         ICreateThe<SUT> factory;
-        IList<SetupTearDownPair> setup_tear_down_pairs;
+        IList<ObservationPair> setup_tear_down_pairs;
         IList<SUTContextSetup<SUT>> sut_context_behaviours;
 
-        public DefaultTestStateFor(ICreateThe<SUT> factory, IList<SetupTearDownPair> behaviours,
+        public DefaultTestStateFor(ICreateThe<SUT> factory, IList<ObservationPair> behaviours,
                                    IList<SUTContextSetup<SUT>> sut_context_behaviours)
         {
             this.factory = factory;
@@ -20,14 +20,14 @@ namespace developwithpassion.specifications
             this.sut_context_behaviours = sut_context_behaviours;
         }
 
-        public void add_setup_teardown_pair(SetupTearDownPair setup_tear_down_pair)
+        public void add_setup_teardown_pair(ObservationPair observation_pair)
         {
-            this.setup_tear_down_pairs.Add(setup_tear_down_pair);
+            this.setup_tear_down_pairs.Add(observation_pair);
         }
 
         public void add_setup_teardown_pair(Action context, Action teardown)
         {
-            this.add_setup_teardown_pair(new SetupTearDownPair(context, teardown));
+            this.add_setup_teardown_pair(new ObservationPair(context, teardown));
         }
 
         void build_sut()
@@ -55,12 +55,12 @@ namespace developwithpassion.specifications
 
         void run_startup_pipeline()
         {
-            this.setup_tear_down_pairs.each(x => x.start());
+            this.setup_tear_down_pairs.each(x => x.setup());
         }
 
         public void run_tear_down()
         {
-            this.setup_tear_down_pairs.each(x => x.finish());
+            this.setup_tear_down_pairs.each(x => x.teardown());
         }
     }
 }

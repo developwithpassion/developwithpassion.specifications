@@ -18,7 +18,7 @@ namespace developwithpassion.specifications.dsl.fieldswitching
             this.field_switcher_factory = field_switcher_factory;
         }
 
-        public FieldSwitcher change(Expression<Func<object>> member_expression)
+        public ISwapValues change(Expression<Func<object>> member_expression)
         {
             return this.field_switcher_factory.create_to_target(this.get_member_from(member_expression));
         }

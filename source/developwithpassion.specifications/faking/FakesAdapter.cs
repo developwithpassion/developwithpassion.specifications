@@ -4,7 +4,7 @@ using Machine.Fakes;
 
 namespace developwithpassion.specifications.faking
 {
-    public class FakesAdapter : IManageFakes, ICreateFakes
+    public class FakesAdapter : IManageFakes
     {
         IFakeAccessor original_controller;
 

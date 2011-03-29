@@ -41,7 +41,6 @@ namespace developwithpassion.specification.specs
         [Subject(typeof(DefaultMemberTargetRegistry))]
         public class when_getting_a_member_target_for_a_member_that_represents_a_property : concern
         {
-            // Fields
             Because b = () =>
                 result = sut.get_member_target_for(property);
 

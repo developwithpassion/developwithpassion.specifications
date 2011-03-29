@@ -15,9 +15,9 @@ namespace developwithpassion.specifications.dsl.fieldswitching
             this.member_target_registry = member_target_registry;
         }
 
-        public FieldSwitcher create_to_target(MemberInfo member)
+        public ISwapValues create_to_target(MemberInfo member)
         {
-            return new DefaultFieldSwitcher(this.member_target_registry.get_member_target_for(member));
+            return new MemberTargetValueSwapper(this.member_target_registry.get_member_target_for(member));
         }
     }
 

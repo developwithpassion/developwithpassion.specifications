@@ -36,9 +36,9 @@ namespace developwithpassion.specifications
             this.because_behaviour = () => behaviour().Count();
         }
 
-        public ChangeValueInPipeline change(Expression<Func<object>> expression)
+        public ChangeExpression change(Expression<Func<object>> expression)
         {
-            return new ChangeValueInPipeline(test_state.add_setup_teardown_pair, expression);
+            return new ChangeExpression(test_state.add_setup_teardown_pair, expression);
         }
 
         Exception get_exception_thrown_by(Action action)

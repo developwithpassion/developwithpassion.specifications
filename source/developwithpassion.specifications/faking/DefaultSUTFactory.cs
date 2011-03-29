@@ -51,11 +51,6 @@ namespace developwithpassion.specifications.faking
             fake_gateway.use(value);
         }
 
-        public void dependency<ArgumentType>(ArgumentType value)
-        {
-            this.specific_constructor_arguments.Add(typeof(ArgumentType), value);
-        }
-
         object get_constructor_parameter(Type parameter_type)
         {
             return (this.specific_constructor_arguments.ContainsKey(parameter_type)

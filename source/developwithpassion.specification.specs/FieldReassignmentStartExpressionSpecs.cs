@@ -21,12 +21,12 @@ namespace developwithpassion.specification.specs
             {
                 member_info = typeof(TypeWithAStaticField).GetField("some_value");
                 switcher_factory = depends.on<FieldSwitcherFactory>();
-                switcher = fake.an<FieldSwitcher>();
+                switcher = fake.an<ISwapValues>();
                 switcher_factory.setup(x => x.create_to_target(Arg<MemberInfo>.Is.NotNull)).Return(switcher);
             };
 
             protected static MemberInfo member_info;
-            protected static FieldSwitcher switcher;
+            protected static ISwapValues switcher;
             protected static FieldSwitcherFactory switcher_factory;
         }
 
@@ -46,7 +46,7 @@ namespace developwithpassion.specification.specs
                 result.ShouldEqual(switcher);
 
             static FieldInfo boxed_member_info;
-            static FieldSwitcher result;
+            static ISwapValues result;
         }
 
         [Subject(typeof(FieldReassignmentStartExpression))]
@@ -58,7 +58,7 @@ namespace developwithpassion.specification.specs
             It should_return_a_field_changer_that_can_be_used_to_specify_the_value_for_during_testing = () =>
                 result.ShouldEqual(switcher);
 
-            static FieldSwitcher result;
+            static ISwapValues result;
         }
     }
 }

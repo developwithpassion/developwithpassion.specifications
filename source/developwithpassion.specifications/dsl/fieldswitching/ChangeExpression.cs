@@ -3,14 +3,12 @@ using System.Linq.Expressions;
 
 namespace developwithpassion.specifications.dsl.fieldswitching
 {
-public class ChangeValueInPipeline
+public class ChangeExpression
 {
-    // Fields
-    private Action<SetupTearDownPair> add_behaviour;
+    private Action<ObservationPair> add_behaviour;
     private Expression<Func<object>> member_expression;
 
-    // Methods
-    public ChangeValueInPipeline(Action<SetupTearDownPair> add_behaviour, Expression<Func<object>> member_expression)
+    public ChangeExpression(Action<ObservationPair> add_behaviour, Expression<Func<object>> member_expression)
     {
         this.add_behaviour = add_behaviour;
         this.member_expression = member_expression;

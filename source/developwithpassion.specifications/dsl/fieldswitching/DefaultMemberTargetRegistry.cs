@@ -11,11 +11,11 @@ namespace developwithpassion.specifications.dsl.fieldswitching
             {
                 return new FieldMemberTarget(member);
             }
-            if (member.MemberType != MemberTypes.Property)
+            if (member.MemberType == MemberTypes.Property)
             {
-                throw new ArgumentException(string.Format("Unable to handle the request member type", new object[0]));
+                return new PropertyInfoMemberTarget(member);
             }
-            return new PropertyInfoMemberTarget(member);
+            throw new ArgumentException(string.Format("Unable to handle the request member type", new object[0]));
         }
     }
 }

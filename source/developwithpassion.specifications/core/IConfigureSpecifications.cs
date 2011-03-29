@@ -9,7 +9,7 @@ namespace developwithpassion.specifications.core
     {
         void catch_exception(Action behaviour_to_trigger);
         void catch_exception<T>(Func<IEnumerable<T>> behaviour);
-        ChangeValueInPipeline change(Expression<Func<object>> expression);
+        ChangeExpression change(Expression<Func<object>> expression);
         Exception exception_thrown { get; }
     }
 }

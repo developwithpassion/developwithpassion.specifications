@@ -20,14 +20,14 @@ namespace developwithpassion.specification.specs
         {
             Establish c = () =>
             {
-                setup_behaviours = new List<SetupTearDownPair>();
+                setup_behaviours = new List<ObservationPair>();
                 factory = fake.an<ICreateAndManageDependenciesFor<SomeItem>>();
                 sut_context_behaviours = new List<SUTContextSetup<SomeItem>>();
                 sut = new DefaultTestStateFor<SomeItem>(factory, setup_behaviours, sut_context_behaviours);
             };
 
             protected static ICreateAndManageDependenciesFor<SomeItem> factory;
-            protected static IList<SetupTearDownPair> setup_behaviours;
+            protected static IList<ObservationPair> setup_behaviours;
             protected static TestStateFor<SomeItem> sut;
             protected static IList<SUTContextSetup<SomeItem>> sut_context_behaviours;
         }
@@ -37,7 +37,7 @@ namespace developwithpassion.specification.specs
         {
             Establish c = () =>
             {
-                the_behaviour = new SetupTearDownPair(() => { }, () => { });
+                the_behaviour = new ObservationPair(() => { }, () => { });
                 some_item = new SomeItem();
             };
 
@@ -48,7 +48,7 @@ namespace developwithpassion.specification.specs
                 setup_behaviours.ShouldContain(the_behaviour);
 
             protected static SomeItem some_item;
-            protected static SetupTearDownPair the_behaviour;
+            protected static ObservationPair the_behaviour;
         }
 
         [Subject(typeof(DefaultTestStateFor<SomeItem>))]
@@ -75,7 +75,7 @@ namespace developwithpassion.specification.specs
                 Enumerable.Range(1, 10).each(x => sut_context_behaviours.Add(
                     y => number_of_sut_setup_actions_ran++));
                 Enumerable.Range(1, 10).each(x => setup_behaviours.Add(
-                    new SetupTearDownPair(() => { number_of_setup_actions_ran++; }, () => { })));
+                    new ObservationPair(() => { number_of_setup_actions_ran++; }, () => { })));
             };
 
             Because b = () =>
@@ -103,7 +103,7 @@ namespace developwithpassion.specification.specs
             {
                 Enumerable.Range(1, 10).each(x =>
                 {
-                    setup_behaviours.Add(new SetupTearDownPair(() => { },
+                    setup_behaviours.Add(new ObservationPair(() => { },
                                                                () => { teardown_behaviours_ran++; }));
                 });
             };

@@ -65,7 +65,7 @@
     <Compile Include="MemberTargetRegistrySpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfoTargetSpecs.cs" />
-    <Compile Include="SetupTearDownPairSpecs.cs" />
+    <Compile Include="ObservationPairSpecs.cs" />
     <Compile Include="StringExtensionsSpecs.cs" />
     <Compile Include="SUTFactorySpecs.cs" />
     <Compile Include="SUTObservationContextSpecs.cs" />

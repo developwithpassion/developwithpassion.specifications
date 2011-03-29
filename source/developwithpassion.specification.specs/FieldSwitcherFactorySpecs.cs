@@ -35,10 +35,10 @@ namespace developwithpassion.specification.specs
             Because b = () =>
                 result = sut.create_to_target(member);
 
-            static FieldSwitcher result;
+            static ISwapValues result;
 
             It should_use_the_member_target_registry_to_create_a_target_to_target_the_member_type = () =>
-                result.ShouldBeOfType<DefaultFieldSwitcher>();
+                result.ShouldBeOfType<MemberTargetValueSwapper>();
         }
     }
 }

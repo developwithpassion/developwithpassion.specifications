@@ -80,13 +80,13 @@
     <Compile Include="CreateSUT.cs" />
     <Compile Include="DefaultObservationController.cs" />
     <Compile Include="DefaultTestStateFor.cs" />
-    <Compile Include="dsl\fieldswitching\ChangeValueInPipeline.cs" />
-    <Compile Include="dsl\fieldswitching\DefaultFieldSwitcher.cs" />
+    <Compile Include="dsl\fieldswitching\ChangeExpression.cs" />
+    <Compile Include="dsl\fieldswitching\MemberTargetValueSwapper.cs" />
     <Compile Include="dsl\fieldswitching\DefaultFieldSwitcherFactory.cs" />
     <Compile Include="dsl\fieldswitching\DefaultMemberTargetRegistry.cs" />
     <Compile Include="dsl\fieldswitching\FieldMemberTarget.cs" />
     <Compile Include="dsl\fieldswitching\FieldReassignmentStartExpression.cs" />
-    <Compile Include="dsl\fieldswitching\FieldSwitcher.cs" />
+    <Compile Include="dsl\fieldswitching\ISwapValues.cs" />
     <Compile Include="dsl\fieldswitching\FieldSwitcherFactory.cs" />
     <Compile Include="dsl\fieldswitching\MemberTarget.cs" />
     <Compile Include="dsl\fieldswitching\MemberTargetRegistry.cs" />
@@ -110,7 +110,7 @@
     <Compile Include="observations\CoreObserves.cs" />
     <Compile Include="observations\StaticObservations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetupTearDownPair.cs" />
+    <Compile Include="ObservationPair.cs" />
     <Compile Include="SUTContextSetup.cs" />
   </ItemGroup>
   <ItemGroup />

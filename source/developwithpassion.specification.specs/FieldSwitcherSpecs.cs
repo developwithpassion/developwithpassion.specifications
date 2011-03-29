@@ -8,7 +8,7 @@ namespace developwithpassion.specification.specs
 {
     public class FieldSwitcherSpecs
     {
-        public abstract class concern : Observes<FieldSwitcher, DefaultFieldSwitcher>
+        public abstract class concern : Observes<ISwapValues, MemberTargetValueSwapper>
         {
             Establish c = () =>
             {
@@ -20,7 +20,7 @@ namespace developwithpassion.specification.specs
             protected static string original_value;
         }
 
-        [Subject(typeof(FieldSwitcher))]
+        [Subject(typeof(ISwapValues))]
         public class when_constructed : concern
         {
             It should_use_the_target_to_get_the_original_value = () =>
@@ -29,7 +29,7 @@ namespace developwithpassion.specification.specs
             static string value_to_change_to;
         }
 
-        [Subject(typeof(FieldSwitcher))]
+        [Subject(typeof(ISwapValues))]
         public class when_provided_the_value_to_change_to : concern
         {
             Establish c = () =>
@@ -43,14 +43,13 @@ namespace developwithpassion.specification.specs
 
             It should_provide_the_pipeline_pair_that_can_do_the_switching = () =>
             {
-                result.start();
+                result.setup();
                 target.received(x => x.change_value_to(value_to_change_to));
-                result.finish();
+                result.teardown();
                 target.received(x => x.change_value_to(original_value));
             };
 
-            protected static string original_value;
-            protected static SetupTearDownPair result;
+            protected static ObservationPair result;
             protected static string value_to_change_to;
         }
     }

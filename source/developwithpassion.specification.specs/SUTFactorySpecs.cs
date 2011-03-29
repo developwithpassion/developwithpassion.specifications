@@ -93,7 +93,7 @@ namespace developwithpassion.specification.specs
         {
             static ItemWithNonFakeableCtorParameters result;
 
-            public class when_arguments_have_not_been_specifically_provided :
+            public class and_arguments_have_not_been_specifically_provided :
                 when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked
             {
                 Establish c = () =>
@@ -106,7 +106,7 @@ namespace developwithpassion.specification.specs
                     spec.exception_thrown.ShouldEqual(original_exception);
             }
 
-            public class when_the_arguments_have_been_specifically_provided :
+            public class and_the_arguments_have_been_specifically_provided :
                 when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked
             {
                 Establish c = () =>

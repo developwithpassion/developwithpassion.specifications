@@ -1,12 +1,6 @@
-using System;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using System.Threading;
-using developwithpassion.specifications.observations;
 using developwithpassion.specifications.rhinomocks;
-using Machine.Fakes.Adapters.Rhinomocks;
 using Machine.Specifications;
 
 namespace developwithpassion.specification.specs
@@ -29,7 +23,6 @@ namespace developwithpassion.specification.specs
                 new_value = "other_value";
                 spec.change(() => SomeStatic.some_value).to(new_value);
             };
-
 
             It should_have_caused_the_change_to_the_field = () =>
                 SomeStatic.some_value.ShouldEqual(new_value);
