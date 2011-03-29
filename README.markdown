@@ -5,7 +5,7 @@ developwithpassion.specifications is a formalization of some test utilities that
 * [Machine.Specifications](https://github.com/machine/machine.specifications)
 * [Machine.Fakes](https://github.com/BjRo/Machine.Fakes)
 
-With the help of mcfakes it currently can be used to do interaction based testing with the following faking libraries:
+With the help of Machine.Fakes it currently can be used to do interaction based testing with the following faking libraries:
 
 * FakeItEasy
 * Moq
@@ -61,7 +61,7 @@ The core of the functionality in developwithpassion.specifications can be access
 * Observes< ClassToTest >
 * Observes< Contract , Class >
 
-The last 2 classes provide access to automation creation of the system under test.
+The last 2 classes provide access to automatic creation of the system under test.
 
 The [developwithpassion.specifications.examples](https://github.com/developwithpassion/developwithpassion.specifications/tree/master/source/developwithpassion.specifications.examples) project contains many examples of how to use different features of the library. Feel free to contribute other examples as you see fit.
 
