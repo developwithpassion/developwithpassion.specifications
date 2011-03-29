@@ -8,7 +8,7 @@ require 'configatron'
 
 build\utils - Utilities for the build
 build\tasks\configuration.rb - Project specific configuration
-build\tasks\machine_specs.rb
+build\tasks\machine_specs.rb 
 build\tasks\deployment.rb - Packaging tasks
 
 =end 
@@ -30,8 +30,9 @@ task :expand_all_template_files do
   TemplateFiles.expand
 end
 
-Rake::Task['configure'].invoke
-Rake::Task['expand_all_template_files'].invoke
+%w[configure expand_all_template_files].each do|build_task|
+  Rake::Task[build_task].invoke
+end
 
 @project_files = FileList.new("#{configatron.source_dir}/**/*.csproj")
 

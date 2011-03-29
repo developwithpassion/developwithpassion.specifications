@@ -19,3 +19,4 @@ artifacts
 *.orig
 project.nuspec
 distribution
+nuget_key

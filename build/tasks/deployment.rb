@@ -60,18 +60,17 @@ namespace :dist do
     end
     
     desc "publish nu packages to nuget"
-    task :publish do
-      raise "Cannot publish without NuGet access key" if configatron.nuget.key.nil?
-      Dir.glob("#{configatron.distribution.nuget.dir}/*.nupkg").each do|package|
-        tool_options = ["push",
-          "-source", "http://packages.nuget.org/v1/",
-          package.name,
-          configatron.nuget.key,
-          { :verbose => false }]
+    task :publish => :build do
+      raise "Cannot publish without NuGet access key" if configatron.distribution.nuget.key.nil?
+      FileUtils.rm Dir.glob("#{configatron.distribution.nuget.dir}/*examples*")
+      FileUtils.rm Dir.glob("#{configatron.distribution.nuget.dir}/*specifications.#{configatron.version_simple}.nupkg")
 
-        sh "tools/nuget/NuGet.exe", *(tool_options) do |ok, status|
-          ok or fail "Nuget failed with status (#{status.exitstatus})"
+      Dir.glob("#{configatron.distribution.nuget.dir}/*.nupkg").each do|package|
+
+        sh "build/tools/nuget/NuGet.exe push -source http://packages.nuget.org/v1/ #{package} #{configatron.distribution.nuget.key}" do |ok, status|
+          "Nuget failed with status (#{status.exitstatus})" if status.exitstatus > 0
         end
+
       end
     end
   end
