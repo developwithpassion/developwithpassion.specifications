@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{67B140E2-D8BF-4266-9F1F-0C17ADF59BF0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>developwithpassion.specifications</RootNamespace>
+    <AssemblyName>developwithpassion.specifications</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\..\packages\FakeItEasy.1.6.4075.221\lib\NET40\FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Fakes">
+      <HintPath>..\..\packages\Machine.Fakes.0.2.0.6\lib\Machine.Fakes.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Fakes.Adapters.FakeItEasy">
+      <HintPath>..\..\packages\Machine.Fakes.FakeItEasy.0.2.0.6\lib\Machine.Fakes.Adapters.FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications">
+      <HintPath>..\..\packages\Machine.Specifications.0.4.9.0\lib\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\shared\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\shared\SharedVersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="core\factories\Factories.cs" />
+    <Compile Include="core\factories\FakeGatewayFactory.cs" />
+    <Compile Include="core\factories\FakesAdapterFactory.cs" />
+    <Compile Include="core\factories\ICreateANonGenericToGenericFakeAdapter.cs" />
+    <Compile Include="core\factories\ICreateTheFactoryThatCreatesTheSUT.cs" />
+    <Compile Include="core\factories\ICreateTheFakesGateway.cs" />
+    <Compile Include="core\factories\ICreateTheMainObservationController.cs" />
+    <Compile Include="core\factories\ICreateTheTestState.cs" />
+    <Compile Include="core\factories\MainControllerFactory.cs" />
+    <Compile Include="core\factories\SUTFactoryProvider.cs" />
+    <Compile Include="core\factories\TestStateFactory.cs" />
+    <Compile Include="core\IConfigureSetupPairs.cs" />
+    <Compile Include="core\IConfigureSpecifications.cs" />
+    <Compile Include="core\IConfigureTheSUT.cs" />
+    <Compile Include="core\IConfigureTheTestStateFor.cs" />
+    <Compile Include="core\ICreateFakes.cs" />
+    <Compile Include="core\ICreateTheSUT.cs" />
+    <Compile Include="core\IManageFakes.cs" />
+    <Compile Include="core\IProvideDependencies.cs" />
+    <Compile Include="core\TestStateFor.cs" />
+    <Compile Include="CreateSUT.cs" />
+    <Compile Include="DefaultObservationController.cs" />
+    <Compile Include="DefaultTestStateFor.cs" />
+    <Compile Include="dsl\fieldswitching\ChangeValueInPipeline.cs" />
+    <Compile Include="dsl\fieldswitching\DefaultFieldSwitcher.cs" />
+    <Compile Include="dsl\fieldswitching\DefaultFieldSwitcherFactory.cs" />
+    <Compile Include="dsl\fieldswitching\DefaultMemberTargetRegistry.cs" />
+    <Compile Include="dsl\fieldswitching\FieldMemberTarget.cs" />
+    <Compile Include="dsl\fieldswitching\FieldReassignmentStartExpression.cs" />
+    <Compile Include="dsl\fieldswitching\FieldSwitcher.cs" />
+    <Compile Include="dsl\fieldswitching\FieldSwitcherFactory.cs" />
+    <Compile Include="dsl\fieldswitching\MemberTarget.cs" />
+    <Compile Include="dsl\fieldswitching\MemberTargetRegistry.cs" />
+    <Compile Include="dsl\fieldswitching\PropertyInfoMemberTarget.cs" />
+    <Compile Include="extensions\AssertionExtensions.cs" />
+    <Compile Include="extensions\EnumerableAssertionExtensions.cs" />
+    <Compile Include="extensions\FakeExtensions.cs" />
+    <Compile Include="extensions\IterationExtensions.cs" />
+    <Compile Include="extensions\StringExtensions.cs" />
+    <Compile Include="extensions\TypeCastingExtensions.cs" />
+    <Compile Include="extensions\TypeExtensions.cs" />
+    <Compile Include="faking\DefaultSUTFactory.cs" />
+    <Compile Include="faking\FakesAdapter.cs" />
+    <Compile Include="faking\ICreateAndManageDependenciesFor.cs" />
+    <Compile Include="faking\IMarshalNonGenericFakeResolutionToAGenericResolution.cs" />
+    <Compile Include="faking\NonGenericFakesAdapter.cs" />
+    <Compile Include="faking\SUTFactory.cs" />
+    <Compile Include="ObservationController.cs" />
+    <Compile Include="observations\CoreObservations.cs" />
+    <Compile Include="observations\InstanceObservations.cs" />
+    <Compile Include="observations\CoreObserves.cs" />
+    <Compile Include="observations\StaticObservations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetupTearDownPair.cs" />
+    <Compile Include="SUTContextSetup.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
