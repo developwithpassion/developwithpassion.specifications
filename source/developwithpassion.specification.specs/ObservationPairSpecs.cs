@@ -8,19 +8,11 @@ namespace developwithpassion.specification.specs
     {
         public class concern : Observes<ObservationPair>
         {
-        }
-
-        [Subject(typeof(ObservationPair))]
-        public class when_told_to_teardown : concern
-        {
             Establish c = () =>
             {
-                sut_factory.create_using(() => new ObservationPair(() => setup_ran = true,
-                                                                   () => teardown_ran = true));
+                sut_factory.create_using(() =>new ObservationPair(() => setup_ran = true,
+                                          () => teardown_ran = true));
             };
-
-            Because b = () =>
-                sut.teardown();
 
             Cleanup cu = () =>
             {
@@ -28,24 +20,25 @@ namespace developwithpassion.specification.specs
                 setup_ran = false;
             };
 
+            protected static bool teardown_ran;
+            protected static bool setup_ran;
+        }
+
+        [Subject(typeof(ObservationPair))]
+        public class when_told_to_teardown : concern
+        {
+            Because b = () =>
+                sut.teardown();
+
             It should_only_run_its_teardown_block = () =>
             {
                 setup_ran.ShouldBeFalse();
                 teardown_ran.ShouldBeTrue();
             };
 
-            protected static bool teardown_ran;
-            protected static bool setup_ran;
-
             [Subject(typeof(ObservationPair))]
             public class when_told_to_setup : concern
             {
-                Establish c = () =>
-                {
-                    sut_factory.create_using(() => new ObservationPair(() => setup_ran = true,
-                                                                       () => teardown_ran = true));
-                };
-
                 Because b = () =>
                     sut.setup();
 
