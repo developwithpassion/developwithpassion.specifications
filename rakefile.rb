@@ -72,7 +72,6 @@ namespace :build do
       @project_files.each do |project|
         MSBuildRunner.build opts.merge({ :project => project }), 
         { 
-            :SignAssembly => configatron.sign_assembly, 
             :OutputPath => configatron.artifacts_dir.to_absolute 
         }
       end

@@ -9,7 +9,7 @@ class MSBuildRunner
       userProperties = attributes.fetch(:properties, {})
       userSwitches = attributes.fetch(:switches, {})
       
-      frameworkDir = File.join(ENV['windir'].dup, 'Microsoft.NET', 'Framework', version)
+      frameworkDir = File.join(ENV['WINDIR'].dup, 'Microsoft.NET', 'Framework', version)
       
       Registry::HKEY_LOCAL_MACHINE.open("SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\#{version}") do |reg|
         frameworkDir = reg['InstallPath', Win32::Registry::REG_SZ]
@@ -46,15 +46,15 @@ class MSBuildRunner
       project = msbuild_options[:project]
 
       xml = File.read project
-      config.each do |element, value|
-        xml.gsub! /<#{element}>.*?<\/#{element}>/, "<#{element}>#{value}</#{element}>"
+
+      config.inject(xml) do|text,(element,value)|
+        xml = text.gsub /<#{element}>.*?<\/#{element}>/, "<#{element}>#{value}</#{element}>"
       end
 
       project += config.hash.to_s
       File.open(project, "w") { |file| file.puts xml }
 
       MSBuildRunner.compile msbuild_options.merge({ :project => project })
-      rm project
     end
   end
 end
