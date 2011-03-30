@@ -46,7 +46,7 @@ namespace developwithpassion.specifications.faking
 
         public void on<ArgumentType>(ArgumentType value)
         {
-            explicit_constructor_parameters.Add(typeof(ArgumentType),value);
+            explicit_constructor_parameters[typeof(ArgumentType)] = value;
         }
 
         object get_constructor_parameter(Type parameter_type)

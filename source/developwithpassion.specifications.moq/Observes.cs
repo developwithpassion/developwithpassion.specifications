@@ -3,7 +3,7 @@ using Machine.Fakes.Adapters.Moq;
 
 namespace developwithpassion.specifications.moq
 {
-    public abstract class Observes : Observes<MoqFakeEngine>
+    public abstract class Observes : StaticObservations<MoqFakeEngine>
     {
     }
 

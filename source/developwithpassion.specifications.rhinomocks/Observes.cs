@@ -3,7 +3,7 @@ using Machine.Fakes.Adapters.Rhinomocks;
 
 namespace developwithpassion.specifications.rhinomocks
 {
-    public abstract class Observes : Observes<RhinoFakeEngine>
+    public abstract class Observes : StaticObservations<RhinoFakeEngine>
     {
     }
 

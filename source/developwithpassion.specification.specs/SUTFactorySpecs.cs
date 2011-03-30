@@ -6,6 +6,8 @@ using developwithpassion.specifications.core;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.faking;
 using developwithpassion.specifications.rhinomocks;
+using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Sdk;
 using Machine.Specifications;
 
 namespace developwithpassion.specification.specs
@@ -20,18 +22,18 @@ namespace developwithpassion.specification.specs
                 command = fake.an<IDbCommand>();
                 manage_fakes = fake.an<IManageFakes>();
                 constructor_parameters = new Dictionary<Type, object>();
-                fakes_resolver = fake.an<IResolveADependencyForTheSUT>();
-                fakes_resolver.setup(x => x.resolve(typeof(IDbConnection))).Return(connection);
-                fakes_resolver.setup(x => x.resolve(typeof(IDbCommand))).Return(command);
+                dependency_resolver = fake.an<IResolveADependencyForTheSUT>();
+                dependency_resolver.setup(x => x.resolve(typeof(IDbConnection))).Return(connection);
+                dependency_resolver.setup(x => x.resolve(typeof(IDbCommand))).Return(command);
 
                 sut = new DefaultSUTFactory<ItemToCreate>(constructor_parameters,
-                                                          fakes_resolver, manage_fakes);
+                                                          dependency_resolver, manage_fakes);
             };
 
             protected static IDbCommand command;
             protected static IDbConnection connection;
             protected static IDictionary<Type, object> constructor_parameters;
-            protected static IResolveADependencyForTheSUT fakes_resolver;
+            protected static IResolveADependencyForTheSUT dependency_resolver;
             protected static ICreateAndManageDependenciesFor<ItemToCreate> sut;
             protected static IManageFakes manage_fakes;
         }
@@ -40,21 +42,21 @@ namespace developwithpassion.specification.specs
         {
             Establish c = delegate
             {
-                fakes_resolver = fake.an<IResolveADependencyForTheSUT>();
+                dependency_resolver = fake.an<IResolveADependencyForTheSUT>();
                 manage_fakes = fake.an<IManageFakes>();
                 original_exception = new Exception();
                 the_connection = fake.an<IDbConnection>();
                 the_command = fake.an<IDbCommand>();
                 constructor_parameters = new Dictionary<Type, object>();
-                fakes_resolver.setup(x => x.resolve(typeof(IDbConnection))).Return(the_connection);
-                fakes_resolver.setup(x => x.resolve(typeof(IDbCommand))).Return(the_command);
+                dependency_resolver.setup(x => x.resolve(typeof(IDbConnection))).Return(the_connection);
+                dependency_resolver.setup(x => x.resolve(typeof(IDbCommand))).Return(the_command);
                 sut = new DefaultSUTFactory<ItemWithNonFakeableCtorParameters>(constructor_parameters,
-                                                                               fakes_resolver,
+                                                                               dependency_resolver,
                                                                                manage_fakes);
             };
 
             protected static IDictionary<Type, object> constructor_parameters;
-            protected static IResolveADependencyForTheSUT fakes_resolver;
+            protected static IResolveADependencyForTheSUT dependency_resolver;
             protected static Exception original_exception;
             protected static DefaultSUTFactory<ItemWithNonFakeableCtorParameters> sut;
             protected static IDbCommand the_command;
@@ -88,6 +90,30 @@ namespace developwithpassion.specification.specs
             }
         }
 
+        public class ItemWithNonFakeableCtorParameters2
+        {
+            public IDbConnection connection2 { get; set; }
+            public IDbCommand command;
+            public IDbConnection connection;
+            public int number;
+            public int number2;
+            public DateTime date;
+            public Func<int, bool> condition;
+
+            public ItemWithNonFakeableCtorParameters2(IDbConnection connection, IDbCommand command,
+                                                      IDbConnection connection2, int number,
+                                                      int number2, DateTime date, Func<int, bool> condition)
+            {
+                this.connection2 = connection2;
+                this.connection = connection;
+                this.command = command;
+                this.number = number;
+                this.number2 = number2;
+                this.date = date;
+                this.condition = condition;
+            }
+        }
+
         public class when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked :
             concern_for_type_with_non_fakeable_ctor_parameters
         {
@@ -97,7 +123,7 @@ namespace developwithpassion.specification.specs
                 when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked
             {
                 Establish c = () =>
-                    fakes_resolver.setup(x => x.resolve(typeof(int))).Throw(original_exception);
+                    dependency_resolver.setup(x => x.resolve(typeof(int))).Throw(original_exception);
 
                 Because b = () =>
                     spec.catch_exception(() => sut.create());
@@ -139,11 +165,29 @@ namespace developwithpassion.specification.specs
         [Subject(typeof(DefaultSUTFactory<>))]
         public class when_provided_a_specific_constructor_parameter_for_the_sut : concern
         {
-            Because b = () =>
-                sut.on(3);
 
-            It should_store_the_parameter_for_use_in_fallback_creation = () =>
-                constructor_parameters[typeof(int)].ShouldEqual(3);
+            public class and_the_parameter_has_not_yet_been_provided :
+                when_provided_a_specific_constructor_parameter_for_the_sut
+            {
+                Because b = () =>
+                    sut.on(3);
+
+                It should_store_the_parameter_for_use_in_fallback_creation = () =>
+                    constructor_parameters[typeof(int)].ShouldEqual(3);
+            }
+
+            public class and_a_parameter_for_that_type_has_already_been_provided :
+                when_provided_a_specific_constructor_parameter_for_the_sut
+            {
+                Establish c = () =>
+                    constructor_parameters[typeof(int)] = 3;
+
+                Because b = () =>
+                    sut.on(4);
+
+                It should_overwrite_the_previous_value = () =>
+                    constructor_parameters[typeof(int)].ShouldEqual(4);
+            }
         }
 
         [Subject(typeof(DefaultSUTFactory<>))]
@@ -175,6 +219,28 @@ namespace developwithpassion.specification.specs
                 () => { sut.downcast_to<DefaultSUTFactory<ItemToCreate>>().actual_factory.ShouldEqual(provided_factory); };
 
             protected static CreateSUT<ItemToCreate> provided_factory;
+        }
+
+        public class when_constructing_a_type_that_has_non_fakeable_dependencies_that_have_not_been_provided : Observes
+        {
+            Establish c = () =>
+            {
+                manage_fakes = new FakesAdapter(new SpecificationController<ItemWithNonFakeableCtorParameters2>(
+                                                    new RhinoFakeEngine()));
+                dependency_resolver = new SUTDependencyResolver(manage_fakes);
+                sut = new DefaultSUTFactory<ItemWithNonFakeableCtorParameters2>(new Dictionary<Type, object>(),
+                                                                                dependency_resolver, manage_fakes);
+            };
+
+            It should_be_able_to_create_it_without_issues = () =>
+            {
+                var result = sut.create();
+                result.ShouldNotBeNull();
+            };
+
+            static DefaultSUTFactory<ItemWithNonFakeableCtorParameters2> sut;
+            static IResolveADependencyForTheSUT dependency_resolver;
+            static IManageFakes manage_fakes;
         }
     }
 }

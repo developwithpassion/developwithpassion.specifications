@@ -3,7 +3,7 @@ using Machine.Fakes.Adapters.FakeItEasy;
 
 namespace developwithpassion.specifications.fakeiteasy
 {
-    public abstract class Observes : Observes<FakeItEasyEngine>
+    public abstract class Observes : StaticObservations<FakeItEasyEngine>
     {
     }
 

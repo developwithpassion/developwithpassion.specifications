@@ -3,7 +3,7 @@ using Machine.Fakes.Adapters.NSubstitute;
 
 namespace developwithpassion.specifications.nsubstitue
 {
-    public abstract class Observes : Observes<NSubstituteEngine>
+    public abstract class Observes : StaticObservations<NSubstituteEngine>
     {
     }
 
