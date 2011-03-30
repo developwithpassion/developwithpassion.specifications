@@ -20,7 +20,7 @@ namespace developwithpassion.specification.specs
                 command = fake.an<IDbCommand>();
                 manage_fakes = fake.an<IManageFakes>();
                 constructor_parameters = new Dictionary<Type, object>();
-                fakes_resolver = fake.an<IMarshalNonGenericFakeResolutionToAGenericResolution>();
+                fakes_resolver = fake.an<IResolveADependencyForTheSUT>();
                 fakes_resolver.setup(x => x.resolve(typeof(IDbConnection))).Return(connection);
                 fakes_resolver.setup(x => x.resolve(typeof(IDbCommand))).Return(command);
 
@@ -31,7 +31,7 @@ namespace developwithpassion.specification.specs
             protected static IDbCommand command;
             protected static IDbConnection connection;
             protected static IDictionary<Type, object> constructor_parameters;
-            protected static IMarshalNonGenericFakeResolutionToAGenericResolution fakes_resolver;
+            protected static IResolveADependencyForTheSUT fakes_resolver;
             protected static ICreateAndManageDependenciesFor<ItemToCreate> sut;
             protected static IManageFakes manage_fakes;
         }
@@ -40,7 +40,7 @@ namespace developwithpassion.specification.specs
         {
             Establish c = delegate
             {
-                fakes_resolver = fake.an<IMarshalNonGenericFakeResolutionToAGenericResolution>();
+                fakes_resolver = fake.an<IResolveADependencyForTheSUT>();
                 manage_fakes = fake.an<IManageFakes>();
                 original_exception = new Exception();
                 the_connection = fake.an<IDbConnection>();
@@ -54,7 +54,7 @@ namespace developwithpassion.specification.specs
             };
 
             protected static IDictionary<Type, object> constructor_parameters;
-            protected static IMarshalNonGenericFakeResolutionToAGenericResolution fakes_resolver;
+            protected static IResolveADependencyForTheSUT fakes_resolver;
             protected static Exception original_exception;
             protected static DefaultSUTFactory<ItemWithNonFakeableCtorParameters> sut;
             protected static IDbCommand the_command;

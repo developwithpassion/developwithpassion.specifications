@@ -9,18 +9,17 @@ namespace developwithpassion.specifications.faking
     public class DefaultSUTFactory<SUT> : ICreateAndManageDependenciesFor<SUT>
     {
         public CreateSUT<SUT> actual_factory;
-        IMarshalNonGenericFakeResolutionToAGenericResolution fake_resolver;
-        IDictionary<Type, object> specific_constructor_arguments;
+        IResolveADependencyForTheSUT dependency_resolver;
+        IDictionary<Type, object> explicit_constructor_parameters;
         IManageFakes fake_gateway;
 
-        public DefaultSUTFactory(IDictionary<Type, object> specific_constructor_arguments,IMarshalNonGenericFakeResolutionToAGenericResolution
-                                     fake_resolver, IManageFakes fake_gateway)
+        public DefaultSUTFactory(IDictionary<Type, object> explicit_constructor_parameters,IResolveADependencyForTheSUT
+                                     dependency_resolver, IManageFakes fake_gateway)
         {
             this.actual_factory = new CreateSUT<SUT>(this.create_manually);
-            this.specific_constructor_arguments = specific_constructor_arguments;
+            this.explicit_constructor_parameters = explicit_constructor_parameters;
             this.fake_gateway = fake_gateway;
-            this.fake_resolver =
-                fake_resolver;
+            this.dependency_resolver = dependency_resolver;
         }
 
         public SUT create()
@@ -47,15 +46,14 @@ namespace developwithpassion.specifications.faking
 
         public void on<ArgumentType>(ArgumentType value)
         {
-            specific_constructor_arguments.Add(typeof(ArgumentType),value);
-            fake_gateway.use(value);
+            explicit_constructor_parameters.Add(typeof(ArgumentType),value);
         }
 
         object get_constructor_parameter(Type parameter_type)
         {
-            return (this.specific_constructor_arguments.ContainsKey(parameter_type)
-                ? this.specific_constructor_arguments[parameter_type]
-                : this.fake_resolver.resolve(parameter_type));
+            return (this.explicit_constructor_parameters.ContainsKey(parameter_type)
+                ? this.explicit_constructor_parameters[parameter_type]
+                : this.dependency_resolver.resolve(parameter_type));
         }
     }
 }

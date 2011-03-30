@@ -101,8 +101,8 @@
     <Compile Include="faking\DefaultSUTFactory.cs" />
     <Compile Include="faking\FakesAdapter.cs" />
     <Compile Include="faking\ICreateAndManageDependenciesFor.cs" />
-    <Compile Include="faking\IMarshalNonGenericFakeResolutionToAGenericResolution.cs" />
-    <Compile Include="faking\NonGenericFakesAdapter.cs" />
+    <Compile Include="faking\IResolveADependencyForTheSUT.cs" />
+    <Compile Include="faking\SUTDependencyResolver.cs" />
     <Compile Include="faking\SUTFactory.cs" />
     <Compile Include="ObservationController.cs" />
     <Compile Include="observations\CoreObservations.cs" />

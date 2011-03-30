@@ -57,7 +57,7 @@
     </Compile>
     <Compile Include="ChangeSpecs.cs" />
     <Compile Include="EnumerableAssertionExtensionsSpecs.cs" />
-    <Compile Include="FakeResolverSpecs.cs" />
+    <Compile Include="SUTDependencyResolverSpecs.cs" />
     <Compile Include="FieldMemberTargetSpecs.cs" />
     <Compile Include="FieldReassignmentStartExpressionSpecs.cs" />
     <Compile Include="FieldSwitcherFactorySpecs.cs" />

@@ -5,12 +5,12 @@ using developwithpassion.specifications.core;
 
 namespace developwithpassion.specifications.faking
 {
-    public class NonGenericFakesAdapter : IMarshalNonGenericFakeResolutionToAGenericResolution
+    public class SUTDependencyResolver : IResolveADependencyForTheSUT
     {
         IManageFakes fake_accessor;
         Func<Type, MethodInfo> method_factory;
 
-        public NonGenericFakesAdapter(IManageFakes fake_accessor)
+        public SUTDependencyResolver(IManageFakes fake_accessor)
         {
             this.fake_accessor = fake_accessor;
             this.method_factory = this.create_method_factory();
@@ -25,6 +25,7 @@ namespace developwithpassion.specifications.faking
 
         public object resolve(Type item)
         {
+            if (item.IsValueType) return Activator.CreateInstance(item);
             return this.method_factory.Invoke(item).Invoke(this.fake_accessor, new object[0]);
         }
     }
