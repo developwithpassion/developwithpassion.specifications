@@ -13,10 +13,10 @@ namespace developwithpassion.specifications.faking
         IDictionary<Type, object> explicit_constructor_parameters;
         IManageFakes fake_gateway;
 
-        public DefaultSUTFactory(IDictionary<Type, object> explicit_constructor_parameters,IResolveADependencyForTheSUT
-                                     dependency_resolver, IManageFakes fake_gateway)
+        public DefaultSUTFactory(IDictionary<Type, object> explicit_constructor_parameters,
+                                 IResolveADependencyForTheSUT dependency_resolver, IManageFakes fake_gateway)
         {
-            this.actual_factory = new CreateSUT<SUT>(this.create_manually);
+            this.actual_factory = create_automatically;
             this.explicit_constructor_parameters = explicit_constructor_parameters;
             this.fake_gateway = fake_gateway;
             this.dependency_resolver = dependency_resolver;
@@ -27,10 +27,11 @@ namespace developwithpassion.specifications.faking
             return this.actual_factory();
         }
 
-        public SUT create_manually()
+        SUT create_automatically()
         {
             var greediest_constructor = typeof(SUT).greediest_constructor();
-            var constructor_parameters = greediest_constructor.GetParameters().Select(x => get_constructor_parameter(x.ParameterType));
+            var constructor_parameters =
+                greediest_constructor.GetParameters().Select(x => get_constructor_parameter(x.ParameterType));
             return (SUT) greediest_constructor.Invoke(constructor_parameters.ToArray());
         }
 
@@ -41,12 +42,13 @@ namespace developwithpassion.specifications.faking
 
         public Dependency on<Dependency>() where Dependency : class
         {
-            return fake_gateway.the<Dependency>();
+            return on(fake_gateway.the<Dependency>());
         }
 
-        public void on<Dependency>(Dependency value)
+        public Dependency on<Dependency>(Dependency value)
         {
             explicit_constructor_parameters[typeof(Dependency)] = value;
+            return value;
         }
 
         object get_constructor_parameter(Type parameter_type)

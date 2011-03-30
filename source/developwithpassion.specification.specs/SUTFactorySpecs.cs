@@ -14,6 +14,7 @@ namespace developwithpassion.specification.specs
 {
     public class SUTFactorySpecs
     {
+        [Subject(typeof(DefaultSUTFactory<>))]
         public abstract class concern : Observes
         {
             Establish base_setup = delegate
@@ -25,50 +26,55 @@ namespace developwithpassion.specification.specs
                 dependency_resolver = fake.an<IResolveADependencyForTheSUT>();
                 dependency_resolver.setup(x => x.resolve(typeof(IDbConnection))).Return(connection);
                 dependency_resolver.setup(x => x.resolve(typeof(IDbCommand))).Return(command);
-
-                sut = new DefaultSUTFactory<ItemToCreate>(constructor_parameters,
-                                                          dependency_resolver, manage_fakes);
             };
+
+            protected static DefaultSUTFactory<ItemToBeCreated> create_sut<ItemToBeCreated>()
+            {
+                return new DefaultSUTFactory<ItemToBeCreated>(constructor_parameters,
+                                                              dependency_resolver, manage_fakes);
+            }
 
             protected static IDbCommand command;
             protected static IDbConnection connection;
             protected static IDictionary<Type, object> constructor_parameters;
             protected static IResolveADependencyForTheSUT dependency_resolver;
-            protected static ICreateAndManageDependenciesFor<ItemToCreate> sut;
             protected static IManageFakes manage_fakes;
         }
 
-        public abstract class concern_for_type_with_some_non_fakeable_ctor_parameters : Observes
+        public abstract class concern_for_type_with_some_non_fakeable_ctor_parameters : concern
         {
             Establish c = delegate
             {
-                dependency_resolver = fake.an<IResolveADependencyForTheSUT>();
-                manage_fakes = fake.an<IManageFakes>();
                 original_exception = new Exception();
-                the_connection = fake.an<IDbConnection>();
-                the_command = fake.an<IDbCommand>();
-                constructor_parameters = new Dictionary<Type, object>();
-                dependency_resolver.setup(x => x.resolve(typeof(IDbConnection))).Return(the_connection);
-                dependency_resolver.setup(x => x.resolve(typeof(IDbCommand))).Return(the_command);
-                sut = new DefaultSUTFactory<ItemWithNonFakeableCtorParameters>(constructor_parameters,
-                                                                               dependency_resolver,
-                                                                               manage_fakes);
+                sut = create_sut<ItemWithNonFakeableCtorParameters>();
             };
 
-            protected static IDictionary<Type, object> constructor_parameters;
-            protected static IResolveADependencyForTheSUT dependency_resolver;
             protected static Exception original_exception;
             protected static DefaultSUTFactory<ItemWithNonFakeableCtorParameters> sut;
-            protected static IDbCommand the_command;
-            protected static IDbConnection the_connection;
-            static IManageFakes manage_fakes;
         }
 
+        [Subject(typeof(DefaultSUTFactory<>))]
         public class when_requesting_a_dependency : concern_for_type_with_some_non_fakeable_ctor_parameters
         {
-            
+            Establish c = () =>
+            {
+                manage_fakes.setup(x => x.the<IDbConnection>()).Return(connection);
+            };
+
+            Because b = () =>
+                result = sut.on<IDbConnection>();
+
+            It should_store_the_value_retrieved_by_the_dependency_resolver_as_an_explicit_ctor_parameter = () =>
+                constructor_parameters[typeof(IDbConnection)].ShouldEqual(connection);
+
+            It should_return_the_value_from_the_underlying_resolver = () =>
+                result.ShouldEqual(connection);
+
+            static IDbConnection result;
         }
-        public class when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked :
+
+        [Subject(typeof(DefaultSUTFactory<>))]
+        public abstract class when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked :
             concern_for_type_with_some_non_fakeable_ctor_parameters
         {
             static ItemWithNonFakeableCtorParameters result;
@@ -108,6 +114,11 @@ namespace developwithpassion.specification.specs
         [Subject(typeof(DefaultSUTFactory<>))]
         public class when_creating_an_item_and_no_constructor_arguments_have_been_provided : concern
         {
+            Establish c = () =>
+            {
+                sut = create_sut<ItemToCreate>();
+            };
+
             Because b = () =>
                 result = sut.create();
 
@@ -119,23 +130,65 @@ namespace developwithpassion.specification.specs
                 result.connection.ShouldEqual(connection);
                 result.command.ShouldEqual(command);
             };
+
+            static DefaultSUTFactory<ItemToCreate> sut;
         }
 
         [Subject(typeof(DefaultSUTFactory<>))]
-        public class when_provided_a_specific_constructor_parameter_for_the_sut : concern
+        public class when_creating_an_item_and_a_constructor_argument_was_provided : concern
         {
+            public class AnItemToCreate
+            {
+                int other;
+            }
+
+            Establish c = () =>
+            {
+                sut = create_sut<AnItemToCreate>();
+            };
+
+            Because b = () =>
+                result = sut.create();
+
+            static AnItemToCreate created_item;
+            static AnItemToCreate result;
+            static DefaultSUTFactory<AnItemToCreate> sut;
+
+            public class and_the_constructor_for_the_created_item_does_not_require_a_type_of_the_value_provided :
+                when_creating_an_item_and_a_constructor_argument_was_provided
+            {
+                It should_fail_to_create_the_item = () =>
+                    sut.create();
+            }
+        }
+
+        [Subject(typeof(DefaultSUTFactory<>))]
+        public class when_providing_a_specific_constructor_parameter_for_the_sut : concern
+        {
+            protected static DefaultSUTFactory<ItemToCreate> sut;
+
+            Establish c = () =>
+            {
+                sut = create_sut<ItemToCreate>();
+            };
+
             public class and_the_parameter_has_not_yet_been_provided :
-                when_provided_a_specific_constructor_parameter_for_the_sut
+                when_providing_a_specific_constructor_parameter_for_the_sut
             {
                 Because b = () =>
-                    sut.on(3);
+                    result = sut.on(3);
 
                 It should_store_the_parameter_for_use_in_fallback_creation = () =>
                     constructor_parameters[typeof(int)].ShouldEqual(3);
+
+                It should_return_the_value_for_later_use = () =>
+                    result.ShouldEqual(3);
+
+                static int result;
             }
 
             public class and_a_parameter_for_that_type_has_already_been_provided :
-                when_provided_a_specific_constructor_parameter_for_the_sut
+                when_providing_a_specific_constructor_parameter_for_the_sut
             {
                 Establish c = () =>
                     constructor_parameters[typeof(int)] = 3;
@@ -152,7 +205,10 @@ namespace developwithpassion.specification.specs
         public class when_provided_a_specific_factory_method : concern
         {
             Establish c = () =>
+            {
+                sut = create_sut<ItemToCreate>();
                 created_item = new ItemToCreate(null, null);
+            };
 
             Because b = () =>
                 sut.create_using(() => new ItemToCreate(null, null));
@@ -161,6 +217,7 @@ namespace developwithpassion.specification.specs
                 sut.create().ShouldNotEqual(created_item);
 
             protected static ItemToCreate created_item;
+            static DefaultSUTFactory<ItemToCreate> sut;
         }
 
         [Subject(typeof(DefaultSUTFactory<>))]
@@ -168,15 +225,19 @@ namespace developwithpassion.specification.specs
             concern
         {
             Establish c = () =>
+            {
+                sut = create_sut<ItemToCreate>();
                 sut.create_using(provided_factory);
+            };
 
             Because b = () =>
                 sut.on(3);
 
-            It should_not_change_the_value_of_the_sut_factory =
-                () => { sut.downcast_to<DefaultSUTFactory<ItemToCreate>>().actual_factory.ShouldEqual(provided_factory); };
+            It should_not_change_the_value_of_the_sut_factory = () =>
+                sut.actual_factory.ShouldEqual(provided_factory);
 
             protected static CreateSUT<ItemToCreate> provided_factory;
+            static DefaultSUTFactory<ItemToCreate> sut;
         }
 
         public class integration : Observes
@@ -203,11 +264,13 @@ namespace developwithpassion.specification.specs
                 when_constructing_a_type_that_has_non_fakeable_dependencies_that_has_struct_dependencies_that_have_not_been_provided :
                     integration
             {
-                Establish c = () => { sut = create_sut<ItemWithNonFakeableCtorParameters2>(); };
+                Establish c = () =>
+                {
+                    sut = create_sut<ItemWithNonFakeableCtorParameters2>();
+                };
 
                 Because b = () =>
                     result = sut.create();
-
 
                 It should_be_able_to_create_it_without_issues = () =>
                     result.ShouldNotBeNull();
@@ -266,15 +329,15 @@ namespace developwithpassion.specification.specs
                 this.other = other;
             }
         }
-    }
 
-    public class SomeOtherType
-    {
-        int number;
-
-        public SomeOtherType(int number)
+        public class SomeOtherType
         {
-            this.number = number;
+            int number;
+
+            public SomeOtherType(int number)
+            {
+                this.number = number;
+            }
         }
     }
 }
