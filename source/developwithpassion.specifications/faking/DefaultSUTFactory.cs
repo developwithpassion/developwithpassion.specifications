@@ -44,9 +44,9 @@ namespace developwithpassion.specifications.faking
             return fake_gateway.the<Dependency>();
         }
 
-        public void on<ArgumentType>(ArgumentType value)
+        public void on<Dependency>(Dependency value)
         {
-            explicit_constructor_parameters[typeof(ArgumentType)] = value;
+            explicit_constructor_parameters[typeof(Dependency)] = value;
         }
 
         object get_constructor_parameter(Type parameter_type)
