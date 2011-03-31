@@ -10,8 +10,8 @@ namespace developwithpassion.specification.specs
         {
             Establish c = () =>
             {
-                sut_factory.create_using(() =>new ObservationPair(() => setup_ran = true,
-                                          () => teardown_ran = true));
+                sut_factory.create_using(() => new ObservationPair(() => setup_ran = true,
+                                                                   () => teardown_ran = true));
             };
 
             Cleanup cu = () =>
