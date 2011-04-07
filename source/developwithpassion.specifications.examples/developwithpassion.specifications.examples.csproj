@@ -56,6 +56,7 @@
     <Compile Include="automatic_sut_creation\with_no_fakeable_contructor_parameters.cs" />
     <Compile Include="coding_to_contracts.cs" />
     <Compile Include="exception_handling.cs" />
+    <Compile Include="explicitly_creating_the_system_under_test.cs" />
     <Compile Include="fake_interaction\with_dependencies.cs" />
     <Compile Include="fake_interaction\with_fakes.cs" />
     <Compile Include="performing_setup_against_the_sut.cs" />
