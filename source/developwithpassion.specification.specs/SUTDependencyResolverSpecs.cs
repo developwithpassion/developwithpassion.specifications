@@ -69,6 +69,20 @@ namespace developwithpassion.specification.specs
             static IDictionary<Type,object> pairs;
         }
 
+        [Subject(typeof(SUTDependencyResolver))]
+        public class when_resolving_a_string : concern
+        {
+
+            Because b = () =>
+                result = sut.resolve(typeof(string));
+
+            It should_return_an_empty_string = () =>
+                result.ShouldEqual(string.Empty);
+
+            static IDictionary<Type,object> pairs;
+            static object result;
+        }
+
         public struct SomeType
         {
             

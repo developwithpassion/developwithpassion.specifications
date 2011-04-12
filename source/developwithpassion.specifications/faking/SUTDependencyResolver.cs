@@ -26,6 +26,7 @@ namespace developwithpassion.specifications.faking
         public object resolve(Type item)
         {
             if (item.IsValueType) return Activator.CreateInstance(item);
+            if (item  == typeof(string)) return string.Empty;
             return this.method_factory.Invoke(item).Invoke(this.fake_accessor, new object[0]);
         }
     }

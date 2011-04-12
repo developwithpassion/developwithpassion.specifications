@@ -261,7 +261,7 @@ namespace developwithpassion.specification.specs
 
             [Subject(typeof(DefaultSUTFactory<>))]
             public class
-                when_constructing_a_type_that_has_non_fakeable_dependencies_that_has_struct_dependencies_that_have_not_been_provided :
+                when_constructing_a_type_that_has_struct_dependencies_that_have_not_been_provided :
                     integration
             {
                 Establish c = () =>
