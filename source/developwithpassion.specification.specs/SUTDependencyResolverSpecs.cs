@@ -83,6 +83,32 @@ namespace developwithpassion.specification.specs
             static object result;
         }
 
+        [Subject(typeof(SUTDependencyResolver))]
+        public class when_attempting_to_resolve_a_delegate : concern
+        {
+            public delegate void ARandomDelegate();
+
+            Establish c = () =>
+            {
+                random_delegate = new object();
+                delegate_that_throw_exceptions_builder = depends.on<ICreateDelegatesThatThrowExceptions>();
+
+                delegate_that_throw_exceptions_builder.setup(x => x.generate_delegate_for(typeof(ARandomDelegate))).
+                    Return(random_delegate);
+            };
+
+            Because b = () =>
+                result = sut.resolve(typeof(ARandomDelegate));
+
+            It should_return_the_delegate_created_by_the_delegate_builder = () =>
+                result.ShouldEqual(random_delegate);
+
+            static IDictionary<Type,object> pairs;
+            static object result;
+            static object random_delegate;
+            static ICreateDelegatesThatThrowExceptions delegate_that_throw_exceptions_builder;
+        }
+
         public struct SomeType
         {
             
