@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace developwithpassion.specifications.faking
 {
-    public class DelegateFactory : ICreateDelegatesThatThrowExceptions
+    public class FakeDelegateFactory : ICreateFakeDelegates
     {
         public object generate_delegate_for(Type delegate_type)
         {

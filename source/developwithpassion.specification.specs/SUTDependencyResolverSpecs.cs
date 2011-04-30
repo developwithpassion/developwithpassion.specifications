@@ -91,9 +91,9 @@ namespace developwithpassion.specification.specs
             Establish c = () =>
             {
                 random_delegate = new object();
-                delegate_that_throw_exceptions_builder = depends.on<ICreateDelegatesThatThrowExceptions>();
+                _fakeDelegateBuilder = depends.on<ICreateFakeDelegates>();
 
-                delegate_that_throw_exceptions_builder.setup(x => x.generate_delegate_for(typeof(ARandomDelegate))).
+                _fakeDelegateBuilder.setup(x => x.generate_delegate_for(typeof(ARandomDelegate))).
                     Return(random_delegate);
             };
 
@@ -106,7 +106,7 @@ namespace developwithpassion.specification.specs
             static IDictionary<Type,object> pairs;
             static object result;
             static object random_delegate;
-            static ICreateDelegatesThatThrowExceptions delegate_that_throw_exceptions_builder;
+            static ICreateFakeDelegates _fakeDelegateBuilder;
         }
 
         public struct SomeType

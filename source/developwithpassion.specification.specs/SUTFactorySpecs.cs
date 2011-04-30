@@ -243,15 +243,15 @@ namespace developwithpassion.specification.specs
         public class integration : Observes
         {
             protected static IManageFakes manage_fakes;
-            protected static ICreateDelegatesThatThrowExceptions delegates_that_throw_exceptions_factory;
+            protected static ICreateFakeDelegates FakeDelegatesFactory;
             protected static IResolveADependencyForTheSUT dependency_resolver;
 
             Establish c = () =>
             {
                 manage_fakes = new FakesAdapter(new SpecificationController<ItemWithNonFakeableCtorParameters2>(
                                                     new RhinoFakeEngine()));
-                delegates_that_throw_exceptions_factory = new DelegateFactory();
-                dependency_resolver = new SUTDependencyResolver(manage_fakes,delegates_that_throw_exceptions_factory);
+                FakeDelegatesFactory = new FakeDelegateFactory();
+                dependency_resolver = new SUTDependencyResolver(manage_fakes,FakeDelegatesFactory);
             };
 
             protected static IDictionary<Type, object> constructor_parameters = new Dictionary<Type, object>();

@@ -7,7 +7,7 @@ namespace developwithpassion.specifications.core.factories
         public IResolveADependencyForTheSUT create(IManageFakes fakes_gateway)
         {
             return new SUTDependencyResolver(fakes_gateway,
-                new DelegateFactory());
+                new FakeDelegateFactory());
         }
     }
 }

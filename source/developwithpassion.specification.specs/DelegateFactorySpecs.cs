@@ -8,13 +8,13 @@ namespace developwithpassion.specification.specs
 {   
     public class DelegateFactorySpecs
     {
-        public abstract class concern : Observes<ICreateDelegatesThatThrowExceptions,
-                                            DelegateFactory>
+        public abstract class concern : Observes<ICreateFakeDelegates,
+                                            FakeDelegateFactory>
         {
         
         }
 
-        [Subject(typeof(DelegateFactory))]
+        [Subject(typeof(FakeDelegateFactory))]
         public class when_creating_a_delegate_for_a_void_delegate_type : concern
         {
             Because b = () =>
@@ -30,7 +30,7 @@ namespace developwithpassion.specification.specs
             public delegate void SomeDelegate();
         }
 
-        [Subject(typeof(DelegateFactory))]
+        [Subject(typeof(FakeDelegateFactory))]
         public class when_creating_an_delegate_for_a_close_generic_type_with_a_return_value: concern
         {
             Because b = () =>

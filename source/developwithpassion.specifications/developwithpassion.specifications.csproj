@@ -102,8 +102,8 @@
     <Compile Include="faking\DelegateFactory.cs" />
     <Compile Include="faking\FakesAdapter.cs" />
     <Compile Include="faking\ICreateAndManageDependenciesFor.cs" />
+    <Compile Include="faking\ICreateDelegatesWithDummyImplementations.cs" />
     <Compile Include="faking\IResolveADependencyForTheSUT.cs" />
-    <Compile Include="faking\ICreateDelegatesThatThrowExceptions.cs" />
     <Compile Include="faking\SUTDependencyResolver.cs" />
     <Compile Include="faking\SUTFactory.cs" />
     <Compile Include="ObservationController.cs" />
