@@ -31,14 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Machine.Fakes">
-      <HintPath>..\..\packages\Machine.Fakes.0.2.0.6\lib\Machine.Fakes.dll</HintPath>
+    <Reference Include="Machine.Fakes, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Machine.Fakes.0.2.3.0\lib\Machine.Fakes.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Fakes.Adapters.NSubstitute">
-      <HintPath>..\..\packages\Machine.Fakes.NSubstitute.0.2.0.6\lib\Machine.Fakes.Adapters.NSubstitute.dll</HintPath>
+    <Reference Include="Machine.Fakes.Adapters.NSubstitute, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Machine.Fakes.NSubstitute.0.2.3.0\lib\Machine.Fakes.Adapters.NSubstitute.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Specifications">
-      <HintPath>..\..\packages\Machine.Specifications.0.4.9.0\lib\Machine.Specifications.dll</HintPath>
+    <Reference Include="Machine.Specifications, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Machine.Specifications.0.4.10.0\lib\Machine.Specifications.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
       <HintPath>..\..\packages\NSubstitute.1.0.0.0\lib\35\NSubstitute.dll</HintPath>

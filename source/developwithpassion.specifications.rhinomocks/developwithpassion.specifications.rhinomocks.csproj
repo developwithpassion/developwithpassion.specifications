@@ -31,11 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Machine.Fakes">
-      <HintPath>..\..\packages\Machine.Fakes.0.2.0.6\lib\Machine.Fakes.dll</HintPath>
-    </Reference>
-    <Reference Include="Machine.Fakes.Adapters.RhinoMocks">
-      <HintPath>..\..\packages\Machine.Fakes.RhinoMocks.0.2.0.6\lib\Machine.Fakes.Adapters.RhinoMocks.dll</HintPath>
+    <Reference Include="Machine.Specifications, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Machine.Specifications.0.4.10.0\lib\Machine.Specifications.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>..\..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
