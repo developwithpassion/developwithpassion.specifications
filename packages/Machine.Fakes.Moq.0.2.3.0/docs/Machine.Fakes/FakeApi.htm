@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>FakeApi - Machine.Fakes (650da0) Documentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <link type="text/css" rel="stylesheet" href="../main.css"/>
+    <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.scrollTo-min.js"></script>
+    <script type="text/javascript" src="../js/navigation.js"></script>
+    <script type="text/javascript" src="../js/example.js"></script>
+  </head>
+  <body><div id="namespaces">
+	<h2 class="fixed">Namespaces</h2>
+	<div class="scroll">
+		<ul>
+			<li>
+          <a href="../Machine.Fakes/index.htm" class="current">Machine.Fakes</a>
+      </li>
+			<li>
+          <a href="../Machine.Fakes.Sdk/index.htm">Machine.Fakes.Sdk</a>
+      </li>
+		</ul>
+	</div>
+</div><div id="types">
+  <h2 class="fixed">Types in Machine.Fakes</h2>
+	<div class="scroll">
+		<ul>
+				<li>
+            <a href="../Machine.Fakes/FakeAccessorRegistrarExtensions.htm">FakeAccessorRegistrarExtensions</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/FakeApi.htm" class="current">FakeApi</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/ICommandOptions.htm">ICommandOptions</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IFakeEngine.htm">IFakeEngine</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IMethodCallOccurance.htm">IMethodCallOccurance</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IQueryOptions`1.htm">IQueryOptions&lt;TReturn&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/OnCleanup.htm">OnCleanup</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/OnEstablish.htm">OnEstablish</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Param.htm">Param</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Param`1.htm">Param&lt;TParam&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Registrar.htm">Registrar</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/RegistrationExpression.htm">RegistrationExpression</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/RegistrationExpression`1.htm">RegistrationExpression`1</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/WithFakes`1.htm">WithFakes&lt;TFakeEngine&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/WithSubject`2.htm">WithSubject&lt;TSubject, TFakeEngine&gt;</a>
+        </li>
+		</ul>
+	</div>
+</div>
+    <div class="header">
+		<p class="class"><strong>Type</strong> FakeApi</p>
+		<p><strong>Namespace</strong> Machine.Fakes</p>
+	</div>
+    <div class="sub-header">
+			<div id="summary">A set of extension methods for setting up behavior on fakes in a fashion independant
+to a particular fake framework. 
+			</div>
+		
+		
+			<h3 class="section">Methods</h3>
+			<ul>
+				<li><a href="../Machine.Fakes/FakeApi.htm#WasNotToldTo``1">WasNotToldTo&lt;TFake&gt;</a></li>
+				<li><a href="../Machine.Fakes/FakeApi.htm#WasToldTo``1">WasToldTo&lt;TFake&gt;</a></li>
+				<li><a href="../Machine.Fakes/FakeApi.htm#WhenToldTo``1">WhenToldTo&lt;TFake&gt;</a></li>
+				<li><a href="../Machine.Fakes/FakeApi.htm#WhenToldTo``2">WhenToldTo&lt;TFake, TReturnValue&gt;</a></li>
+			</ul>
+		
+		
+	</div>
+	
+	
+	
+	<h3 class="section">Public static methods</h3>
+	
+	<div id="WasNotToldTo``1" class="method">
+		<h4><span title="System.void">void</span> <strong>WasNotToldTo&lt;TFake&gt;</strong>(this <span title="Machine.Fakes.TFake">TFake</span> fake, <span title="System.Linq.Expressions.Expression<Action<TFake>>">Expression&lt;Action&lt;TFake&gt;&gt;</span> func)</h4>
+		<div class="content">Verifies that the behavior specified by  <var>func</var> was not executed on the fake specified by  <var>fake</var>. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="Machine.Fakes.TFake">TFake</span></code> fake</h6>
+          <p class="comments">Specifies the fake instance. </p>
+          <h6><code><span title="System.Linq.Expressions.Expression<Action<TFake>>">Expression&lt;Action&lt;TFake&gt;&gt;</span></code> func</h6>
+          <p class="comments">Specifies the behavior that was not supposed to happen. </p>
+      </div>
+
+      
+    </div>
+	</div>
+	<div id="WasToldTo``1" class="method">
+		<h4><a href="../Machine.Fakes/IMethodCallOccurance.htm">IMethodCallOccurance</a> <strong>WasToldTo&lt;TFake&gt;</strong>(this <span title="Machine.Fakes.TFake">TFake</span> fake, <span title="System.Linq.Expressions.Expression<Action<TFake>>">Expression&lt;Action&lt;TFake&gt;&gt;</span> func)</h4>
+		<div class="content">Verifies that the behavior specified by  <var>func</var> was executed on the fake specified by  <var>fake</var>. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="Machine.Fakes.TFake">TFake</span></code> fake</h6>
+          <p class="comments">Specifies the fake instance. </p>
+          <h6><code><span title="System.Linq.Expressions.Expression<Action<TFake>>">Expression&lt;Action&lt;TFake&gt;&gt;</span></code> func</h6>
+          <p class="comments">Specifies the behavior that was supposed to happen. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><a href="../Machine.Fakes/IMethodCallOccurance.htm">IMethodCallOccurance</a></code></h6>
+        <p>A  <a href="../Machine.Fakes/IMethodCallOccurance.htm">IMethodCallOccurance</a>  which can be used
+to narrow down the expectations to a particular amount of times. </p>
+      </div>
+      
+    </div>
+	</div>
+	<div id="WhenToldTo``1" class="method">
+		<h4><a href="../Machine.Fakes/ICommandOptions.htm">ICommandOptions</a> <strong>WhenToldTo&lt;TFake&gt;</strong>(this <span title="Machine.Fakes.TFake">TFake</span> fake, <span title="System.Linq.Expressions.Expression<Action<TFake>>">Expression&lt;Action&lt;TFake&gt;&gt;</span> func)</h4>
+		<div class="content">Configures the behavior of the fake specified by  <var>fake</var>. <blockquote class="remarks">
+  This method is used for command, e.g. methods returning void. 
+</blockquote>
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="Machine.Fakes.TFake">TFake</span></code> fake</h6>
+          <p class="comments">The fake to configure behavior on. </p>
+          <h6><code><span title="System.Linq.Expressions.Expression<Action<TFake>>">Expression&lt;Action&lt;TFake&gt;&gt;</span></code> func</h6>
+          <p class="comments">Configures the behavior. This must be a void method. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><a href="../Machine.Fakes/ICommandOptions.htm">ICommandOptions</a></code></h6>
+        <p>A  <a href="../Machine.Fakes/ICommandOptions.htm">ICommandOptions</a>  for further configuration. </p>
+      </div>
+      
+    </div>
+	</div>
+	<div id="WhenToldTo``2" class="method">
+		<h4><a href="../Machine.Fakes/IQueryOptions`1.htm">IQueryOptions&lt;TReturn&gt;</a> <strong>WhenToldTo&lt;TFake, TReturnValue&gt;</strong>(this <span title="Machine.Fakes.TFake">TFake</span> fake, <span title="System.Linq.Expressions.Expression<Func<TFake, TReturnValue>>">Expression&lt;Func&lt;TFake, TReturnValue&gt;&gt;</span> func)</h4>
+		<div class="content">Configures the behavior of the fake specified by  <var>fake</var>. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="Machine.Fakes.TFake">TFake</span></code> fake</h6>
+          <p class="comments">The fake to configure behavior on. </p>
+          <h6><code><span title="System.Linq.Expressions.Expression<Func<TFake, TReturnValue>>">Expression&lt;Func&lt;TFake, TReturnValue&gt;&gt;</span></code> func</h6>
+          <p class="comments">Configures the behavior. This must be a void method. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><a href="../Machine.Fakes/IQueryOptions`1.htm">IQueryOptions&lt;TReturn&gt;</a></code></h6>
+        <p>A  <a href="../Machine.Fakes/IQueryOptions`1.htm">IQueryOptions`1</a>  for further configuration. </p>
+      </div>
+      
+    </div>
+	</div>
+	
+	<div id="footer">
+  <p>Based on v0.2.3.0 of Machine.Fakes (650da0)</p>
+  <p>Generated by <a href="http://docu.jagregory.com">docu</a></p>
+</div>
+  </body>
+</html>

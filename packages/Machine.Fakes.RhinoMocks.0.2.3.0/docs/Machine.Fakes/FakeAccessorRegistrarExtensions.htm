@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>FakeAccessorRegistrarExtensions - Machine.Fakes (650da0) Documentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <link type="text/css" rel="stylesheet" href="../main.css"/>
+    <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.scrollTo-min.js"></script>
+    <script type="text/javascript" src="../js/navigation.js"></script>
+    <script type="text/javascript" src="../js/example.js"></script>
+  </head>
+  <body><div id="namespaces">
+	<h2 class="fixed">Namespaces</h2>
+	<div class="scroll">
+		<ul>
+			<li>
+          <a href="../Machine.Fakes/index.htm" class="current">Machine.Fakes</a>
+      </li>
+			<li>
+          <a href="../Machine.Fakes.Sdk/index.htm">Machine.Fakes.Sdk</a>
+      </li>
+		</ul>
+	</div>
+</div><div id="types">
+  <h2 class="fixed">Types in Machine.Fakes</h2>
+	<div class="scroll">
+		<ul>
+				<li>
+            <a href="../Machine.Fakes/FakeAccessorRegistrarExtensions.htm" class="current">FakeAccessorRegistrarExtensions</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/FakeApi.htm">FakeApi</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/ICommandOptions.htm">ICommandOptions</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IFakeEngine.htm">IFakeEngine</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IMethodCallOccurance.htm">IMethodCallOccurance</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IQueryOptions`1.htm">IQueryOptions&lt;TReturn&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/OnCleanup.htm">OnCleanup</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/OnEstablish.htm">OnEstablish</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Param.htm">Param</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Param`1.htm">Param&lt;TParam&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Registrar.htm">Registrar</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/RegistrationExpression.htm">RegistrationExpression</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/RegistrationExpression`1.htm">RegistrationExpression`1</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/WithFakes`1.htm">WithFakes&lt;TFakeEngine&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/WithSubject`2.htm">WithSubject&lt;TSubject, TFakeEngine&gt;</a>
+        </li>
+		</ul>
+	</div>
+</div>
+    <div class="header">
+		<p class="class"><strong>Type</strong> FakeAccessorRegistrarExtensions</p>
+		<p><strong>Namespace</strong> Machine.Fakes</p>
+	</div>
+    <div class="sub-header">
+			<div id="summary">This class implements the several way that can be used to work with the <a href="../Machine.Fakes/Registrar.htm">Registrar</a>  API. 
+			</div>
+		
+		
+			<h3 class="section">Methods</h3>
+			<ul>
+				<li><a href="../Machine.Fakes/FakeAccessorRegistrarExtensions.htm#Configure">Configure</a></li>
+				<li><a href="../Machine.Fakes/FakeAccessorRegistrarExtensions.htm#Configure``1">Configure&lt;TInterfaceType&gt;</a></li>
+				<li><a href="../Machine.Fakes/FakeAccessorRegistrarExtensions.htm#Configure``2">Configure&lt;TInterfaceType, TImplementationType&gt;</a></li>
+				<li><a href="../Machine.Fakes/FakeAccessorRegistrarExtensions.htm#Use``1">Use&lt;TInterfaceType&gt;</a></li>
+			</ul>
+		
+		
+	</div>
+	
+	
+	
+	<h3 class="section">Public static methods</h3>
+	
+	<div id="Configure" class="method">
+		<h4><span title="System.void">void</span> <strong>Configure</strong>(this <a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a> accessor, <span title="System.Action<Registrar>">Action&lt;Registrar&gt;</span> registrarExpression)</h4>
+		<div class="content">Shortcut for  <a href="../Machine.Fakes/IFakeAccessor.htm#Configure">Configure</a>. This one will create
+a registrar for you and allow configuration via the delegate passed
+in via  <var>registrarExpression</var>. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a></code> accessor</h6>
+          <p class="comments">Specifies the fake accessor </p>
+          <h6><code><span title="System.Action<Registrar>">Action&lt;Registrar&gt;</span></code> registrarExpression</h6>
+          <p class="comments">Specifies the configuration for the registrar. </p>
+      </div>
+
+      
+    </div>
+	</div>
+	<div id="Configure``1" class="method">
+		<h4><span title="System.void">void</span> <strong>Configure&lt;TInterfaceType&gt;</strong>(this <a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a> accessor, <span title="Machine.Fakes.TInterfaceType">TInterfaceType</span> instance)</h4>
+		<div class="content">Uses the instance supplied by  <var>instance</var>  during the
+creation of the sut. The specified instance will be injected into the constructor. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a></code> accessor</h6>
+          <p class="comments">Specifies the fake accessor </p>
+          <h6><code><span title="Machine.Fakes.TInterfaceType">TInterfaceType</span></code> instance</h6>
+          <p class="comments">Specifies the instance to be used for the specification. </p>
+      </div>
+
+      
+    </div>
+	</div>
+	<div id="Configure``2" class="method">
+		<h4><span title="System.void">void</span> <strong>Configure&lt;TInterfaceType, TImplementationType&gt;</strong>(this <a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a> accessor)</h4>
+		<div class="content">Registered the type specified via   as the default type
+for the interface specified via . With this the type gets automatically
+build when the subject is resolved. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a></code> accessor</h6>
+          <p class="comments">Specifies the fake accessor </p>
+      </div>
+
+      
+    </div>
+	</div>
+	<div id="Use``1" class="method">
+		<h4><span title="System.void">void</span> <strong>Use&lt;TInterfaceType&gt;</strong>(this <a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a> accessor, <span title="Machine.Fakes.TInterfaceType">TInterfaceType</span> instance)</h4>
+		<div class="content">Uses the instance supplied by  <var>instance</var>  during the
+creation of the sut. The specified instance will be injected into the constructor. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a></code> accessor</h6>
+          <p class="comments">Specifies the fake accessor </p>
+          <h6><code><span title="Machine.Fakes.TInterfaceType">TInterfaceType</span></code> instance</h6>
+          <p class="comments">Specifies the instance to be used for the specification. </p>
+      </div>
+
+      
+    </div>
+	</div>
+	
+	<div id="footer">
+  <p>Based on v0.2.3.0 of Machine.Fakes (650da0)</p>
+  <p>Generated by <a href="http://docu.jagregory.com">docu</a></p>
+</div>
+  </body>
+</html>

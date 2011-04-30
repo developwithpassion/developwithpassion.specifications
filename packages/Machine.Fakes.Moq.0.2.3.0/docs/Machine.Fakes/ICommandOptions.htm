@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>ICommandOptions - Machine.Fakes (650da0) Documentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <link type="text/css" rel="stylesheet" href="../main.css"/>
+    <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.scrollTo-min.js"></script>
+    <script type="text/javascript" src="../js/navigation.js"></script>
+    <script type="text/javascript" src="../js/example.js"></script>
+  </head>
+  <body><div id="namespaces">
+	<h2 class="fixed">Namespaces</h2>
+	<div class="scroll">
+		<ul>
+			<li>
+          <a href="../Machine.Fakes/index.htm" class="current">Machine.Fakes</a>
+      </li>
+			<li>
+          <a href="../Machine.Fakes.Sdk/index.htm">Machine.Fakes.Sdk</a>
+      </li>
+		</ul>
+	</div>
+</div><div id="types">
+  <h2 class="fixed">Types in Machine.Fakes</h2>
+	<div class="scroll">
+		<ul>
+				<li>
+            <a href="../Machine.Fakes/FakeAccessorRegistrarExtensions.htm">FakeAccessorRegistrarExtensions</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/FakeApi.htm">FakeApi</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/ICommandOptions.htm" class="current">ICommandOptions</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IFakeEngine.htm">IFakeEngine</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IMethodCallOccurance.htm">IMethodCallOccurance</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IQueryOptions`1.htm">IQueryOptions&lt;TReturn&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/OnCleanup.htm">OnCleanup</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/OnEstablish.htm">OnEstablish</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Param.htm">Param</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Param`1.htm">Param&lt;TParam&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Registrar.htm">Registrar</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/RegistrationExpression.htm">RegistrationExpression</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/RegistrationExpression`1.htm">RegistrationExpression`1</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/WithFakes`1.htm">WithFakes&lt;TFakeEngine&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/WithSubject`2.htm">WithSubject&lt;TSubject, TFakeEngine&gt;</a>
+        </li>
+		</ul>
+	</div>
+</div>
+    <div class="header">
+		<p class="class"><strong>Type</strong> ICommandOptions</p>
+		<p><strong>Namespace</strong> Machine.Fakes</p>
+	</div>
+    <div class="sub-header">
+			<div id="summary">Defines a fake framework independent fluent interface for setting up behavior
+for methods returning void (commands) 
+			</div>
+		
+		
+			<h3 class="section">Methods</h3>
+			<ul>
+				<li><a href="../Machine.Fakes/ICommandOptions.htm#Callback">Callback</a></li>
+				<li><a href="../Machine.Fakes/ICommandOptions.htm#Callback``1">Callback&lt;T&gt;</a></li>
+				<li><a href="../Machine.Fakes/ICommandOptions.htm#Callback``2">Callback&lt;T1, T2&gt;</a></li>
+				<li><a href="../Machine.Fakes/ICommandOptions.htm#Callback``3">Callback&lt;T1, T2, T3&gt;</a></li>
+				<li><a href="../Machine.Fakes/ICommandOptions.htm#Callback``4">Callback&lt;T1, T2, T3, T4&gt;</a></li>
+				<li><a href="../Machine.Fakes/ICommandOptions.htm#Throw">Throw</a></li>
+			</ul>
+		
+		
+	</div>
+	
+	
+	<h3 class="section">Public instance methods</h3>
+	
+	<div id="Callback" class="method">
+		<h4><span title="System.void">void</span> <strong>Callback</strong>(<span title="System.Action">Action</span> callback)</h4>
+		<div class="content">Configures that the function supplied by  <var>callback</var> will be called when the method under configuration is called. <blockquote class="remarks">
+  Use this overload when you're not interested in the parameters. 
+</blockquote>
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Action">Action</span></code> callback</h6>
+          <p class="comments">Specifies the function which is called when the method under configuration is called. </p>
+      </div>
+
+      
+    </div>
+	</div>
+	<div id="Callback``1" class="method">
+		<h4><span title="System.void">void</span> <strong>Callback&lt;T&gt;</strong>(<span title="System.Action<T>">Action&lt;T&gt;</span> callback)</h4>
+		<div class="content">Configures that the function supplied by  <var>callback</var> will be called when the method under configuration is called. <blockquote class="remarks">
+  Use this for callbacks on methods with a single parameter. 
+</blockquote>
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Action<T>">Action&lt;T&gt;</span></code> callback</h6>
+          <p class="comments">Specifies the function which is called when the method under configuration is called. </p>
+      </div>
+
+      
+    </div>
+	</div>
+	<div id="Callback``2" class="method">
+		<h4><span title="System.void">void</span> <strong>Callback&lt;T1, T2&gt;</strong>(<span title="System.Action<T1, T2>">Action&lt;T1, T2&gt;</span> callback)</h4>
+		<div class="content">Configures that the function supplied by  <var>callback</var> will be called when the method under configuration is called. <blockquote class="remarks">
+  Use this for callbacks on methods with two parameters. 
+</blockquote>
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Action<T1, T2>">Action&lt;T1, T2&gt;</span></code> callback</h6>
+          <p class="comments">Specifies the function which is called when the method under configuration is called. </p>
+      </div>
+
+      
+    </div>
+	</div>
+	<div id="Callback``3" class="method">
+		<h4><span title="System.void">void</span> <strong>Callback&lt;T1, T2, T3&gt;</strong>(<span title="System.Action<T1, T2, T3>">Action&lt;T1, T2, T3&gt;</span> callback)</h4>
+		<div class="content">Configures that the function supplied by  <var>callback</var> will be called when the method under configuration is called. <blockquote class="remarks">
+  Use this for callbacks on methods with three parameters. 
+</blockquote>
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Action<T1, T2, T3>">Action&lt;T1, T2, T3&gt;</span></code> callback</h6>
+          <p class="comments">Specifies the function which is called when the method under configuration is called. </p>
+      </div>
+
+      
+    </div>
+	</div>
+	<div id="Callback``4" class="method">
+		<h4><span title="System.void">void</span> <strong>Callback&lt;T1, T2, T3, T4&gt;</strong>(<span title="System.Action<T1, T2, T3, T4>">Action&lt;T1, T2, T3, T4&gt;</span> callback)</h4>
+		<div class="content">Configures that the function supplied by  <var>callback</var> will be called when the method under configuration is called. <blockquote class="remarks">
+  Use this for callbacks on methods with four parameters. 
+</blockquote>
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Action<T1, T2, T3, T4>">Action&lt;T1, T2, T3, T4&gt;</span></code> callback</h6>
+          <p class="comments">Specifies the function which is called when the method under configuration is called. </p>
+      </div>
+
+      
+    </div>
+	</div>
+	<div id="Throw" class="method">
+		<h4><span title="System.void">void</span> <strong>Throw</strong>(<span title="System.Exception">Exception</span> exception)</h4>
+		<div class="content">Configures that the invocation of the related behavior
+results in the specified  <span title="System.Exception">Exception</span>  beeing thrown. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Exception">Exception</span></code> exception</h6>
+          <p class="comments">Specifies the exception which should be thrown when the
+behavior is invoked. </p>
+      </div>
+
+      
+    </div>
+	</div>
+	
+	
+	<div id="footer">
+  <p>Based on v0.2.3.0 of Machine.Fakes (650da0)</p>
+  <p>Generated by <a href="http://docu.jagregory.com">docu</a></p>
+</div>
+  </body>
+</html>

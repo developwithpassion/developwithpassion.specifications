@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>ReflectionExtensions - Machine.Fakes (650da0) Documentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <link type="text/css" rel="stylesheet" href="../main.css"/>
+    <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.scrollTo-min.js"></script>
+    <script type="text/javascript" src="../js/navigation.js"></script>
+    <script type="text/javascript" src="../js/example.js"></script>
+  </head>
+  <body><div id="namespaces">
+	<h2 class="fixed">Namespaces</h2>
+	<div class="scroll">
+		<ul>
+			<li>
+          <a href="../Machine.Fakes/index.htm">Machine.Fakes</a>
+      </li>
+			<li>
+          <a href="../Machine.Fakes.Sdk/index.htm" class="current">Machine.Fakes.Sdk</a>
+      </li>
+		</ul>
+	</div>
+</div><div id="types">
+  <h2 class="fixed">Types in Machine.Fakes.Sdk</h2>
+	<div class="scroll">
+		<ul>
+				<li>
+            <a href="../Machine.Fakes.Sdk/AbstractExpressionRewriter.htm">AbstractExpressionRewriter</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes.Sdk/ExpressionExtensions.htm">ExpressionExtensions</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes.Sdk/Guard.htm">Guard</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes.Sdk/IExpressionRewriter.htm">IExpressionRewriter</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes.Sdk/InlineConstaintNames.htm">InlineConstaintNames</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes.Sdk/MemberExpressionConverter.htm">MemberExpressionConverter</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes.Sdk/MethodExpressionConverter.htm">MethodExpressionConverter</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes.Sdk/ReflectionExtensions.htm" class="current">ReflectionExtensions</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes.Sdk/RewritingFakeEngine.htm">RewritingFakeEngine</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes.Sdk/SpecificationController`1.htm">SpecificationController&lt;TSubject&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes.Sdk/SpecificationController`2.htm">SpecificationController&lt;TSubject, TFakeEngine&gt;</a>
+        </li>
+		</ul>
+	</div>
+</div>
+    <div class="header">
+		<p class="class"><strong>Type</strong> ReflectionExtensions</p>
+		<p><strong>Namespace</strong> Machine.Fakes.Sdk</p>
+	</div>
+    <div class="sub-header">
+			<div id="summary">Helper class which contains all the helper method needed for reflection. 
+			</div>
+		
+		
+			<h3 class="section">Methods</h3>
+			<ul>
+				<li><a href="../Machine.Fakes.Sdk/ReflectionExtensions.htm#ClosesGenericParamType">ClosesGenericParamType</a></li>
+				<li><a href="../Machine.Fakes.Sdk/ReflectionExtensions.htm#GetFieldValues``1">GetFieldValues&lt;TFieldType&gt;</a></li>
+				<li><a href="../Machine.Fakes.Sdk/ReflectionExtensions.htm#GetFirstTypeArgument">GetFirstTypeArgument</a></li>
+				<li><a href="../Machine.Fakes.Sdk/ReflectionExtensions.htm#GetFirstTypeArgument">GetFirstTypeArgument</a></li>
+				<li><a href="../Machine.Fakes.Sdk/ReflectionExtensions.htm#IsMFakesConstaintType">IsMFakesConstaintType</a></li>
+				<li><a href="../Machine.Fakes.Sdk/ReflectionExtensions.htm#MakePropertyAccess">MakePropertyAccess</a></li>
+				<li><a href="../Machine.Fakes.Sdk/ReflectionExtensions.htm#MakeStaticPropertyAccess">MakeStaticPropertyAccess</a></li>
+				<li><a href="../Machine.Fakes.Sdk/ReflectionExtensions.htm#ResetReferences">ResetReferences</a></li>
+			</ul>
+		
+		
+	</div>
+	
+	
+	
+	<h3 class="section">Public static methods</h3>
+	
+	<div id="ClosesGenericParamType" class="method">
+		<h4><span title="System.bool">bool</span> <strong>ClosesGenericParamType</strong>(this <span title="System.Type">Type</span> type)</h4>
+		<div class="content">Checks whether the supplied type closes the  <a href="../Machine.Fakes/Param`1.htm">Param&lt;TParam&gt;</a>  class. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Type">Type</span></code> type</h6>
+          <p class="comments">Specifies the type to be checked. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><span title="System.bool">bool</span></code></h6>
+        <p><code>true</code>  if the type closes the  <a href="../Machine.Fakes/Param`1.htm">Param`1</a>  type. Otherwise  <code>false</code>. </p>
+      </div>
+      
+    </div>
+	</div>
+	<div id="GetFieldValues``1" class="method">
+		<h4><span title="System.Collections.Generic.IEnumerable<TFieldType>">IEnumerable&lt;TFieldType&gt;</span> <strong>GetFieldValues&lt;TFieldType&gt;</strong>(this <span title="System.object">object</span> instance)</h4>
+		<div class="content">Get all field values of the type specified by . 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.object">object</span></code> instance</h6>
+          <p class="comments">Specifies the instance to extract the field values from. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><span title="System.Collections.Generic.IEnumerable<TFieldType>">IEnumerable&lt;TFieldType&gt;</span></code></h6>
+        <p>A collection of all field values of the specified type. </p>
+      </div>
+      
+    </div>
+	</div>
+	<div id="GetFirstTypeArgument" class="method">
+		<h4><span title="System.Type">Type</span> <strong>GetFirstTypeArgument</strong>(this <span title="System.Reflection.MethodInfo">MethodInfo</span> method)</h4>
+		<div class="content">Gets the first generic type argument of the specified type. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Reflection.MethodInfo">MethodInfo</span></code> method</h6>
+          <p class="comments">Specifies the method to extract the type argument from. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><span title="System.Type">Type</span></code></h6>
+        <p>The extracted type. </p>
+      </div>
+      
+    </div>
+	</div>
+	<div id="GetFirstTypeArgument" class="method">
+		<h4><span title="System.Type">Type</span> <strong>GetFirstTypeArgument</strong>(this <span title="System.Type">Type</span> type)</h4>
+		<div class="content">Gets the first generic type argument of the specified type. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Type">Type</span></code> type</h6>
+          <p class="comments">Specifies the type to extract the type argument from. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><span title="System.Type">Type</span></code></h6>
+        <p>The extracted type. </p>
+      </div>
+      
+    </div>
+	</div>
+	<div id="IsMFakesConstaintType" class="method">
+		<h4><span title="System.bool">bool</span> <strong>IsMFakesConstaintType</strong>(this <span title="System.Type">Type</span> type)</h4>
+		<div class="content">Checks whether the supplied type is one of the machine.fakes
+inline constraint types. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Type">Type</span></code> type</h6>
+          <p class="comments">Specifies the type to check. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><span title="System.bool">bool</span></code></h6>
+        <p><code>true</code>  if it's one of the constraint types. Otherwise not. </p>
+      </div>
+      
+    </div>
+	</div>
+	<div id="MakePropertyAccess" class="method">
+		<h4><span title="System.Linq.Expressions.MemberExpression">MemberExpression</span> <strong>MakePropertyAccess</strong>(this <span title="System.Type">Type</span> targetType, <span title="System.string">string</span> property, <span title="System.Linq.Expressions.Expression">Expression</span> instanceExpression)</h4>
+		<div class="content">Creates a  <span title="System.Linq.Expressions.MemberExpression">MemberExpression</span>  on a public instance property. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Type">Type</span></code> targetType</h6>
+          <p class="comments">Specifies the target type. </p>
+          <h6><code><span title="System.string">string</span></code> property</h6>
+          <p class="comments">Specifies the name of the property to be accessed. </p>
+          <h6><code><span title="System.Linq.Expressions.Expression">Expression</span></code> instanceExpression</h6>
+          <p class="comments">Specifies an instance via an  <a href="../System.Linq.Expressions/Expression.htm">Expression</a>. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><span title="System.Linq.Expressions.MemberExpression">MemberExpression</span></code></h6>
+        <p>The created  <a href="../System.Linq.Expressions/MemberExpression.htm">MemberExpression</a>. </p>
+      </div>
+      
+    </div>
+	</div>
+	<div id="MakeStaticPropertyAccess" class="method">
+		<h4><span title="System.Linq.Expressions.MemberExpression">MemberExpression</span> <strong>MakeStaticPropertyAccess</strong>(this <span title="System.Type">Type</span> targetType, <span title="System.string">string</span> property)</h4>
+		<div class="content">Creates a  <span title="System.Linq.Expressions.MemberExpression">MemberExpression</span>  on a public static property. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Type">Type</span></code> targetType</h6>
+          <p class="comments">Specifies the target type. </p>
+          <h6><code><span title="System.string">string</span></code> property</h6>
+          <p class="comments">Specifies the name of the property to be accessed. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><span title="System.Linq.Expressions.MemberExpression">MemberExpression</span></code></h6>
+        <p>The created  <a href="../System.Linq.Expressions/MemberExpression.htm">MemberExpression</a>. </p>
+      </div>
+      
+    </div>
+	</div>
+	<div id="ResetReferences" class="method">
+		<h4><span title="System.void">void</span> <strong>ResetReferences</strong>(this <span title="System.object">object</span> instance)</h4>
+		<div class="content">Resets the references in the instance specified by  <var>instance</var>. 
+
+
+
+      
+    </div>
+	</div>
+	
+	<div id="footer">
+  <p>Based on v0.2.3.0 of Machine.Fakes (650da0)</p>
+  <p>Generated by <a href="http://docu.jagregory.com">docu</a></p>
+</div>
+  </body>
+</html>

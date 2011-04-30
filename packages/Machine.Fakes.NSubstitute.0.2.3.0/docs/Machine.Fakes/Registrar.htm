@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>Registrar - Machine.Fakes (650da0) Documentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <link type="text/css" rel="stylesheet" href="../main.css"/>
+    <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.scrollTo-min.js"></script>
+    <script type="text/javascript" src="../js/navigation.js"></script>
+    <script type="text/javascript" src="../js/example.js"></script>
+  </head>
+  <body><div id="namespaces">
+	<h2 class="fixed">Namespaces</h2>
+	<div class="scroll">
+		<ul>
+			<li>
+          <a href="../Machine.Fakes/index.htm" class="current">Machine.Fakes</a>
+      </li>
+			<li>
+          <a href="../Machine.Fakes.Sdk/index.htm">Machine.Fakes.Sdk</a>
+      </li>
+		</ul>
+	</div>
+</div><div id="types">
+  <h2 class="fixed">Types in Machine.Fakes</h2>
+	<div class="scroll">
+		<ul>
+				<li>
+            <a href="../Machine.Fakes/FakeAccessorRegistrarExtensions.htm">FakeAccessorRegistrarExtensions</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/FakeApi.htm">FakeApi</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/ICommandOptions.htm">ICommandOptions</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IFakeAccessor.htm">IFakeAccessor</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IFakeEngine.htm">IFakeEngine</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IMethodCallOccurance.htm">IMethodCallOccurance</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/IQueryOptions`1.htm">IQueryOptions&lt;TReturn&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/OnCleanup.htm">OnCleanup</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/OnEstablish.htm">OnEstablish</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Param.htm">Param</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Param`1.htm">Param&lt;TParam&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/Registrar.htm" class="current">Registrar</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/RegistrationExpression.htm">RegistrationExpression</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/RegistrationExpression`1.htm">RegistrationExpression`1</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/WithFakes`1.htm">WithFakes&lt;TFakeEngine&gt;</a>
+        </li>
+				<li>
+            <a href="../Machine.Fakes/WithSubject`2.htm">WithSubject&lt;TSubject, TFakeEngine&gt;</a>
+        </li>
+		</ul>
+	</div>
+</div>
+    <div class="header">
+		<p class="class"><strong>Type</strong> Registrar</p>
+		<p><strong>Namespace</strong> Machine.Fakes</p>
+	</div>
+    <div class="sub-header">
+			<div id="summary">Registration endpoint for configuring the underlying container with
+concrete implementations (the rest that can be faked will be filled up from the AutoFakeContainer). 
+			</div>
+		
+		
+			<h3 class="section">Methods</h3>
+			<ul>
+				<li><a href="../Machine.Fakes/Registrar.htm#For">For</a></li>
+				<li><a href="../Machine.Fakes/Registrar.htm#For``1">For&lt;T&gt;</a></li>
+				<li><a href="../Machine.Fakes/Registrar.htm#New">New</a></li>
+			</ul>
+		
+		
+	</div>
+	
+	
+	<h3 class="section">Public instance methods</h3>
+	
+	<div id="For" class="method">
+		<h4><a href="../Machine.Fakes/RegistrationExpression.htm">RegistrationExpression</a> <strong>For</strong>(<span title="System.Type">Type</span> type)</h4>
+		<div class="content">Starts the configuration of a type. This should be the interface type. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Type">Type</span></code> type</h6>
+          <p class="comments">Specifies the interface type. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><a href="../Machine.Fakes/RegistrationExpression.htm">RegistrationExpression</a></code></h6>
+        <p>An expression for further configuration. </p>
+      </div>
+      
+    </div>
+	</div>
+	<div id="For``1" class="method">
+		<h4><a href="../Machine.Fakes/RegistrationExpression`1.htm">RegistrationExpression`1</a> <strong>For&lt;T&gt;</strong>()</h4>
+		<div class="content">Starts the configuration of a type. This should be the interface type. 
+
+
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><a href="../Machine.Fakes/RegistrationExpression`1.htm">RegistrationExpression`1</a></code></h6>
+        <p>An expression for further configuration. </p>
+      </div>
+      
+    </div>
+	</div>
+	
+	<h3 class="section">Public static methods</h3>
+	
+	<div id="New" class="method">
+		<h4><a href="../Machine.Fakes/Registrar.htm">Registrar</a> <strong>New</strong>(<span title="System.Action<Registrar>">Action&lt;Registrar&gt;</span> configurationExpression)</h4>
+		<div class="content">Shortcut for inlining the configuration of a registrar via
+the nested closure pattern. 
+
+
+      <div class="parameters">
+        <h5>Parameters</h5>
+
+          <h6><code><span title="System.Action<Registrar>">Action&lt;Registrar&gt;</span></code> configurationExpression</h6>
+          <p class="comments">Specifies the expression that does the configuraition. </p>
+      </div>
+
+      <div class="return">
+        <h5>Return</h5>
+        <h6><code><a href="../Machine.Fakes/Registrar.htm">Registrar</a></code></h6>
+        <p>The configured registrar. </p>
+      </div>
+      
+    </div>
+	</div>
+	
+	<div id="footer">
+  <p>Based on v0.2.3.0 of Machine.Fakes (650da0)</p>
+  <p>Generated by <a href="http://docu.jagregory.com">docu</a></p>
+</div>
+  </body>
+</html>
