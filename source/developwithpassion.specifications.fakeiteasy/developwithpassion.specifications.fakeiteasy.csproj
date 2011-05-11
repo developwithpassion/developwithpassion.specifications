@@ -34,17 +34,14 @@
     <Reference Include="FakeItEasy">
       <HintPath>..\..\packages\FakeItEasy.1.7.4117.2\lib\NET40\FakeItEasy.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Fakes, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Machine.Fakes.0.2.3.0\lib\Machine.Fakes.dll</HintPath>
+    <Reference Include="Machine.Fakes">
+      <HintPath>..\..\packages\Machine.Fakes.0.2.3.1\lib\Machine.Fakes.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Fakes.Adapters.FakeItEasy, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Machine.Fakes.FakeItEasy.0.2.3.0\lib\Machine.Fakes.Adapters.FakeItEasy.dll</HintPath>
+    <Reference Include="Machine.Fakes.Adapters.FakeItEasy">
+      <HintPath>..\..\packages\Machine.Fakes.FakeItEasy.0.2.3.1\lib\Machine.Fakes.Adapters.FakeItEasy.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Specifications, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Machine.Specifications.0.4.10.0\lib\Machine.Specifications.dll</HintPath>
+    <Reference Include="Machine.Specifications">
+      <HintPath>..\..\packages\Machine.Specifications.0.4.12.0\lib\Machine.Specifications.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -1,7 +1,7 @@
 using System;
+using Machine.Specifications;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.rhinomocks;
-using Machine.Specifications;
 
 namespace developwithpassion.specifications.examples
 {

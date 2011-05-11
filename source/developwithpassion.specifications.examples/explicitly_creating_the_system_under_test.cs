@@ -1,11 +1,10 @@
-using developwithpassion.specifications.rhinomocks;
 using Machine.Specifications;
+using developwithpassion.specifications.rhinomocks;
 
 namespace developwithpassion.specifications.examples
 {
     public class explicitly_creating_the_system_under_test
     {
-        [Subject(typeof(Calculator))]
         public class when_adding_two_numbers : Observes<Calculator>
         {
             Establish c = () =>

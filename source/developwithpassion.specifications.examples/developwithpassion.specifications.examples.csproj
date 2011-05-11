@@ -32,13 +32,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Machine.Fakes">
-      <HintPath>..\..\packages\Machine.Fakes.0.2.3.0\lib\Machine.Fakes.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Fakes.0.2.3.1\lib\Machine.Fakes.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Fakes.Adapters.RhinoMocks">
-      <HintPath>..\..\packages\Machine.Fakes.RhinoMocks.0.2.3.0\lib\Machine.Fakes.Adapters.RhinoMocks.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Fakes.RhinoMocks.0.2.3.1\lib\Machine.Fakes.Adapters.RhinoMocks.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications">
-      <HintPath>..\..\packages\Machine.Specifications.0.4.10.0\lib\Machine.Specifications.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Specifications.0.4.12.0\lib\Machine.Specifications.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>..\..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
@@ -58,6 +58,7 @@
     <Compile Include="explicitly_creating_the_system_under_test.cs" />
     <Compile Include="fake_interaction\with_dependencies.cs" />
     <Compile Include="fake_interaction\with_fakes.cs" />
+    <Compile Include="nested_contexts.cs" />
     <Compile Include="performing_setup_against_the_sut.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="swapping_static_values.cs" />
