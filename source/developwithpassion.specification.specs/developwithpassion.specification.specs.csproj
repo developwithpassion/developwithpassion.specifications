@@ -58,6 +58,7 @@
     <Compile Include="ChangeSpecs.cs" />
     <Compile Include="DelegateFactorySpecs.cs" />
     <Compile Include="EnumerableAssertionExtensionsSpecs.cs" />
+    <Compile Include="nested_contexts_specs.cs" />
     <Compile Include="SUTDependencyResolverSpecs.cs" />
     <Compile Include="FieldMemberTargetSpecs.cs" />
     <Compile Include="FieldReassignmentStartExpressionSpecs.cs" />
