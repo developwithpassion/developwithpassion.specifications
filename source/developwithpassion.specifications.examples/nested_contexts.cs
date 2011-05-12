@@ -27,7 +27,7 @@ namespace developwithpassion.specifications.examples
       public class and_both_numbers_are_positive
       {
         It should_not_open_a_connection_to_the_database = () =>
-          connection.never_received(x => x.Open()););
+          connection.never_received(x => x.Open());
       }
 
       public class and_one_of_the_numbers_are_negative
