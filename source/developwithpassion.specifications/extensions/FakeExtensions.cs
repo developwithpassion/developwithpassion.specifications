@@ -4,24 +4,24 @@ using Machine.Fakes;
 
 namespace developwithpassion.specifications.extensions
 {
-    public static class FakeExtensions
+  public static class FakeExtensions
+  {
+    public static void never_received<Fake>(this Fake item, Expression<Action<Fake>> behaviour) where Fake : class
     {
-        public static void never_received<Fake>(this Fake item, Expression<Action<Fake>> behaviour) where Fake : class
-        {
-            item.WasNotToldTo(behaviour);
-        }
-
-        public static IMethodCallOccurance received<Fake>(this Fake item, Expression<Action<Fake>> behaviour)
-            where Fake : class
-        {
-            return item.WasToldTo(behaviour);
-        }
-
-        public static IQueryOptions<TReturnValue> setup<TFake, TReturnValue>(this TFake fake,
-                                                                             Expression<Func<TFake, TReturnValue>> func)
-            where TFake : class
-        {
-            return fake.WhenToldTo(func);
-        }
+      item.WasNotToldTo(behaviour);
     }
+
+    public static IMethodCallOccurance received<Fake>(this Fake item, Expression<Action<Fake>> behaviour)
+      where Fake : class
+    {
+      return item.WasToldTo(behaviour);
+    }
+
+    public static IQueryOptions<TReturnValue> setup<TFake, TReturnValue>(this TFake fake,
+                                                                         Expression<Func<TFake, TReturnValue>> func)
+      where TFake : class
+    {
+      return fake.WhenToldTo(func);
+    }
+  }
 }

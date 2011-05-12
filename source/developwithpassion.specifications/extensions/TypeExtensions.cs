@@ -6,28 +6,28 @@ using System.Text;
 
 namespace developwithpassion.specifications.extensions
 {
-    public static class TypeExtensions
+  public static class TypeExtensions
+  {
+    public const string generic_argument_type_format = "<{0}>";
+
+    public static IEnumerable<FieldInfo> all_fields_of<FieldType>(this Type type, BindingFlags flags)
     {
-        public const string generic_argument_type_format = "<{0}>";
-
-        public static IEnumerable<FieldInfo> all_fields_of<FieldType>(this Type type, BindingFlags flags)
-        {
-            return type.GetFields(flags).Where(x => x.FieldType == typeof(FieldType));
-        }
-
-        public static ConstructorInfo greediest_constructor(this Type type)
-        {
-            return type.GetConstructors().OrderByDescending(x => x.GetParameters().Count()).First();
-        }
-
-        public static string proper_name(this Type type)
-        {
-            var message = new StringBuilder(type.Name);
-            if (type.IsGenericType)
-            {
-                type.GetGenericArguments().each(x => message.AppendFormat("<{0}>", x));
-            }
-            return message.ToString();
-        }
+      return type.GetFields(flags).Where(x => x.FieldType == typeof(FieldType));
     }
+
+    public static ConstructorInfo greediest_constructor(this Type type)
+    {
+      return type.GetConstructors().OrderByDescending(x => x.GetParameters().Count()).First();
+    }
+
+    public static string proper_name(this Type type)
+    {
+      var message = new StringBuilder(type.Name);
+      if (type.IsGenericType)
+      {
+        type.GetGenericArguments().each(x => message.AppendFormat("<{0}>", x));
+      }
+      return message.ToString();
+    }
+  }
 }

@@ -2,9 +2,8 @@
 
 namespace developwithpassion.specifications.faking
 {
-    public interface ICreateAndManageDependenciesFor<Class> : SUTFactory<Class>,
-                                                                    IProvideDependencies,ICreateThe<Class>
-    {
-        
-    }
+  public interface ICreateAndManageDependenciesFor<Class> : SUTFactory<Class>,
+                                                            IProvideDependencies, ICreateThe<Class>
+  {
+  }
 }

@@ -1,7 +1,7 @@
 namespace developwithpassion.specifications.core
 {
-    public interface ICreateThe<SUT>
-    {
-        SUT create();
-    }
+  public interface ICreateThe<SUT>
+  {
+    SUT create();
+  }
 }
