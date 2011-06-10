@@ -8,7 +8,7 @@ namespace developwithpassion.specification.specs
 {
     public class MemberTargetRegistrySpecs
     {
-        public abstract class concern : Observes<MemberTargetRegistry, DefaultMemberTargetRegistry>
+        public class concern : Observes<MemberTargetRegistry, DefaultMemberTargetRegistry>
         {
             Establish c = delegate
             {

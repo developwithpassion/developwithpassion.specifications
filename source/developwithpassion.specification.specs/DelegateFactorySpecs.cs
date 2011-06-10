@@ -8,7 +8,7 @@ namespace developwithpassion.specification.specs
 {   
     public class DelegateFactorySpecs
     {
-        public abstract class concern : Observes<ICreateFakeDelegates,
+        public class concern : Observes<ICreateFakeDelegates,
                                             FakeDelegateFactory>
         {
         

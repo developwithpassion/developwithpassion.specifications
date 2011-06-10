@@ -8,7 +8,7 @@ namespace developwithpassion.specification.specs
 {
     public class FieldSwitcherSpecs
     {
-        public abstract class concern : Observes<ISwapValues, MemberTargetValueSwapper>
+        public class concern : Observes<ISwapValues, MemberTargetValueSwapper>
         {
             Establish c = () =>
             {

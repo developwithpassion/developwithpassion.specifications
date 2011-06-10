@@ -15,7 +15,7 @@ namespace developwithpassion.specification.specs
             public static int some_value_that_will_be_boxed = 0x42;
         }
 
-        public abstract class concern : Observes<FieldReassignmentStartExpression>
+        public class concern : Observes<FieldReassignmentStartExpression>
         {
             Establish c = delegate
             {

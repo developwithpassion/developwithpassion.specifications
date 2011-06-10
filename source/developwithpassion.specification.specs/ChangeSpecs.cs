@@ -7,7 +7,7 @@ namespace developwithpassion.specification.specs
 {
     public class ChangeSpecs
     {
-        public abstract class concern : Observes
+        public class concern : Observes
         {
         }
 

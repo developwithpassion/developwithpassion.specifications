@@ -35,19 +35,19 @@ namespace developwithpassion.specification.specs
                 setup_ran.ShouldBeFalse();
                 teardown_ran.ShouldBeTrue();
             };
+        }
 
-            [Subject(typeof(ObservationPair))]
-            public class when_told_to_setup : concern
+        [Subject(typeof(ObservationPair))]
+        public class when_told_to_setup : concern
+        {
+            Because b = () =>
+                sut.setup();
+
+            It should_only_run_its_teardown_block = () =>
             {
-                Because b = () =>
-                    sut.setup();
-
-                It should_only_run_its_teardown_block = () =>
-                {
-                    setup_ran.ShouldBeTrue();
-                    teardown_ran.ShouldBeFalse();
-                };
-            }
+                setup_ran.ShouldBeTrue();
+                teardown_ran.ShouldBeFalse();
+            };
         }
     }
 }

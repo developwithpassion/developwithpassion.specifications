@@ -15,7 +15,7 @@ namespace developwithpassion.specification.specs
     public class SUTFactorySpecs
     {
         [Subject(typeof(DefaultSUTFactory<>))]
-        public abstract class concern : Observes
+        public  class concern : Observes
         {
             Establish base_setup = delegate
             {
@@ -41,7 +41,7 @@ namespace developwithpassion.specification.specs
             protected static IManageFakes manage_fakes;
         }
 
-        public abstract class concern_for_type_with_some_non_fakeable_ctor_parameters : concern
+        public class concern_for_type_with_some_non_fakeable_ctor_parameters : concern
         {
             Establish c = delegate
             {
@@ -74,7 +74,7 @@ namespace developwithpassion.specification.specs
         }
 
         [Subject(typeof(DefaultSUTFactory<>))]
-        public abstract class when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked :
+        public class when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked :
             concern_for_type_with_some_non_fakeable_ctor_parameters
         {
             static ItemWithNonFakeableCtorParameters result;

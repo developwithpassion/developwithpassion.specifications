@@ -16,7 +16,7 @@ namespace developwithpassion.specification.specs
             public bool was_leveraged;
         }
 
-        public abstract class concern : Observes
+        public class concern : Observes
         {
             Establish c = () =>
             {

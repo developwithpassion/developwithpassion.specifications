@@ -14,7 +14,7 @@ namespace developwithpassion.specifications.observations
 
         static CoreObservations()
         {
-            ContextFactory.ChangeAllowedNumberOfBecauseBlocksTo(2);
+            ContextFactory.ChangeAllowedNumberOfBecauseBlocksTo(int.MaxValue);
         }
 
         Establish c = () => controller = Factories.main_controller.create_main_controller<Class, Engine>();

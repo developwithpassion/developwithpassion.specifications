@@ -30,7 +30,7 @@ namespace developwithpassion.specifications.faking
 
         public void use<Dependency>(Dependency value)
         {
-            this.original_controller.Use(value);
+            this.original_controller.Configure(value);
         }
     }
 }

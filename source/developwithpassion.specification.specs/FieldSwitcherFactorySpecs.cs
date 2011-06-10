@@ -13,7 +13,7 @@ namespace developwithpassion.specification.specs
             public static string static_value { get; set; }
         }
 
-        public abstract class concern : Observes<FieldSwitcherFactory, DefaultFieldSwitcherFactory>
+        public class concern : Observes<FieldSwitcherFactory, DefaultFieldSwitcherFactory>
         {
             Establish c = () =>
             {

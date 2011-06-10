@@ -12,7 +12,7 @@ namespace developwithpassion.specification.specs
             public static string static_value = "lah";
         }
 
-        public abstract class concern : Observes<MemberTarget, FieldMemberTarget>
+        public class concern : Observes<MemberTarget, FieldMemberTarget>
         {
             Establish c = delegate
             {

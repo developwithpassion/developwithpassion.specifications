@@ -10,7 +10,7 @@ namespace developwithpassion.specification.specs
 {
     public class SUTDependencyResolverSpecs
     {
-        public abstract class concern : Observes<IResolveADependencyForTheSUT,
+        public class concern : Observes<IResolveADependencyForTheSUT,
                                             SUTDependencyResolver>
         {
             protected static IManageFakes accessor;

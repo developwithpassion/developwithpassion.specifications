@@ -7,7 +7,7 @@ namespace developwithpassion.specification.specs
 {
     public class PropertyInfoTargetSpecs
     {
-        public abstract class concern : Observes<MemberTarget, PropertyInfoMemberTarget>
+        public class concern : Observes<MemberTarget, PropertyInfoMemberTarget>
         {
             Establish c = delegate
             {
