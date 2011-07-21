@@ -8,13 +8,13 @@ namespace developwithpassion.specifications.faking
     public class SUTDependencyResolver : IResolveADependencyForTheSUT
     {
         IManageFakes fake_accessor;
-        ICreateFakeDelegates _fakeDelegateFactory;
+        ICreateFakeDelegates fake_delegate_factory;
         Func<Type, MethodInfo> method_factory;
 
         public SUTDependencyResolver(IManageFakes fake_accessor, ICreateFakeDelegates _fakeDelegateFactory)
         {
             this.fake_accessor = fake_accessor;
-            this._fakeDelegateFactory = _fakeDelegateFactory;
+            this.fake_delegate_factory = _fakeDelegateFactory;
             this.method_factory = this.create_method_factory();
         }
 
@@ -29,7 +29,7 @@ namespace developwithpassion.specifications.faking
         {
             if (item.IsValueType) return Activator.CreateInstance(item);
             if (item == typeof(string)) return string.Empty;
-            if (typeof(Delegate).IsAssignableFrom(item)) return _fakeDelegateFactory.generate_delegate_for(item);
+            if (typeof(Delegate).IsAssignableFrom(item)) return fake_delegate_factory.generate_delegate_for(item);
             return this.method_factory.Invoke(item).Invoke(this.fake_accessor, new object[0]);
         }
     }

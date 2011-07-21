@@ -31,7 +31,7 @@ namespace developwithpassion.specifications.faking
         {
             var greediest_constructor = typeof(SUT).greediest_constructor();
             var constructor_parameters =
-                greediest_constructor.GetParameters().Select(x => get_constructor_parameter(x.ParameterType));
+                greediest_constructor.GetParameters().Select(x => get_dependency(x.ParameterType));
             return (SUT) greediest_constructor.Invoke(constructor_parameters.ToArray());
         }
 
@@ -51,7 +51,7 @@ namespace developwithpassion.specifications.faking
             return value;
         }
 
-        object get_constructor_parameter(Type parameter_type)
+        object get_dependency(Type parameter_type)
         {
             return (this.explicit_constructor_parameters.ContainsKey(parameter_type)
                 ? this.explicit_constructor_parameters[parameter_type]
