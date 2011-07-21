@@ -1,0 +1,10 @@
+<TemplatesExport>
+  <Template uid="2ca8bd79-c73f-4123-b2e5-8aa5b58ec3be" shortcut="" description="Explicit Delegate Block" text="{&#xD;&#xA;  $SELECTION$&#xD;&#xA;};" reformat="True" shortenQualifiedReferences="True">
+    <Context>
+      <CSharpContext context="Everywhere" minimumLanguageVersion="2.0" />
+    </Context>
+    <Categories />
+    <Variables />
+    <CustomProperties />
+  </Template>
+</TemplatesExport>
