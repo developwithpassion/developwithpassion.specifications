@@ -20,3 +20,4 @@ artifacts
 project.nuspec
 distribution
 nuget_key
+*mm_cache.bin
