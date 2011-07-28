@@ -67,6 +67,7 @@ namespace developwithpassion.specification.specs
 
                 protected static string value_to_change_to;
             }
+
             public class and_the_property_is_non_writable:concern
             {
                 Establish c = () =>

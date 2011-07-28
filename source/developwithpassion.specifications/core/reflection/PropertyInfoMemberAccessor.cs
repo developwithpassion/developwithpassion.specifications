@@ -24,12 +24,12 @@ namespace developwithpassion.specifications.core.reflection
 
         public void change_value_to(object target,object new_value)
         {
-            this.member.SetValue(target, new_value, new object[0]);
+            this.member.SetValue(target, new_value, null);
         }
 
         public object get_value(object target)
         {
-            return this.member.GetValue(target, new object[0]);
+            return this.member.GetValue(target, null);
         }
     }
 }
