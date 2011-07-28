@@ -1,44 +1,42 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using developwithpassion.specifications;
+using System.Linq;
+using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Sdk;
+using Machine.Specifications;
 using developwithpassion.specifications.core;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.faking;
 using developwithpassion.specifications.rhinomocks;
-using Machine.Fakes.Adapters.Rhinomocks;
-using Machine.Fakes.Sdk;
-using Machine.Specifications;
 
 namespace developwithpassion.specification.specs
 {
-    public class SUTFactorySpecs
+    [Subject(typeof(DefaultSUTFactory<>))]
+    public partial class SUTFactorySpecs
     {
-        [Subject(typeof(DefaultSUTFactory<>))]
-        public  class concern : Observes
+        public class concern : Observes
         {
             Establish base_setup = delegate
             {
                 connection = fake.an<IDbConnection>();
                 command = fake.an<IDbCommand>();
-                manage_fakes = fake.an<IManageFakes>();
-                constructor_parameters = new Dictionary<Type, object>();
-                dependency_resolver = fake.an<IResolveADependencyForTheSUT>();
-                dependency_resolver.setup(x => x.resolve(typeof(IDbConnection))).Return(connection);
-                dependency_resolver.setup(x => x.resolve(typeof(IDbCommand))).Return(command);
+                non_ctor_dependency_visitors = new List<IUpdateNonCtorDependenciesOnAnItem>();
+                dependency_registry = fake.an<IManageTheDependenciesForASUT>();
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Return(connection);
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbCommand))).Return(command);
             };
 
             protected static DefaultSUTFactory<ItemToBeCreated> create_sut<ItemToBeCreated>()
             {
-                return new DefaultSUTFactory<ItemToBeCreated>(constructor_parameters,
-                                                              dependency_resolver, manage_fakes);
+                return new DefaultSUTFactory<ItemToBeCreated>(dependency_registry,
+                    non_ctor_dependency_visitors);
             }
 
             protected static IDbCommand command;
             protected static IDbConnection connection;
-            protected static IDictionary<Type, object> constructor_parameters;
-            protected static IResolveADependencyForTheSUT dependency_resolver;
-            protected static IManageFakes manage_fakes;
+            protected static IManageTheDependenciesForASUT dependency_registry;
+            protected static IList<IUpdateNonCtorDependenciesOnAnItem> non_ctor_dependency_visitors;
         }
 
         public class concern_for_type_with_some_non_fakeable_ctor_parameters : concern
@@ -53,21 +51,42 @@ namespace developwithpassion.specification.specs
             protected static DefaultSUTFactory<ItemWithNonFakeableCtorParameters> sut;
         }
 
-        [Subject(typeof(DefaultSUTFactory<>))]
-        public class when_requesting_a_dependency : concern_for_type_with_some_non_fakeable_ctor_parameters
+        public class when_creating_a_type : concern
+        {
+            public class and_no_errors_occur_during_the_initial_instantiation : when_creating_a_type
+            {
+                Establish c = () =>
+                {
+                    Enumerable.Range(1, 100).each(x => non_ctor_dependency_visitors.Add(fake.an<IUpdateNonCtorDependenciesOnAnItem>()));
+                    sut = create_sut<ItemWithNoCtorParameters>();
+                };
+
+                Because b = () =>
+                    result = sut.create();
+
+                It should_run_each_of_the_dependency_supplementary_visitors_against_the_created_instance = () =>
+                    non_ctor_dependency_visitors.each(visitor => visitor.received(x => x.update(result)));
+
+                static ItemWithNoCtorParameters result;
+                static DefaultSUTFactory<ItemWithNoCtorParameters> sut;
+            }
+
+            public class ItemWithNoCtorParameters
+            {
+            }
+        }
+
+        public class when_specifying_a_dependency : concern_for_type_with_some_non_fakeable_ctor_parameters
         {
             Establish c = () =>
             {
-                manage_fakes.setup(x => x.the<IDbConnection>()).Return(connection);
+                dependency_registry.setup(x => x.on<IDbConnection>()).Return(connection);
             };
 
             Because b = () =>
                 result = sut.on<IDbConnection>();
 
-            It should_store_the_value_retrieved_by_the_dependency_resolver_as_an_explicit_ctor_parameter = () =>
-                constructor_parameters[typeof(IDbConnection)].ShouldEqual(connection);
-
-            It should_return_the_value_from_the_underlying_resolver = () =>
+            It should_store_the_dependency_in_the_dependency_registry_and_return_the_item_it_returned = () =>
                 result.ShouldEqual(connection);
 
             static IDbConnection result;
@@ -83,7 +102,7 @@ namespace developwithpassion.specification.specs
                 when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked
             {
                 Establish c = () =>
-                    dependency_resolver.setup(x => x.resolve(typeof(SomeOtherType))).Throw(original_exception);
+                    dependency_registry.setup(x => x.get_dependency_of(typeof(SomeOtherType))).Throw(original_exception);
 
                 Because b = () =>
                     spec.catch_exception(() => sut.create());
@@ -98,7 +117,7 @@ namespace developwithpassion.specification.specs
                 Establish c = () =>
                 {
                     the_item = new SomeOtherType(3);
-                    constructor_parameters.Add(typeof(SomeOtherType), the_item);
+                    dependency_registry.setup(x => x.get_dependency_of(typeof(SomeOtherType))).Return(the_item);
                 };
 
                 Because b = () =>
@@ -170,35 +189,16 @@ namespace developwithpassion.specification.specs
             Establish c = () =>
             {
                 sut = create_sut<ItemToCreate>();
+                dependency_registry.setup(x => x.on(3)).Return(3);
             };
 
-            public class and_the_parameter_has_not_yet_been_provided :
-                when_providing_a_specific_constructor_parameter_for_the_sut
-            {
-                Because b = () =>
-                    result = sut.on(3);
+            Because b = () =>
+                result = sut.on(3);
 
-                It should_store_the_parameter_for_use_in_fallback_creation = () =>
-                    constructor_parameters[typeof(int)].ShouldEqual(3);
+            It should_return_the_value_stored_by_the_dependency_registry = () =>
+                result.ShouldEqual(3);
 
-                It should_return_the_value_for_later_use = () =>
-                    result.ShouldEqual(3);
-
-                static int result;
-            }
-
-            public class and_a_parameter_for_that_type_has_already_been_provided :
-                when_providing_a_specific_constructor_parameter_for_the_sut
-            {
-                Establish c = () =>
-                    constructor_parameters[typeof(int)] = 3;
-
-                Because b = () =>
-                    sut.on(4);
-
-                It should_overwrite_the_previous_value = () =>
-                    constructor_parameters[typeof(int)].ShouldEqual(4);
-            }
+            static int result;
         }
 
         [Subject(typeof(DefaultSUTFactory<>))]
@@ -236,7 +236,7 @@ namespace developwithpassion.specification.specs
             It should_not_change_the_value_of_the_sut_factory = () =>
                 sut.actual_factory.ShouldEqual(provided_factory);
 
-            protected static CreateSUT<ItemToCreate> provided_factory;
+            protected static Func<ItemToCreate> provided_factory;
             static DefaultSUTFactory<ItemToCreate> sut;
         }
 
@@ -251,14 +251,15 @@ namespace developwithpassion.specification.specs
                 manage_fakes = new FakesAdapter(new SpecificationController<ItemWithNonFakeableCtorParameters2>(
                                                     new RhinoFakeEngine()));
                 FakeDelegatesFactory = new FakeDelegateFactory();
-                dependency_resolver = new SUTDependencyResolver(manage_fakes,FakeDelegatesFactory);
+                dependency_resolver = new SUTDependencyResolver(manage_fakes, FakeDelegatesFactory);
             };
 
             protected static IDictionary<Type, object> constructor_parameters = new Dictionary<Type, object>();
 
             protected static DefaultSUTFactory<ForItem> create_sut<ForItem>()
             {
-                return new DefaultSUTFactory<ForItem>(constructor_parameters, dependency_resolver, manage_fakes);
+                return new DefaultSUTFactory<ForItem>(new DependenciesRegistry(dependency_resolver, manage_fakes),
+                                                      new List<IUpdateNonCtorDependenciesOnAnItem>());
             }
 
             [Subject(typeof(DefaultSUTFactory<>))]

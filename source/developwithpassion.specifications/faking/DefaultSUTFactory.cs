@@ -1,25 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using developwithpassion.specifications.core;
 using developwithpassion.specifications.extensions;
 
 namespace developwithpassion.specifications.faking
 {
     public class DefaultSUTFactory<SUT> : ICreateAndManageDependenciesFor<SUT>
     {
-        public CreateSUT<SUT> actual_factory;
-        IResolveADependencyForTheSUT dependency_resolver;
-        IDictionary<Type, object> explicit_constructor_parameters;
-        IManageFakes fake_gateway;
+        public Func<SUT> actual_factory;
+        IManageTheDependenciesForASUT manage_the_dependencies_for_asut;
+        IEnumerable<IUpdateNonCtorDependenciesOnAnItem> non_ctor_dependency_visitors;
 
-        public DefaultSUTFactory(IDictionary<Type, object> explicit_constructor_parameters,
-                                 IResolveADependencyForTheSUT dependency_resolver, IManageFakes fake_gateway)
+        public DefaultSUTFactory(IManageTheDependenciesForASUT manage_the_dependencies_for_asut, IEnumerable<IUpdateNonCtorDependenciesOnAnItem> non_ctor_dependency_visitors)
         {
             this.actual_factory = create_automatically;
-            this.explicit_constructor_parameters = explicit_constructor_parameters;
-            this.fake_gateway = fake_gateway;
-            this.dependency_resolver = dependency_resolver;
+            this.manage_the_dependencies_for_asut = manage_the_dependencies_for_asut;
+            this.non_ctor_dependency_visitors = non_ctor_dependency_visitors;
         }
 
         public SUT create()
@@ -31,31 +27,26 @@ namespace developwithpassion.specifications.faking
         {
             var greediest_constructor = typeof(SUT).greediest_constructor();
             var constructor_parameters =
-                greediest_constructor.GetParameters().Select(x => get_dependency(x.ParameterType));
-            return (SUT) greediest_constructor.Invoke(constructor_parameters.ToArray());
+                greediest_constructor.GetParameters().Select(x => manage_the_dependencies_for_asut.get_dependency_of(x.ParameterType));
+            SUT the_sut = (SUT)greediest_constructor.Invoke(constructor_parameters.ToArray());
+            non_ctor_dependency_visitors.each(visitor => visitor.update(the_sut));
+
+            return the_sut;
         }
 
-        public void create_using(CreateSUT<SUT> specific_factory)
+        public void create_using(Func<SUT> specific_factory)
         {
             this.actual_factory = specific_factory;
         }
 
         public Dependency on<Dependency>() where Dependency : class
         {
-            return on(fake_gateway.the<Dependency>());
+            return manage_the_dependencies_for_asut.on<Dependency>();
         }
 
         public Dependency on<Dependency>(Dependency value)
         {
-            explicit_constructor_parameters[typeof(Dependency)] = value;
-            return value;
-        }
-
-        object get_dependency(Type parameter_type)
-        {
-            return (this.explicit_constructor_parameters.ContainsKey(parameter_type)
-                ? this.explicit_constructor_parameters[parameter_type]
-                : this.dependency_resolver.resolve(parameter_type));
+            return manage_the_dependencies_for_asut.on(value);
         }
     }
 }

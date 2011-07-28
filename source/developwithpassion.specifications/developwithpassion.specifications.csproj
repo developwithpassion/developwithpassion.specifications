@@ -74,7 +74,6 @@
     <Compile Include="core\IManageFakes.cs" />
     <Compile Include="core\IProvideDependencies.cs" />
     <Compile Include="core\TestStateFor.cs" />
-    <Compile Include="CreateSUT.cs" />
     <Compile Include="DefaultObservationController.cs" />
     <Compile Include="DefaultTestStateFor.cs" />
     <Compile Include="dsl\fieldswitching\ChangeExpression.cs" />
@@ -97,10 +96,12 @@
     <Compile Include="extensions\TypeExtensions.cs" />
     <Compile Include="faking\DefaultSUTFactory.cs" />
     <Compile Include="faking\DelegateFactory.cs" />
+    <Compile Include="faking\DependencyRegistry.cs" />
     <Compile Include="faking\FakesAdapter.cs" />
     <Compile Include="faking\ICreateAndManageDependenciesFor.cs" />
     <Compile Include="faking\ICreateDelegatesWithDummyImplementations.cs" />
     <Compile Include="faking\IResolveADependencyForTheSUT.cs" />
+    <Compile Include="faking\IUpdateNonCtorDependenciesOnAnItem.cs" />
     <Compile Include="faking\SUTDependencyResolver.cs" />
     <Compile Include="faking\SUTFactory.cs" />
     <Compile Include="ObservationController.cs" />
