@@ -17,6 +17,11 @@ namespace developwithpassion.specifications.core.reflection
             get { return member.FieldType; }
         }
 
+        public string name
+        {
+            get { return member.Name; }
+        }
+
         public void change_value_to(object target,object new_value)
         {
             this.member.SetValue(target, new_value);

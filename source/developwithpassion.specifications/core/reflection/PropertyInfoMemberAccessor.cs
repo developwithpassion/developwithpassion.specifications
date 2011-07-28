@@ -27,6 +27,11 @@ namespace developwithpassion.specifications.core.reflection
             this.member.SetValue(target, new_value, null);
         }
 
+        public string name
+        {
+            get { return member.Name;}
+        }
+
         public object get_value(object target)
         {
             return this.member.GetValue(target, null);

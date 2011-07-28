@@ -77,6 +77,11 @@ namespace developwithpassion.specification.specs
                         get { throw new NotImplementedException(); }
                     }
 
+                    public string name
+                    {
+                        get { throw new NotImplementedException(); }
+                    }
+
                     public Type accessor_type { get; set; }
 
                     public void change_value_to(object target, object new_value)

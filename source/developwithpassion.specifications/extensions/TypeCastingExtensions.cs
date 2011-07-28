@@ -1,3 +1,5 @@
+using developwithpassion.specifications.core;
+
 namespace developwithpassion.specifications.extensions
 {
     public static class TypeCastingExtensions
@@ -9,15 +11,11 @@ namespace developwithpassion.specifications.extensions
 
         public static bool is_not_a<T>(this object item)
         {
-            try
+            return BlockThat.ignores_exceptions(() =>
             {
-                var type_to_cast_to = (T) item;
+                var target = item.downcast_to<T>();
                 return false;
-            }
-            catch
-            {
-                return true;
-            }
+            }, true);
         }
     }
 }

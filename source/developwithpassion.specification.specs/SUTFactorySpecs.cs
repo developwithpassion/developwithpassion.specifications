@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Data;
 using Machine.Specifications;
 using developwithpassion.specification.specs.utility;
 using developwithpassion.specifications.core;
-using developwithpassion.specifications.core.factories;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.faking;
 using developwithpassion.specifications.rhinomocks;

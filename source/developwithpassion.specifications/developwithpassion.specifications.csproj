@@ -76,6 +76,7 @@
     <Compile Include="core\NegatingMatcher.cs" />
     <Compile Include="core\reflection\AccessorHasAValue.cs" />
     <Compile Include="core\TestStateFor.cs" />
+    <Compile Include="core\BlockThat.cs" />
     <Compile Include="DefaultObservationController.cs" />
     <Compile Include="DefaultTestStateFor.cs" />
     <Compile Include="dsl\fieldswitching\ChangeExpression.cs" />

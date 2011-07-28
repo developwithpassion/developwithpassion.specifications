@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq.Expressions;
+using System.Reflection;
 using Machine.Specifications;
 using developwithpassion.specification.specs.utility;
 using developwithpassion.specifications.core.factories;
@@ -25,7 +28,42 @@ namespace developwithpassion.specification.specs
             protected static IManageTheDependenciesForASUT dependency_registry;
         }
 
-        public class when_visting_an_item_that_has_non_public_accessor:concern
+        public class when_visting_an_item_that_inherits : concern
+        {
+            Establish c = () =>
+            {
+                item = new ItemThatInherits();
+                dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection)))
+                    .Return(true);
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection)))
+                    .Return(fake.an<IDbConnection>());
+            };
+
+            Because b = () =>
+                sut.update(item);
+
+            It should_not_attempt_to_update_the_accessors_on_the_parent_class = () =>
+            {
+                item.connection.ShouldNotBeNull();
+                item.the_other().ShouldBeNull();
+            };
+
+            static ItemThatInherits item;
+
+            public class ItemThatInherits : List<Assembly>
+            {
+                public IDbConnection connection;
+                IDbConnection other_connection;
+                public Expression<Func<int, bool>> Matcher;
+
+                public IDbConnection the_other()
+                {
+                    return other_connection;
+                }
+            }
+        }
+
+        public class when_visting_an_item_that_has_non_public_accessor : concern
         {
             Establish c = () =>
             {
@@ -45,9 +83,42 @@ namespace developwithpassion.specification.specs
                 item.the_other().ShouldBeNull();
             };
 
-            static  ItemToUpdate item;
-                
+            static ItemToUpdate item;
         }
+
+        public class when_the_dependency_manager_throws_an_exception_while_trying_to_get_a_dependency_for_a_accessor :
+            concern
+        {
+            Establish c = () =>
+            {
+                original_exception = new Exception();
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Throw(original_exception);
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDataAdapter))).Return(fake.an<IDataAdapter>());
+                item = new AnItem();
+            };
+
+            Because b = () =>
+                sut.update(item);
+
+            It should_carry_on_attempting_to_set_other_dependencies = () =>
+                item.adapter.ShouldNotBeNull();
+
+            static Exception original_exception;
+            static AnItem item;
+
+            public class AnItem
+            {
+                public IDbConnection connection;
+                public IDataAdapter adapter;
+                IDbConnection other_connection;
+
+                public IDbConnection the_other()
+                {
+                    return other_connection;
+                }
+            }
+        }
+
         public class when_visiting_an_item_that_has_public_accessors : concern
         {
             public class and_the_accessors_have_not_been_set : when_visiting_an_item_that_has_public_accessors
@@ -173,7 +244,7 @@ namespace developwithpassion.specification.specs
                             item_to_update.Configuration.ShouldEqual(original);
                     }
 
-                    public class and_the_registry_has_a_value_for_the_field:and_the_fields_have_a_value
+                    public class and_the_registry_has_a_value_for_the_field : and_the_fields_have_a_value
                     {
                         Establish c = () =>
                         {
@@ -184,9 +255,10 @@ namespace developwithpassion.specification.specs
                         It should_change_the_value_of_the_delegate_field_to_the_provided_value = () =>
                             item_to_update.Configuration.ShouldEqual(new_value);
 
-                        static Func<string,string> new_value;
+                        static Func<string, string> new_value;
                     }
                 }
+
                 public class and_the_field_does_not_have_a_value : when_updating_an_item_with_public_delegate_fields
                 {
                     Establish c = () =>
@@ -200,7 +272,7 @@ namespace developwithpassion.specification.specs
                             item_to_update.Configuration.ShouldNotBeNull();
                     }
 
-                    public class and_the_registry_has_a_value_for_the_field:and_the_fields_have_a_value
+                    public class and_the_registry_has_a_value_for_the_field : and_the_fields_have_a_value
                     {
                         Establish c = () =>
                         {
@@ -211,7 +283,7 @@ namespace developwithpassion.specification.specs
                         It should_change_the_value_of_the_delegate_field_to_the_provided_value = () =>
                             item_to_update.Configuration.ShouldEqual(new_value);
 
-                        static Func<string,string> new_value;
+                        static Func<string, string> new_value;
                     }
                 }
             }
@@ -226,11 +298,11 @@ namespace developwithpassion.specification.specs
         {
             public IDbConnection connection;
             IDbConnection other_connection;
+
             public IDbConnection the_other()
             {
                 return other_connection;
             }
-
         }
     }
 }

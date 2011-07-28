@@ -57,11 +57,13 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="AccessorDoesNotHaveAValueSpecs.cs" />
+    <Compile Include="BlockThatSpecs.cs" />
     <Compile Include="ChangeSpecs.cs" />
     <Compile Include="DefaultObservationControllerSpecs.cs" />
     <Compile Include="DelegateFactorySpecs.cs" />
     <Compile Include="DependencyRegistrySpecs.cs" />
     <Compile Include="EnumerableAssertionExtensionsSpecs.cs" />
+    <Compile Include="issues\AssemblyStoreSpecs.cs" />
     <Compile Include="MatchExtensionsSpecs.cs" />
     <Compile Include="NegatingMatcherSpecs.cs" />
     <Compile Include="NonCtorDependencySetterSpecs.cs" />
