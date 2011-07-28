@@ -72,14 +72,13 @@ namespace developwithpassion.specification.specs
 
         public class when_getting_all_of_the_accessors_belonging_to_a_type
         {
-            Because b = () =>
-                results =
-                    typeof(SomeTypeWithPropertiesAndFields).all_instance_accessors();
+            It should_get_the_items_based_on_the_flags = () =>
+            {
+                var target = typeof(SomeTypeWithPropertiesAndFields);
+                target.all_accessors(BindingFlags.NonPublic | BindingFlags.Instance).Count().ShouldEqual(5);
+                target.all_accessors(BindingFlags.Public | BindingFlags.Instance).Count().ShouldEqual(3);
+            };
 
-            It should_only_get_the_public_fields_and_properties = () =>
-                results.Count().ShouldEqual(3);
-
-            static IEnumerable<MemberAccessor> results;
         }
 
         public class SomeTypeWithPropertiesAndFields

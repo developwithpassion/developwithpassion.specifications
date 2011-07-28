@@ -25,6 +25,29 @@ namespace developwithpassion.specification.specs
             protected static IManageTheDependenciesForASUT dependency_registry;
         }
 
+        public class when_visting_an_item_that_has_non_public_accessor:concern
+        {
+            Establish c = () =>
+            {
+                item = new ItemToUpdate();
+                dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection)))
+                    .Return(true);
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection)))
+                    .Return(fake.an<IDbConnection>());
+            };
+
+            Because b = () =>
+                sut.update(item);
+
+            It should_not_attempt_to_update_the_non_public_accessor = () =>
+            {
+                item.connection.ShouldNotBeNull();
+                item.the_other().ShouldBeNull();
+            };
+
+            static  ItemToUpdate item;
+                
+        }
         public class when_visiting_an_item_that_has_public_accessors : concern
         {
             public class and_the_accessors_have_not_been_set : when_visiting_an_item_that_has_public_accessors
@@ -202,6 +225,12 @@ namespace developwithpassion.specification.specs
         public class ItemToUpdate
         {
             public IDbConnection connection;
+            IDbConnection other_connection;
+            public IDbConnection the_other()
+            {
+                return other_connection;
+            }
+
         }
     }
 }

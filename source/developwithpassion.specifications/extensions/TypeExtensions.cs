@@ -32,10 +32,9 @@ namespace developwithpassion.specifications.extensions
             return message.ToString();
         }
 
-        public static IEnumerable<MemberAccessor> all_instance_accessors(this Type type)
+        public static IEnumerable<MemberAccessor> all_accessors(this Type type,BindingFlags flags)
         {
             var registry = new MemberAccessorFactory();
-            var flags = BindingFlags.Instance | BindingFlags.Public;
             foreach (var member in type.GetFields(flags))
                 yield return registry.create_accessor_for(member);
             foreach (var member in type.GetProperties(flags))
