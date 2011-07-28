@@ -11,7 +11,8 @@ namespace developwithpassion.specifications.faking
         IManageTheDependenciesForASUT manage_the_dependencies_for_asut;
         IEnumerable<IUpdateNonCtorDependenciesOnAnItem> non_ctor_dependency_visitors;
 
-        public DefaultSUTFactory(IManageTheDependenciesForASUT manage_the_dependencies_for_asut, IEnumerable<IUpdateNonCtorDependenciesOnAnItem> non_ctor_dependency_visitors)
+        public DefaultSUTFactory(IManageTheDependenciesForASUT manage_the_dependencies_for_asut,
+                                 IEnumerable<IUpdateNonCtorDependenciesOnAnItem> non_ctor_dependency_visitors)
         {
             this.actual_factory = create_automatically;
             this.manage_the_dependencies_for_asut = manage_the_dependencies_for_asut;
@@ -26,9 +27,9 @@ namespace developwithpassion.specifications.faking
         SUT create_automatically()
         {
             var greediest_constructor = typeof(SUT).greediest_constructor();
-            var constructor_parameters =
-                greediest_constructor.GetParameters().Select(x => manage_the_dependencies_for_asut.get_dependency_of(x.ParameterType));
-            SUT the_sut = (SUT)greediest_constructor.Invoke(constructor_parameters.ToArray());
+            var constructor_parameters = greediest_constructor.GetParameters().Select(
+                    x => manage_the_dependencies_for_asut.get_dependency_of(x.ParameterType));
+            var the_sut = (SUT) greediest_constructor.Invoke(constructor_parameters.ToArray());
             non_ctor_dependency_visitors.each(visitor => visitor.update(the_sut));
 
             return the_sut;
