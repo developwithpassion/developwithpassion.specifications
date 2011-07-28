@@ -12,7 +12,7 @@ namespace developwithpassion.specifications
     public class DefaultObservationController<Class, Engine> : ObservationController<Class>
         where Class : class
     {
-        Action because_behaviour;
+        public Action because_behaviour;
         Exception exception_that_was_thrown;
         internal IManageFakes fakes_controller;
         ICreateAndManageDependenciesFor<Class> factory;
@@ -41,7 +41,7 @@ namespace developwithpassion.specifications
             return new ChangeExpression(test_state.add_setup_teardown_pair, expression);
         }
 
-        Exception get_exception_thrown_by(Action action)
+        public Exception get_exception_thrown_by(Action action)
         {
             return Catch.Exception(action);
         }

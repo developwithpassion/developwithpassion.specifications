@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="AccessorDoesNotHaveAValueSpecs.cs" />
     <Compile Include="ChangeSpecs.cs" />
+    <Compile Include="DefaultObservationControllerSpecs.cs" />
     <Compile Include="DelegateFactorySpecs.cs" />
     <Compile Include="DependencyRegistrySpecs.cs" />
     <Compile Include="EnumerableAssertionExtensionsSpecs.cs" />
