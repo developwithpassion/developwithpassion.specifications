@@ -15,7 +15,6 @@ namespace developwithpassion.specifications.faking
         public IDictionary<Type, object> explicit_dependencies = new Dictionary<Type, object>();
 
         IResolveADependencyForTheSUT dependency_resolver;
-
         IManageFakes fake_gateway;
 
         public DependenciesRegistry(IResolveADependencyForTheSUT dependency_resolver,IManageFakes fake_gateway)

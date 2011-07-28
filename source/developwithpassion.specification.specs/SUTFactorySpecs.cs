@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Machine.Fakes.Adapters.Rhinomocks;
-using Machine.Fakes.Sdk;
 using Machine.Specifications;
+using developwithpassion.specification.specs.utility;
 using developwithpassion.specifications.core;
 using developwithpassion.specifications.core.factories;
 using developwithpassion.specifications.extensions;
@@ -239,21 +238,9 @@ namespace developwithpassion.specification.specs
             protected static ICreateFakeDelegates FakeDelegatesFactory;
             protected static IResolveADependencyForTheSUT dependency_resolver;
 
-            Establish c = () =>
+            protected static DefaultSUTFactory<ForItem> create_sut<ForItem>() where ForItem : class
             {
-                manage_fakes = new FakesAdapter(new SpecificationController<ItemWithNonFakeableCtorParameters2>(
-                                                    new RhinoFakeEngine()));
-                FakeDelegatesFactory = new FakeDelegateFactory();
-                dependency_resolver = new SUTDependencyResolver(manage_fakes, FakeDelegatesFactory);
-            };
-
-            protected static IDictionary<Type, object> constructor_parameters = new Dictionary<Type, object>();
-
-            protected static DefaultSUTFactory<ForItem> create_sut<ForItem>()
-            {
-                var dependencies_registry = new DependencyRegistryFactory().create(manage_fakes, dependency_resolver);
-                return new DefaultSUTFactory<ForItem>(dependencies_registry,
-                                                      new NonCtorDependencyVisitorFactory().create(dependencies_registry));
+                return ObjectFactory.create<ForItem>();
             }
 
             public class
@@ -297,6 +284,7 @@ namespace developwithpassion.specification.specs
 
                 static DefaultSUTFactory<item_with_dependencies_in_ctor_in_fields_and_in_properties> sut;
                 static item_with_dependencies_in_ctor_in_fields_and_in_properties result;
+                static Func<string, string> to_lower;
             }
 
             public class item_with_dependencies_in_ctor_in_fields_and_in_properties
@@ -304,6 +292,7 @@ namespace developwithpassion.specification.specs
                 IDbConnection connection;
                 public IDataReader reader;
                 public IDataAdapter adapter { get; set; }
+                public Func<string, string> Configuration = item => item.ToUpper();
 
                 public item_with_dependencies_in_ctor_in_fields_and_in_properties(IDbConnection connection)
                 {
