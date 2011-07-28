@@ -55,18 +55,22 @@
     <Compile Include="..\shared\SharedVersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="AccessorDoesNotHaveAValueSpecs.cs" />
     <Compile Include="ChangeSpecs.cs" />
     <Compile Include="DelegateFactorySpecs.cs" />
     <Compile Include="DependencyRegistrySpecs.cs" />
     <Compile Include="EnumerableAssertionExtensionsSpecs.cs" />
+    <Compile Include="MatchExtensionsSpecs.cs" />
+    <Compile Include="NegatingMatcherSpecs.cs" />
+    <Compile Include="NonCtorDependencySetterSpecs.cs" />
     <Compile Include="SUTDependencyResolverSpecs.cs" />
-    <Compile Include="FieldMemberTargetSpecs.cs" />
+    <Compile Include="FieldMemberAccessorSpecs.cs" />
     <Compile Include="FieldReassignmentStartExpressionSpecs.cs" />
     <Compile Include="FieldSwitcherFactorySpecs.cs" />
     <Compile Include="FieldSwitcherSpecs.cs" />
     <Compile Include="MemberTargetRegistrySpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyInfoTargetSpecs.cs" />
+    <Compile Include="PropertyInfoMemberAccessorSpecs.cs" />
     <Compile Include="ObservationPairSpecs.cs" />
     <Compile Include="StringExtensionsSpecs.cs" />
     <Compile Include="SUTFactorySpecs.cs" />

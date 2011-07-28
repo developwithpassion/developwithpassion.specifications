@@ -29,6 +29,58 @@ namespace developwithpassion.specification.specs
             protected static IManageFakes fake_gateway;
         }
 
+        public class when_asked_if_it_has_an_explicit_dependency :concern
+        {
+            Establish c = () =>
+            {
+                dependencies.Add(typeof(IDbConnection), fake.an<IDbConnection>());
+            };
+
+            It should_make_the_decision_based_on_whether_an_explicit_dependency_was_registered = () =>
+            {
+                sut.has_been_provided_an(typeof(IDbConnection)).ShouldBeTrue();
+                sut.has_been_provided_an(typeof(IDbCommand)).ShouldBeFalse();
+            };
+                 
+        }
+        public class when_getting_a_dependency:concern
+        {
+            public class and_the_dependency_has_been_explicitly_provided:when_getting_a_dependency
+            {
+                Establish c = () =>
+                {
+                    the_connection = fake.an<IDbConnection>();
+                    dependencies.Add(typeof(IDbConnection),the_connection);
+                };
+
+                Because b = () =>
+                    result = sut.get_dependency_of(typeof(IDbConnection));
+
+                It should_return_the_item_that_was_registered = () =>
+                    result.ShouldEqual(the_connection);
+
+                static object result;
+                static IDbConnection the_connection;
+            } 
+
+            public class and_the_dependency_was_not_explicitly_provided:when_getting_a_dependency
+            {
+                Establish c = () =>
+                {
+                    the_connection = fake.an<IDbConnection>();
+                    dependency_resolver.setup(x => x.resolve(typeof(IDbConnection))).Return(the_connection);
+                };
+
+                Because b = () =>
+                    result = sut.get_dependency_of(typeof(IDbConnection));
+
+                It should_return_the_item_created_by_the_dependency_resolver = () =>
+                    result.ShouldEqual(the_connection);
+
+                static object result;
+                static IDbConnection the_connection;
+            } 
+        }
         public class when_storing_a_dependency : concern
         {
             public class and_it_has_not_already_been_stored : when_storing_a_dependency

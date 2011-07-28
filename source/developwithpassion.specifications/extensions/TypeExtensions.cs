@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using developwithpassion.specifications.core.reflection;
 
 namespace developwithpassion.specifications.extensions
 {
@@ -28,6 +29,17 @@ namespace developwithpassion.specifications.extensions
                 type.GetGenericArguments().each(x => message.AppendFormat("<{0}>", x));
             }
             return message.ToString();
+        }
+
+        public static IEnumerable<MemberAccessor> all_instance_accessors(this Type type)
+        {
+            var registry = new MemberAccessorRegistry();
+            var flags = BindingFlags.Instance | BindingFlags.Public;
+            foreach (var member in type.GetFields(flags))
+                yield return registry.get_accessor_for(member);
+            foreach (var member in type.GetProperties(flags))
+                yield return registry.get_accessor_for(member);
+
         }
     }
 }

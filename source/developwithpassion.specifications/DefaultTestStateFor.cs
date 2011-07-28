@@ -9,15 +9,12 @@ namespace developwithpassion.specifications
     {
         SUT sut;
         ICreateThe<SUT> factory;
-        IList<ObservationPair> setup_tear_down_pairs;
-        IList<SUTContextSetup<SUT>> sut_context_behaviours;
+        public IList<ObservationPair> setup_tear_down_pairs = new List<ObservationPair>();
+        public IList<SUTContextSetup<SUT>> sut_context_behaviours = new List<SUTContextSetup<SUT>>();
 
-        public DefaultTestStateFor(ICreateThe<SUT> factory, IList<ObservationPair> behaviours,
-                                   IList<SUTContextSetup<SUT>> sut_context_behaviours)
+        public DefaultTestStateFor(ICreateThe<SUT> factory)
         {
             this.factory = factory;
-            this.setup_tear_down_pairs = behaviours;
-            this.sut_context_behaviours = sut_context_behaviours;
         }
 
         public void add_setup_teardown_pair(ObservationPair observation_pair)

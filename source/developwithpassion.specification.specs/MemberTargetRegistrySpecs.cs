@@ -1,4 +1,5 @@
 using System.Reflection;
+using developwithpassion.specifications.core.reflection;
 using developwithpassion.specifications.dsl.fieldswitching;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.rhinomocks;
@@ -8,7 +9,7 @@ namespace developwithpassion.specification.specs
 {
     public class MemberTargetRegistrySpecs
     {
-        public class concern : Observes<MemberTargetRegistry, DefaultMemberTargetRegistry>
+        public class concern : Observes<IFindAccessorsForMembers, MemberAccessorRegistry>
         {
             Establish c = delegate
             {
@@ -26,28 +27,28 @@ namespace developwithpassion.specification.specs
             public static string static_property { get; set; }
         }
 
-        [Subject(typeof(DefaultMemberTargetRegistry))]
+        [Subject(typeof(MemberAccessorRegistry))]
         public class when_getting_a_member_target_for_a_member_that_represents_a_field : concern
         {
             Because b = () =>
-                result = sut.get_member_target_for(field);
+                result = sut.get_accessor_for(field);
 
             It should_get_a_field_member_target = () =>
-                result.ShouldBeAn<FieldMemberTarget>();
+                result.ShouldBeAn<FieldMemberAccessor>();
 
-            protected static MemberTarget result;
+            protected static MemberAccessor result;
         }
 
-        [Subject(typeof(DefaultMemberTargetRegistry))]
+        [Subject(typeof(MemberAccessorRegistry))]
         public class when_getting_a_member_target_for_a_member_that_represents_a_property : concern
         {
             Because b = () =>
-                result = sut.get_member_target_for(property);
+                result = sut.get_accessor_for(property);
 
             It should_get_a_field_member_target = () =>
-                result.ShouldBeAn<PropertyInfoMemberTarget>();
+                result.ShouldBeAn<PropertyInfoMemberAccessor>();
 
-            protected static MemberTarget result;
+            protected static MemberAccessor result;
         }
     }
 }

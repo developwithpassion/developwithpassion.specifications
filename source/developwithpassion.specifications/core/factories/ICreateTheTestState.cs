@@ -6,4 +6,12 @@ namespace developwithpassion.specifications.core.factories
     {
         TestStateFor<SUT> create_for<SUT>(ICreateAndManageDependenciesFor<SUT> sut_factory) where SUT : class;
     }
+
+    public class TestStateFactory : ICreateTheTestState
+    {
+        public TestStateFor<SUT> create_for<SUT>(ICreateAndManageDependenciesFor<SUT> sut_factory) where SUT : class
+        {
+            return new DefaultTestStateFor<SUT>(sut_factory);
+        }
+    }
 }

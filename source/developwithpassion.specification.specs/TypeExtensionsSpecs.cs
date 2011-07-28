@@ -1,12 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Reflection;
-using developwithpassion.specifications.extensions;
-using Machine.Specifications;
 using System.Linq;
+using System.Reflection;
+using Machine.Specifications;
+using developwithpassion.specifications.core.reflection;
+using developwithpassion.specifications.extensions;
 
 namespace developwithpassion.specification.specs
 {
+    [Subject(typeof(TypeExtensions))]
     public class TypeExtensionsSpecs
     {
         public delegate void SomeThing();
@@ -16,6 +19,7 @@ namespace developwithpassion.specification.specs
             public SomeThing first_thing;
             public SomeThing second_thing;
             public int third_thing;
+
             public SomethingWithParameterfulConstructors(IDbConnection connection) : this(connection, null)
             {
             }
@@ -30,7 +34,6 @@ namespace developwithpassion.specification.specs
             public IDbConnection connection { get; set; }
         }
 
-        [Subject(typeof(TypeExtensions))]
         public class when_a_generic_type_is_told_to_return_its_proper_name
         {
             Because b = () =>
@@ -42,7 +45,6 @@ namespace developwithpassion.specification.specs
             protected static string result;
         }
 
-        [Subject(typeof(TypeExtensions))]
         public class when_a_type_is_told_to_find_its_greediest_constructor
         {
             Because b = () =>
@@ -54,7 +56,6 @@ namespace developwithpassion.specification.specs
             protected static ConstructorInfo result;
         }
 
-        [Subject(typeof(TypeExtensions))]
         public class when_told_to_get_a_list_of_fields_of_certain_type
         {
             Because b = () =>
@@ -67,6 +68,27 @@ namespace developwithpassion.specification.specs
                 result.Count().ShouldEqual(2);
 
             protected static IEnumerable<FieldInfo> result;
+        }
+
+        public class when_getting_all_of_the_accessors_belonging_to_a_type
+        {
+            Because b = () =>
+                results =
+                    typeof(SomeTypeWithPropertiesAndFields).all_instance_accessors();
+
+            It should_only_get_the_public_fields_and_properties = () =>
+                results.Count().ShouldEqual(3);
+
+            static IEnumerable<MemberAccessor> results;
+        }
+
+        public class SomeTypeWithPropertiesAndFields
+        {
+            public int Age { get; set; }
+            public int Year { get; set; }
+            DateTime Birthday { get; set; }
+            DateTime date;
+            public DateTime other_date;
         }
     }
 }

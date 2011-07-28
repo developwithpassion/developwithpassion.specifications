@@ -1,4 +1,5 @@
 using System.Reflection;
+using developwithpassion.specifications.core.reflection;
 using developwithpassion.specifications.dsl.fieldswitching;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.rhinomocks;
@@ -18,15 +19,15 @@ namespace developwithpassion.specification.specs
             Establish c = () =>
             {
                 member = typeof(Item).GetProperty("static_value");
-                registry = depends.on<MemberTargetRegistry>();
-                member_target = fake.an<MemberTarget>();
-                member_target.setup(x => x.get_value()).Return("Blah");
-                registry.setup(x => x.get_member_target_for(member)).Return(member_target);
+                registry = depends.on<IFindAccessorsForMembers>();
+                member_accessor = fake.an<MemberAccessor>();
+                member_accessor.setup(x => x.get_value(typeof(Item))).Return("Blah");
+                registry.setup(x => x.get_accessor_for(member)).Return(member_accessor);
             };
 
             protected static PropertyInfo member;
-            protected static MemberTarget member_target;
-            protected static MemberTargetRegistry registry;
+            protected static MemberAccessor member_accessor;
+            protected static IFindAccessorsForMembers registry;
         }
 
         [Subject(typeof(DefaultFieldSwitcherFactory))]

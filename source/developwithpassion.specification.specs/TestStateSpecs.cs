@@ -23,9 +23,12 @@ namespace developwithpassion.specification.specs
                 setup_behaviours = new List<ObservationPair>();
                 factory = fake.an<ICreateAndManageDependenciesFor<SomeItem>>();
                 sut_context_behaviours = new List<SUTContextSetup<SomeItem>>();
-                sut = new DefaultTestStateFor<SomeItem>(factory, setup_behaviours, sut_context_behaviours);
+                sut = new DefaultTestStateFor<SomeItem>(factory);
+                concrete_sut.setup_tear_down_pairs = setup_behaviours;
+                concrete_sut.sut_context_behaviours = sut_context_behaviours;
             };
 
+            protected static DefaultTestStateFor<SomeItem>  concrete_sut{get{ return sut.downcast_to<DefaultTestStateFor<SomeItem>>();}}
             protected static ICreateAndManageDependenciesFor<SomeItem> factory;
             protected static IList<ObservationPair> setup_behaviours;
             protected static TestStateFor<SomeItem> sut;

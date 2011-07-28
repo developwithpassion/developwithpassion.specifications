@@ -55,15 +55,14 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="core\factories\Factories.cs" />
-    <Compile Include="core\factories\FakeGatewayFactory.cs" />
-    <Compile Include="core\factories\FakesAdapterFactory.cs" />
     <Compile Include="core\factories\ICreateANonGenericToGenericFakeAdapter.cs" />
+    <Compile Include="core\factories\ICreateTheDependencyRegistry.cs" />
     <Compile Include="core\factories\ICreateTheFactoryThatCreatesTheSUT.cs" />
     <Compile Include="core\factories\ICreateTheFakesGateway.cs" />
     <Compile Include="core\factories\ICreateTheMainObservationController.cs" />
+    <Compile Include="core\factories\ICreateTheNonCtorDependencyVisitor.cs" />
     <Compile Include="core\factories\ICreateTheTestState.cs" />
-    <Compile Include="core\factories\MainControllerFactory.cs" />
-    <Compile Include="core\factories\SUTFactoryProvider.cs" />
+    <Compile Include="core\factories\NonCtorDependencySetter.cs" />
     <Compile Include="core\factories\TestStateFactory.cs" />
     <Compile Include="core\IConfigureSetupPairs.cs" />
     <Compile Include="core\IConfigureSpecifications.cs" />
@@ -72,25 +71,29 @@
     <Compile Include="core\ICreateFakes.cs" />
     <Compile Include="core\ICreateTheSUT.cs" />
     <Compile Include="core\IManageFakes.cs" />
+    <Compile Include="core\IMatchAnItem.cs" />
     <Compile Include="core\IProvideDependencies.cs" />
+    <Compile Include="core\NegatingMatcher.cs" />
+    <Compile Include="core\reflection\AccessorHasAValue.cs" />
     <Compile Include="core\TestStateFor.cs" />
     <Compile Include="DefaultObservationController.cs" />
     <Compile Include="DefaultTestStateFor.cs" />
     <Compile Include="dsl\fieldswitching\ChangeExpression.cs" />
     <Compile Include="dsl\fieldswitching\MemberTargetValueSwapper.cs" />
     <Compile Include="dsl\fieldswitching\DefaultFieldSwitcherFactory.cs" />
-    <Compile Include="dsl\fieldswitching\DefaultMemberTargetRegistry.cs" />
-    <Compile Include="dsl\fieldswitching\FieldMemberTarget.cs" />
+    <Compile Include="core\reflection\MemberAccessorRegistry.cs" />
+    <Compile Include="core\reflection\FieldMemberAccessor.cs" />
     <Compile Include="dsl\fieldswitching\FieldReassignmentStartExpression.cs" />
     <Compile Include="dsl\fieldswitching\ISwapValues.cs" />
     <Compile Include="dsl\fieldswitching\FieldSwitcherFactory.cs" />
-    <Compile Include="dsl\fieldswitching\MemberTarget.cs" />
-    <Compile Include="dsl\fieldswitching\MemberTargetRegistry.cs" />
-    <Compile Include="dsl\fieldswitching\PropertyInfoMemberTarget.cs" />
+    <Compile Include="core\reflection\MemberAccessor.cs" />
+    <Compile Include="dsl\fieldswitching\IFindAccessorsForMembers.cs" />
+    <Compile Include="core\reflection\PropertyInfoMemberAccessor.cs" />
     <Compile Include="extensions\AssertionExtensions.cs" />
     <Compile Include="extensions\EnumerableAssertionExtensions.cs" />
     <Compile Include="extensions\FakeExtensions.cs" />
     <Compile Include="extensions\IterationExtensions.cs" />
+    <Compile Include="extensions\MatchExtensions.cs" />
     <Compile Include="extensions\StringExtensions.cs" />
     <Compile Include="extensions\TypeCastingExtensions.cs" />
     <Compile Include="extensions\TypeExtensions.cs" />
@@ -116,6 +119,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

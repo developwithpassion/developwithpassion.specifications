@@ -1,4 +1,6 @@
+using System;
 using developwithpassion.specifications;
+using developwithpassion.specifications.core.reflection;
 using developwithpassion.specifications.dsl.fieldswitching;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.rhinomocks;
@@ -13,18 +15,21 @@ namespace developwithpassion.specification.specs
             Establish c = () =>
             {
                 original_value = "sdfsdfs";
-                target = depends.on<MemberTarget>();
+                accessor = depends.on<MemberAccessor>();
+                the_target_type = typeof(int);
+                accessor.setup(x => x.declaring_type).Return(the_target_type);
             };
 
-            protected static MemberTarget target;
+            protected static MemberAccessor accessor;
             protected static string original_value;
+            protected static Type the_target_type;
         }
 
         [Subject(typeof(ISwapValues))]
         public class when_constructed : concern
         {
             It should_use_the_target_to_get_the_original_value = () =>
-                target.received(x => x.get_value());
+                accessor.received(x => x.get_value(the_target_type));
 
             static string value_to_change_to;
         }
@@ -35,7 +40,7 @@ namespace developwithpassion.specification.specs
             Establish c = () =>
             {
                 value_to_change_to = "sdfsdf";
-                target.setup(x => x.get_value()).Return(original_value);
+                accessor.setup(x => x.get_value(the_target_type)).Return(original_value);
             };
 
             Because b = () =>
@@ -44,9 +49,9 @@ namespace developwithpassion.specification.specs
             It should_provide_the_pipeline_pair_that_can_do_the_switching = () =>
             {
                 result.setup();
-                target.received(x => x.change_value_to(value_to_change_to));
+                accessor.received(x => x.change_value_to(the_target_type,value_to_change_to));
                 result.teardown();
-                target.received(x => x.change_value_to(original_value));
+                accessor.received(x => x.change_value_to(the_target_type,original_value));
             };
 
             protected static ObservationPair result;

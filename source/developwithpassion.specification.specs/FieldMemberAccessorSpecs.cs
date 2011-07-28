@@ -1,33 +1,36 @@
+using System;
 using System.Reflection;
-using developwithpassion.specifications.dsl.fieldswitching;
-using developwithpassion.specifications.rhinomocks;
 using Machine.Specifications;
+using developwithpassion.specifications.core.reflection;
+using developwithpassion.specifications.rhinomocks;
 
 namespace developwithpassion.specification.specs
 {
-    public class FieldMemberTargetSpecs
+    [Subject(typeof(FieldMemberAccessor))]
+    public class FieldMemberAccessorSpecs
     {
         public class TheItem
         {
             public static string static_value = "lah";
         }
 
-        public class concern : Observes<MemberTarget, FieldMemberTarget>
+        public class concern : Observes<MemberAccessor, FieldMemberAccessor>
         {
             Establish c = delegate
             {
-                member = typeof(TheItem).GetMember("static_value")[0];
+                the_target_type = typeof(TheItem);
+                member = the_target_type.GetField("static_value");
                 depends.on(member);
             };
 
-            protected static MemberInfo member;
+            protected static FieldInfo member;
+            protected static Type the_target_type;
         }
 
-        [Subject(typeof(FieldMemberTarget))]
         public class when_getting_Its_value : concern
         {
             Because b = () =>
-                result = sut.get_value();
+                result = sut.get_value(the_target_type);
 
             It should_get_the_value_of_the_field = () =>
                 result.ShouldEqual(TheItem.static_value);
@@ -35,7 +38,12 @@ namespace developwithpassion.specification.specs
             protected static object result;
         }
 
-        [Subject(typeof(FieldMemberTarget))]
+        public class when_gettings_its_accessor_type:concern
+        {
+            It should_return_the_type_of_its_field = () =>
+                sut.accessor_type.ShouldEqual(member.FieldType);
+        }
+
         public class when_setting_Its_value : concern
         {
             Establish c = () =>
@@ -45,7 +53,7 @@ namespace developwithpassion.specification.specs
             };
 
             Because b = () =>
-                sut.change_value_to(value_to_change_to);
+                sut.change_value_to(the_target_type, value_to_change_to);
 
             It should_change_the_value_of_the_field = () =>
                 TheItem.static_value.ShouldEqual(value_to_change_to);

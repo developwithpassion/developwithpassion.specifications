@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using Machine.Fakes.Adapters.Rhinomocks;
 using Machine.Fakes.Sdk;
 using Machine.Specifications;
@@ -21,7 +20,7 @@ namespace developwithpassion.specification.specs
             {
                 connection = fake.an<IDbConnection>();
                 command = fake.an<IDbCommand>();
-                non_ctor_dependency_visitors = new List<IUpdateNonCtorDependenciesOnAnItem>();
+                non_ctor_dependency_visitor = fake.an<IUpdateNonCtorDependenciesOnAnItem>();
                 dependency_registry = fake.an<IManageTheDependenciesForASUT>();
                 dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Return(connection);
                 dependency_registry.setup(x => x.get_dependency_of(typeof(IDbCommand))).Return(command);
@@ -30,13 +29,13 @@ namespace developwithpassion.specification.specs
             protected static DefaultSUTFactory<ItemToBeCreated> create_sut<ItemToBeCreated>()
             {
                 return new DefaultSUTFactory<ItemToBeCreated>(dependency_registry,
-                    non_ctor_dependency_visitors);
+                                                              non_ctor_dependency_visitor);
             }
 
             protected static IDbCommand command;
             protected static IDbConnection connection;
             protected static IManageTheDependenciesForASUT dependency_registry;
-            protected static IList<IUpdateNonCtorDependenciesOnAnItem> non_ctor_dependency_visitors;
+            protected static IUpdateNonCtorDependenciesOnAnItem non_ctor_dependency_visitor;
         }
 
         public class concern_for_type_with_some_non_fakeable_ctor_parameters : concern
@@ -57,15 +56,14 @@ namespace developwithpassion.specification.specs
             {
                 Establish c = () =>
                 {
-                    Enumerable.Range(1, 100).each(x => non_ctor_dependency_visitors.Add(fake.an<IUpdateNonCtorDependenciesOnAnItem>()));
                     sut = create_sut<ItemWithNoCtorParameters>();
                 };
 
                 Because b = () =>
                     result = sut.create();
 
-                It should_run_each_of_the_dependency_supplementary_visitors_against_the_created_instance = () =>
-                    non_ctor_dependency_visitors.each(visitor => visitor.received(x => x.update(result)));
+                It should_run_the_non_ctor_dependency_visitor_against_the_created_item = () =>
+                    non_ctor_dependency_visitor.received(x => x.update(result));
 
                 static ItemWithNoCtorParameters result;
                 static DefaultSUTFactory<ItemWithNoCtorParameters> sut;
@@ -259,7 +257,7 @@ namespace developwithpassion.specification.specs
             protected static DefaultSUTFactory<ForItem> create_sut<ForItem>()
             {
                 return new DefaultSUTFactory<ForItem>(new DependenciesRegistry(dependency_resolver, manage_fakes),
-                                                      new List<IUpdateNonCtorDependenciesOnAnItem>());
+                                                      new NulloVisitor());
             }
 
             [Subject(typeof(DefaultSUTFactory<>))]
@@ -340,6 +338,13 @@ namespace developwithpassion.specification.specs
             public SomeOtherType(int number)
             {
                 this.number = number;
+            }
+        }
+
+        public class NulloVisitor : IUpdateNonCtorDependenciesOnAnItem
+        {
+            public void update(object item)
+            {
             }
         }
     }
