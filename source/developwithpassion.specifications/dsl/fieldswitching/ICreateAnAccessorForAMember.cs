@@ -23,7 +23,7 @@ namespace developwithpassion.specifications.dsl.fieldswitching
         {
             if (accessor_factories.ContainsKey(member.MemberType)) return accessor_factories[member.MemberType](member);
 
-            throw new ArgumentException(string.Format("Unable to handle the request member type", new object[0]));
+            throw new ArgumentException("Unable to create an accessor for the requested member type");
         }
     }
 }
