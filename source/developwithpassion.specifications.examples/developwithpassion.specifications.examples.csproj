@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="automatic_sut_creation\with_automatic_generation_of_fakeable_contructor_parameters.cs" />
     <Compile Include="automatic_sut_creation\with_all_fakeable_constructor_parameters_required.cs" />
+    <Compile Include="automatic_sut_creation\with_a_mix_of_dependencies_in_the_ctor_properties_and_fields.cs" />
     <Compile Include="automatic_sut_creation\with_a_mix_of_fakeable_and_non_fakeable_contructor_parameters.cs" />
     <Compile Include="automatic_sut_creation\with_no_constructor_parameters_required.cs" />
     <Compile Include="automatic_sut_creation\with_no_fakeable_contructor_parameters.cs" />

@@ -74,7 +74,6 @@
     <Compile Include="ObservationPairSpecs.cs" />
     <Compile Include="StringExtensionsSpecs.cs" />
     <Compile Include="SUTFactorySpecs.cs" />
-    <Compile Include="SUTFactorySpecs_2.cs" />
     <Compile Include="SUTObservationContextSpecs.cs" />
     <Compile Include="TestStateSpecs.cs" />
     <Compile Include="TypeCastingExtensionsSpecs.cs" />

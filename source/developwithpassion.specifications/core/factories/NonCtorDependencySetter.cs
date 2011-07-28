@@ -10,7 +10,7 @@ namespace developwithpassion.specifications.core.factories
     {
         IManageTheDependenciesForASUT dependency_registry;
 
-        public Func<object, IMatchAnItem<MemberAccessor>> has_no_value_set_match_factory = target =>
+        public Func<object, IMatchAnItem<MemberAccessor>> has_no_value_specification_factory = target =>
             new AccessorHasAValue(target).not();
 
         public NonCtorDependencySetter(IManageTheDependenciesForASUT dependency_registry)
@@ -20,7 +20,7 @@ namespace developwithpassion.specifications.core.factories
 
         public void update(object item)
         {
-            var has_no_value_specification = has_no_value_set_match_factory(item);
+            var has_no_value_specification = has_no_value_specification_factory(item);
             item.GetType().all_instance_accessors()
                 .Where(field => has_no_value_specification.matches(field) || dependency_registry.has_been_provided_an(field.accessor_type))
                 .each(field => field.change_value_to(item, dependency_registry.get_dependency_of(field.accessor_type)));

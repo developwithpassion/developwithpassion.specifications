@@ -5,6 +5,7 @@ using Machine.Fakes.Adapters.Rhinomocks;
 using Machine.Fakes.Sdk;
 using Machine.Specifications;
 using developwithpassion.specifications.core;
+using developwithpassion.specifications.core.factories;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.faking;
 using developwithpassion.specifications.rhinomocks;
@@ -12,7 +13,7 @@ using developwithpassion.specifications.rhinomocks;
 namespace developwithpassion.specification.specs
 {
     [Subject(typeof(DefaultSUTFactory<>))]
-    public partial class SUTFactorySpecs
+    public class SUTFactorySpecs
     {
         public class concern : Observes
         {
@@ -90,7 +91,6 @@ namespace developwithpassion.specification.specs
             static IDbConnection result;
         }
 
-        [Subject(typeof(DefaultSUTFactory<>))]
         public class when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked :
             concern_for_type_with_some_non_fakeable_ctor_parameters
         {
@@ -128,7 +128,6 @@ namespace developwithpassion.specification.specs
             }
         }
 
-        [Subject(typeof(DefaultSUTFactory<>))]
         public class when_creating_an_item_and_no_constructor_arguments_have_been_provided : concern
         {
             Establish c = () =>
@@ -151,7 +150,6 @@ namespace developwithpassion.specification.specs
             static DefaultSUTFactory<ItemToCreate> sut;
         }
 
-        [Subject(typeof(DefaultSUTFactory<>))]
         public class when_creating_an_item_and_a_constructor_argument_was_provided : concern
         {
             public class AnItemToCreate
@@ -179,7 +177,6 @@ namespace developwithpassion.specification.specs
             }
         }
 
-        [Subject(typeof(DefaultSUTFactory<>))]
         public class when_providing_a_specific_constructor_parameter_for_the_sut : concern
         {
             protected static DefaultSUTFactory<ItemToCreate> sut;
@@ -199,7 +196,6 @@ namespace developwithpassion.specification.specs
             static int result;
         }
 
-        [Subject(typeof(DefaultSUTFactory<>))]
         public class when_provided_a_specific_factory_method : concern
         {
             Establish c = () =>
@@ -218,7 +214,6 @@ namespace developwithpassion.specification.specs
             static DefaultSUTFactory<ItemToCreate> sut;
         }
 
-        [Subject(typeof(DefaultSUTFactory<>))]
         public class when_providing_a_constructor_argument_for_the_sut_and_an_explicit_factory_has_been_provided :
             concern
         {
@@ -256,11 +251,11 @@ namespace developwithpassion.specification.specs
 
             protected static DefaultSUTFactory<ForItem> create_sut<ForItem>()
             {
-                return new DefaultSUTFactory<ForItem>(new DependenciesRegistry(dependency_resolver, manage_fakes),
-                                                      new NulloVisitor());
+                var dependencies_registry = new DependencyRegistryFactory().create(manage_fakes, dependency_resolver);
+                return new DefaultSUTFactory<ForItem>(dependencies_registry,
+                                                      new NonCtorDependencyVisitorFactory().create(dependencies_registry));
             }
 
-            [Subject(typeof(DefaultSUTFactory<>))]
             public class
                 when_constructing_a_type_that_has_struct_dependencies_that_have_not_been_provided :
                     integration
@@ -278,6 +273,47 @@ namespace developwithpassion.specification.specs
 
                 static DefaultSUTFactory<ItemWithNonFakeableCtorParameters2> sut;
                 static ItemWithNonFakeableCtorParameters2 result;
+            }
+
+            public class
+                when_constructing_a_type_that_has_dependencies_specified_as_a_mixture_of_field_properties_and_ctor_args :
+                    integration
+            {
+                Establish c = () =>
+                {
+                    sut = create_sut<item_with_dependencies_in_ctor_in_fields_and_in_properties>();
+                };
+
+                Because b = () =>
+                    result = sut.create();
+
+                It should_create_the_item_with_all_dependencies_satisfied = () =>
+                {
+                    result.ShouldNotBeNull();
+                    result.reader.ShouldNotBeNull();
+                    result.adapter.ShouldNotBeNull();
+                    result.get_the_connection().ShouldNotBeNull();
+                };
+
+                static DefaultSUTFactory<item_with_dependencies_in_ctor_in_fields_and_in_properties> sut;
+                static item_with_dependencies_in_ctor_in_fields_and_in_properties result;
+            }
+
+            public class item_with_dependencies_in_ctor_in_fields_and_in_properties
+            {
+                IDbConnection connection;
+                public IDataReader reader;
+                public IDataAdapter adapter { get; set; }
+
+                public item_with_dependencies_in_ctor_in_fields_and_in_properties(IDbConnection connection)
+                {
+                    this.connection = connection;
+                }
+
+                public IDbConnection get_the_connection()
+                {
+                    return connection;
+                }
             }
         }
 
