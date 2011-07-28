@@ -81,13 +81,12 @@
     <Compile Include="dsl\fieldswitching\ChangeExpression.cs" />
     <Compile Include="dsl\fieldswitching\MemberTargetValueSwapper.cs" />
     <Compile Include="dsl\fieldswitching\DefaultFieldSwitcherFactory.cs" />
-    <Compile Include="core\reflection\MemberAccessorRegistry.cs" />
     <Compile Include="core\reflection\FieldMemberAccessor.cs" />
     <Compile Include="dsl\fieldswitching\FieldReassignmentStartExpression.cs" />
     <Compile Include="dsl\fieldswitching\ISwapValues.cs" />
     <Compile Include="dsl\fieldswitching\FieldSwitcherFactory.cs" />
     <Compile Include="core\reflection\MemberAccessor.cs" />
-    <Compile Include="dsl\fieldswitching\IFindAccessorsForMembers.cs" />
+    <Compile Include="dsl\fieldswitching\ICreateAnAccessorForAMember.cs" />
     <Compile Include="core\reflection\PropertyInfoMemberAccessor.cs" />
     <Compile Include="extensions\AssertionExtensions.cs" />
     <Compile Include="extensions\EnumerableAssertionExtensions.cs" />

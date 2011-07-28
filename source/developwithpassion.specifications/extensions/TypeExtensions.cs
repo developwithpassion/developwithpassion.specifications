@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using developwithpassion.specifications.core.reflection;
+using developwithpassion.specifications.dsl.fieldswitching;
 
 namespace developwithpassion.specifications.extensions
 {
@@ -33,12 +34,12 @@ namespace developwithpassion.specifications.extensions
 
         public static IEnumerable<MemberAccessor> all_instance_accessors(this Type type)
         {
-            var registry = new MemberAccessorRegistry();
+            var registry = new MemberAccessorFactory();
             var flags = BindingFlags.Instance | BindingFlags.Public;
             foreach (var member in type.GetFields(flags))
-                yield return registry.get_accessor_for(member);
+                yield return registry.create_accessor_for(member);
             foreach (var member in type.GetProperties(flags))
-                yield return registry.get_accessor_for(member);
+                yield return registry.create_accessor_for(member);
 
         }
     }

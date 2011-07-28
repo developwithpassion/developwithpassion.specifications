@@ -19,15 +19,15 @@ namespace developwithpassion.specification.specs
             Establish c = () =>
             {
                 member = typeof(Item).GetProperty("static_value");
-                registry = depends.on<IFindAccessorsForMembers>();
+                registry = depends.on<ICreateAnAccessorForAMember>();
                 member_accessor = fake.an<MemberAccessor>();
                 member_accessor.setup(x => x.get_value(typeof(Item))).Return("Blah");
-                registry.setup(x => x.get_accessor_for(member)).Return(member_accessor);
+                registry.setup(x => x.create_accessor_for(member)).Return(member_accessor);
             };
 
             protected static PropertyInfo member;
             protected static MemberAccessor member_accessor;
-            protected static IFindAccessorsForMembers registry;
+            protected static ICreateAnAccessorForAMember registry;
         }
 
         [Subject(typeof(DefaultFieldSwitcherFactory))]

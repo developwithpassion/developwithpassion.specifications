@@ -9,7 +9,7 @@ namespace developwithpassion.specification.specs
 {
     public class MemberTargetRegistrySpecs
     {
-        public class concern : Observes<IFindAccessorsForMembers, MemberAccessorRegistry>
+        public class concern : Observes<ICreateAnAccessorForAMember, MemberAccessorFactory>
         {
             Establish c = delegate
             {
@@ -27,11 +27,11 @@ namespace developwithpassion.specification.specs
             public static string static_property { get; set; }
         }
 
-        [Subject(typeof(MemberAccessorRegistry))]
+        [Subject(typeof(MemberAccessorFactory))]
         public class when_getting_a_member_target_for_a_member_that_represents_a_field : concern
         {
             Because b = () =>
-                result = sut.get_accessor_for(field);
+                result = sut.create_accessor_for(field);
 
             It should_get_a_field_member_target = () =>
                 result.ShouldBeAn<FieldMemberAccessor>();
@@ -39,11 +39,11 @@ namespace developwithpassion.specification.specs
             protected static MemberAccessor result;
         }
 
-        [Subject(typeof(MemberAccessorRegistry))]
+        [Subject(typeof(MemberAccessorFactory))]
         public class when_getting_a_member_target_for_a_member_that_represents_a_property : concern
         {
             Because b = () =>
-                result = sut.get_accessor_for(property);
+                result = sut.create_accessor_for(property);
 
             It should_get_a_field_member_target = () =>
                 result.ShouldBeAn<PropertyInfoMemberAccessor>();
