@@ -24,7 +24,7 @@ namespace developwithpassion.specifications.core.reflection
 
         public void change_value_to(object target,object new_value)
         {
-            this.member.SetValue(target, new_value, null);
+            if (member.CanWrite) this.member.SetValue(target, new_value, null);
         }
 
         public string name
