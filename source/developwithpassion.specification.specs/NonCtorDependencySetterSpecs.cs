@@ -146,20 +146,16 @@ namespace developwithpassion.specification.specs
                 {
                     Establish c = () =>
                     {
-                        the_connection_from_the_registry = fake.an<IDbConnection>();
-                        dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Return(
-                            the_connection_from_the_registry);
                         item = new ItemToUpdate();
                     };
 
                     Because b = () =>
                         sut.update(item);
 
-                    It should_update_the_fields_with_the_values_from_the_dependency_registry = () =>
-                        item.connection.ShouldEqual(the_connection_from_the_registry);
+                    It should_not_update_the_value_of_field = () =>
+                        item.connection.ShouldBeNull();
 
                     static ItemToUpdate item;
-                    static IDbConnection the_connection_from_the_registry;
                 }
             }
 
@@ -194,9 +190,6 @@ namespace developwithpassion.specification.specs
                 {
                     Establish c = () =>
                     {
-                        the_connection_from_the_registry = fake.an<IDbConnection>();
-                        dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Return(
-                            the_connection_from_the_registry);
                         original_connection = fake.an<IDbConnection>();
                         item = new ItemToUpdate {connection = original_connection};
                     };
