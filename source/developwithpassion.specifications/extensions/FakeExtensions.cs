@@ -23,5 +23,11 @@ namespace developwithpassion.specifications.extensions
         {
             return fake.WhenToldTo(func);
         }
+
+        public static ICommandOptions setup<TFake>(this TFake fake,
+                                                                             Expression<Action<TFake>> action) where TFake:class
+        {
+            return fake.WhenToldTo(action);
+        }
     }
 }
