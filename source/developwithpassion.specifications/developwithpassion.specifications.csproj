@@ -35,10 +35,10 @@
       <HintPath>..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Fakes">
-      <HintPath>..\..\packages\Machine.Fakes.0.2.5\lib\Machine.Fakes.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Fakes.0.2.6\lib\Machine.Fakes.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications">
-      <HintPath>..\..\packages\Machine.Specifications.0.4.21.0\lib\Machine.Specifications.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Specifications.0.4.24.0\lib\Machine.Specifications.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>..\..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>

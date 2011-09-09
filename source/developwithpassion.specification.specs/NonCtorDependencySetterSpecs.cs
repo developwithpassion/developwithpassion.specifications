@@ -175,17 +175,19 @@ namespace developwithpassion.specification.specs
                         dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection))).Return(true);
                         dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Return(
                             the_connection_from_the_registry);
-                        item = new ItemToUpdate {connection = new SqlConnection()};
+                        original_connection = fake.an<IDbConnection>();
+                        item = new ItemToUpdate {connection = original_connection};
                     };
 
                     Because b = () =>
                         sut.update(item);
 
-                    It should_update_the_accessors_with_the_values_from_the_dependency_registry = () =>
+                    It should_overwrite_the_value = () =>
                         item.connection.ShouldEqual(the_connection_from_the_registry);
 
                     static ItemToUpdate item;
                     static IDbConnection the_connection_from_the_registry;
+                    static IDbConnection original_connection;
                 }
 
                 public class and_the_dependencies_were_not_specified_in_the_registry :
