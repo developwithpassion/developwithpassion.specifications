@@ -19,6 +19,16 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
             It should_return_the_sum = () =>
                 result.ShouldEqual(5);
 
+            It should_set_the_date_correctly = () =>
+                sut.current_date.ShouldEqual(the_date);
+
+            It should_have_initialized_the_connection = () =>
+                sut.connection.ShouldNotBeNull();
+
+            It should_have_initialized_the_delegate = () =>
+                sut.some_delegate.ShouldNotBeNull();
+            
+
             static int result;
             static DateTime the_date = new DateTime(2011, 1, 1);
         }
