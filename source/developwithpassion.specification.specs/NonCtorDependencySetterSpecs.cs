@@ -185,6 +185,36 @@ namespace developwithpassion.specification.specs
                     static IDbConnection original_connection;
                 }
 
+                public class and_the_accessor_is_initialized_in_the_initializer : and_the_accessors_have_been_set
+                {
+                    public class SomeItem
+                    {
+                    }
+
+                    public class ItemWithInitializer
+                    {
+                        public SomeItem some_item = new SomeItem();
+                    }
+
+                    Establish c = () =>
+                    {
+                        item = new SomeItem();
+                        dependency_registry.setup(x => x.has_been_provided_an(typeof(SomeItem))).Return(true);
+                        dependency_registry.setup(x => x.get_dependency_of(typeof(SomeItem))).Return(
+                            item);
+                        target = new ItemWithInitializer();
+                    };
+
+                    Because b = () =>
+                        sut.update(target);
+
+                    It should_update_the_item = () =>
+                        target.some_item.ShouldEqual(item);
+
+                    static SomeItem item;
+                    static ItemWithInitializer target;
+                }
+
                 public class and_the_dependencies_were_not_specified_in_the_registry :
                     and_the_accessors_have_been_set
                 {

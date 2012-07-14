@@ -35,10 +35,13 @@
       <HintPath>..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Fakes">
-      <HintPath>..\..\packages\Machine.Fakes.0.2.6\lib\Machine.Fakes.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Fakes.0.5.1\lib\net40\Machine.Fakes.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications">
-      <HintPath>..\..\packages\Machine.Specifications.0.4.24.0\lib\Machine.Specifications.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Specifications.0.5.7\lib\net40\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications.Clr4">
+      <HintPath>..\..\packages\Machine.Specifications.0.5.7\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,7 +63,6 @@
     <Compile Include="core\factories\ICreateTheNonCtorDependencyVisitor.cs" />
     <Compile Include="core\factories\ICreateTheTestState.cs" />
     <Compile Include="core\factories\NonCtorDependencySetter.cs" />
-    <Compile Include="core\factories\TestStateFactory.cs" />
     <Compile Include="core\IConfigureSetupPairs.cs" />
     <Compile Include="core\IConfigureSpecifications.cs" />
     <Compile Include="core\IConfigureTheSUT.cs" />

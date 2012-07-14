@@ -15,7 +15,7 @@ namespace developwithpassion.specifications.core.factories
         public Func<object, IMatchAnItem<MemberAccessor>> has_no_value_specification_factory = target =>
             new AccessorHasAValue(target).not();
 
-        static BindingFlags accessor_flags = BindingFlags.Instance | BindingFlags.Public|BindingFlags.DeclaredOnly;
+        static BindingFlags accessor_flags = BindingFlags.Instance | BindingFlags.Public |BindingFlags.DeclaredOnly;
 
         public NonCtorDependencySetter(IManageTheDependenciesForASUT dependency_registry)
         {
