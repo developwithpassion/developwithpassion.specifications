@@ -32,10 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
-      <HintPath>..\..\packages\Castle.Core.3.0.0.4001\lib\net40-client\Castle.Core.dll</HintPath>
+      <HintPath>..\..\packages\Castle.Core.3.1.0\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="FakeItEasy">
-      <HintPath>..\..\packages\FakeItEasy.1.7.4574.62\lib\NET40\FakeItEasy.dll</HintPath>
+      <HintPath>..\..\packages\FakeItEasy.1.7.4626.65\lib\NET40\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Fakes">
       <HintPath>..\..\packages\Machine.Fakes.0.5.1\lib\net40\Machine.Fakes.dll</HintPath>
@@ -44,10 +44,10 @@
       <HintPath>..\..\packages\Machine.Fakes.FakeItEasy.0.5.1\lib\net40\Machine.Fakes.Adapters.FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications">
-      <HintPath>..\..\packages\Machine.Specifications.0.5.7\lib\net40\Machine.Specifications.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Specifications.0.5.9\lib\net40\Machine.Specifications.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications.Clr4">
-      <HintPath>..\..\packages\Machine.Specifications.0.5.7\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Specifications.0.5.9\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
