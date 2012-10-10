@@ -33,6 +33,7 @@ namespace :dist do
   end
 
   namespace :nu do
+    FileUtils.rm 'project.nuspec'
     desc "package as nuget distributables"
     task :build => 'dist:_init' do
       config = 
@@ -46,8 +47,6 @@ namespace :dist do
         configatron.package_file_list = Dir.glob("#{configatron.artifacts_dir}/#{pattern}")
         configatron.package_name = target
         configatron.package_dependencies = get_dependencies_section(target) 
-        configatron.package_name = target
-        configatron.package_dependencies = get_dependencies_section(target)
 
         template.expand(generated_template)
 
