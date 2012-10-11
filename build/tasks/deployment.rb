@@ -33,7 +33,7 @@ namespace :dist do
   end
 
   namespace :nu do
-    FileUtils.rm 'project.nuspec'
+    FileUtils.rm 'project.nuspec' if File.exist?('project.nuspec')
     desc "package as nuget distributables"
     task :build => 'dist:_init' do
       config = 
