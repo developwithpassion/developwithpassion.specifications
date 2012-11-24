@@ -65,4 +65,4 @@ The last 2 classes provide access to automatic creation of the system under test
 
 The [developwithpassion.specifications.examples](https://github.com/developwithpassion/developwithpassion.specifications/tree/master/source/developwithpassion.specifications.examples) project contains many examples of how to use different features of the library. Feel free to contribute other examples as you see fit.
 
-[Develop With Passion®](http://www.develowpithpassion.com)
+[Develop With Passion®](http://www.developwithpassion.com)
