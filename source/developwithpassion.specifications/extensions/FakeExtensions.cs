@@ -11,7 +11,7 @@ namespace developwithpassion.specifications.extensions
             item.WasNotToldTo(behaviour);
         }
 
-        public static IMethodCallOccurance received<Fake>(this Fake item, Expression<Action<Fake>> behaviour)
+        public static IMethodCallOccurrence received<Fake>(this Fake item, Expression<Action<Fake>> behaviour)
             where Fake : class
         {
             return item.WasToldTo(behaviour);

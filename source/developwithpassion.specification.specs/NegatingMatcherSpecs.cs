@@ -27,9 +27,6 @@ namespace developwithpassion.specification.specs
 
             It should_return_the_opposite_result_of_its_original_matcher = () =>
                 sut.matches(2).ShouldBeFalse();
-
-
-            static bool result;
         }
     }
 }
