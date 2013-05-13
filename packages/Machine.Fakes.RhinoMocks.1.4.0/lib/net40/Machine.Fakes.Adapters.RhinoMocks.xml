@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Machine.Fakes.Adapters.Rhinomocks</name>
+    </assembly>
+    <members>
+        <member name="T:Machine.Fakes.Adapters.Rhinomocks.RhinoFakeEngine">
+            <summary>
+            An implementation of <see cref="T:Machine.Fakes.IFakeEngine"/> using the Rhino Mocks framework.
+            </summary>
+        </member>
+        <member name="M:Machine.Fakes.Adapters.Rhinomocks.RhinoFakeEngine.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Machine.Fakes.Adapters.Rhinomocks.RhinoFakeEngine.CreateFake(System.Type,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Machine.Fakes.Adapters.Rhinomocks.RhinoFakeEngine.PartialMock``1(System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Machine.Fakes.Adapters.Rhinomocks.RhinoFakeEngine.OnSetUpQueryBehaviorFor``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Machine.Fakes.Adapters.Rhinomocks.RhinoFakeEngine.OnSetUpCommandBehaviorFor``1(``0,System.Linq.Expressions.Expression{System.Action{``0}})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Machine.Fakes.Adapters.Rhinomocks.RhinoFakeEngine.OnVerifyBehaviorWasNotExecuted``1(``0,System.Linq.Expressions.Expression{System.Action{``0}})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Machine.Fakes.Adapters.Rhinomocks.RhinoFakeEngine.OnVerifyBehaviorWasExecuted``1(``0,System.Linq.Expressions.Expression{System.Action{``0}})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Machine.Fakes.Adapters.Rhinomocks.RhinoMethodCallOccurrence`1">
+            <summary>
+              This class encapsulates the Rhino.Mocks mechanics for specifiing call expectations.
+            </summary>
+            <typeparam name="TDependency">
+              Specifies the type of the dependency which is configured via the methods on <see cref="T:Rhino.Mocks.RhinoMocksExtensions"/>.
+            </typeparam>
+        </member>
+        <member name="M:Machine.Fakes.Adapters.Rhinomocks.RhinoMethodCallOccurrence`1.#ctor(`0,System.Action{`0})">
+            <summary>
+              Initializes a new instance of the <see cref="T:Machine.Fakes.Adapters.Rhinomocks.RhinoMethodCallOccurrence`1"/> class.
+            </summary>
+            <param name="fake">The dependency on which an action is expected.</param>
+            <param name="action">The action that should have been called.</param>
+        </member>
+        <member name="M:Machine.Fakes.Adapters.Rhinomocks.RhinoMethodCallOccurrence`1.Times(System.Int32)">
+            <summary>
+              Specifies that the action on the dependency should be called several times. <paramref name = "numberOfTimesTheMethodShouldHaveBeenCalled" />
+              specifies exactly how often.
+            </summary>
+            <param name = "numberOfTimesTheMethodShouldHaveBeenCalled">
+              The number of times the method should have been called.
+            </param>
+        </member>
+        <member name="M:Machine.Fakes.Adapters.Rhinomocks.RhinoMethodCallOccurrence`1.OnlyOnce">
+            <summary>
+              Specifies that the action on the dependency should only be called once.
+            </summary>
+        </member>
+        <member name="M:Machine.Fakes.Adapters.Rhinomocks.RhinoMethodCallOccurrence`1.Twice">
+            <summary>
+              Specifies that the action on the dependency should be called twice.
+            </summary>
+        </member>
+        <member name="T:Machine.Fakes.WithFakes">
+            <summary>
+            Base class for the simpler cases than <see cref="T:Machine.Fakes.WithSubject`1"/>. 
+            This class only contains the shortcuts for creating fakes via "An" and "Some".
+            </summary>
+        </member>
+        <member name="T:Machine.Fakes.WithSubject`1">
+            <summary>
+            Base class that adds auto mocking (grasp), I mean auto faking capabilities
+            to Machine.Specifications. 
+            </summary>
+            <typeparam name="TSubject">
+            The subject for the specification. This is the type that is created by the
+            specification for you.
+            </typeparam>
+        </member>
+    </members>
+</doc>
