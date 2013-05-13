@@ -30,8 +30,6 @@ namespace developwithpassion.specification.specs
         {
             It should_use_the_target_to_get_the_original_value = () =>
                 accessor.received(x => x.get_value(the_target_type));
-
-            static string value_to_change_to;
         }
 
         [Subject(typeof(ISwapValues))]
