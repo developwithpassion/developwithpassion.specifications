@@ -7,10 +7,10 @@ developwithpassion.specifications is a formalization of some test utilities that
 
 With the help of Machine.Fakes it currently can be used to do interaction based testing with the following faking libraries:
 
-* FakeItEasy
-* Moq
-* Rhino.Mocks
-* NSubstitute
+* [FakeItEasy](https://github.com/FakeItEasy/FakeItEasy)
+* [Moq](https://github.com/Moq/moq)
+* [Rhino.Mocks](https://github.com/ayende/rhino-mocks)
+* [NSubstitute](https://github.com/nsubstitute/NSubstitute)
 
 Thanks to the Machine teams and Bjorn Rochel for the contributions that this library heavily leverages.
 
@@ -65,4 +65,4 @@ The last 2 classes provide access to automatic creation of the system under test
 
 The [developwithpassion.specifications.examples](https://github.com/developwithpassion/developwithpassion.specifications/tree/master/source/developwithpassion.specifications.examples) project contains many examples of how to use different features of the library. Feel free to contribute other examples as you see fit.
 
-[Develop With Passion®](http://www.develowpithpassion.com)
+[Develop With Passion®](http://www.developwithpassion.com)
