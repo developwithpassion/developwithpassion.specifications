@@ -27,7 +27,7 @@ namespace developwithpassion.specifications.faking
         {
             var greediest_constructor = typeof(SUT).greediest_constructor();
             var constructor_parameters = greediest_constructor.GetParameters().Select(
-                x => manage_the_dependencies_for_asut.get_dependency_of(x.ParameterType));
+                x => manage_the_dependencies_for_asut.get_dependency_of(x.ParameterType, x.Name));
             var the_sut = (SUT) greediest_constructor.Invoke(constructor_parameters.ToArray());
             non_ctor_dependency_visitor.update(the_sut);
 
@@ -47,6 +47,11 @@ namespace developwithpassion.specifications.faking
         public Dependency on<Dependency>(Dependency value)
         {
             return manage_the_dependencies_for_asut.on(value);
+        }
+
+        public Dependency on<Dependency>(Dependency value, string name)
+        {
+            return manage_the_dependencies_for_asut.on(value, name);
         }
     }
 }

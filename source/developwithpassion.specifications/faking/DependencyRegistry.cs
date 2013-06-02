@@ -1,19 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using developwithpassion.specifications.core;
+using developwithpassion.specifications.extensions;
 
 namespace developwithpassion.specifications.faking
 {
     public interface IManageTheDependenciesForASUT :IProvideDependencies
     {
+        object get_dependency_of(Type dependency_type, string name);
         object get_dependency_of(Type dependency_type);
         bool has_been_provided_an(Type dependency_type);
     }
 
-    public class DependenciesRegistry : IManageTheDependenciesForASUT
+    public class DependenciesRegistry<SUT> : IManageTheDependenciesForASUT
     {
-        public IDictionary<Type, object> explicit_dependencies = new Dictionary<Type, object>();
-
+        public IDictionary<Type, IDictionary<string, object>> explicit_dependencies = new Dictionary<Type, IDictionary<string, object>>();
         IResolveADependencyForTheSUT dependency_resolver;
         IManageFakes fake_gateway;
 
@@ -30,8 +32,13 @@ namespace developwithpassion.specifications.faking
 
         public object get_dependency_of(Type dependency_type)
         {
+            return get_dependency_of(dependency_type, "");
+        }
+
+        public object get_dependency_of(Type dependency_type, string name)
+        {
             return (this.explicit_dependencies.ContainsKey(dependency_type)
-                ? this.explicit_dependencies[dependency_type]
+                ? this.get_explicit_dependency(dependency_type, name)
                 : this.dependency_resolver.resolve(dependency_type));
         }
 
@@ -42,9 +49,29 @@ namespace developwithpassion.specifications.faking
 
         public Dependency on<Dependency>(Dependency value)
         {
-            explicit_dependencies[typeof(Dependency)] = value;
+            add_explicit_dependency(typeof(Dependency), value, "");
             return value;
         }
 
+        public Dependency on<Dependency>(Dependency value, string name)
+        {
+            add_explicit_dependency(typeof(Dependency), value, name);
+            return value;
+        }
+
+        private object get_explicit_dependency(Type dependency_type, string name)
+        {
+            return this.explicit_dependencies[dependency_type][name];
+        }
+
+        private void add_explicit_dependency(Type dependency_type, object value, string name)
+        {
+            if(!this.explicit_dependencies.ContainsKey(dependency_type))
+            {
+                this.explicit_dependencies.Add(dependency_type, new Dictionary<string, object>());
+            }
+            
+            this.explicit_dependencies[dependency_type].Add(name, value);
+        }
     }
 }

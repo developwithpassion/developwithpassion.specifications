@@ -37,7 +37,7 @@ namespace developwithpassion.specifications.core.factories
         {
             accessors_to_update.each(accessor =>
             {
-                accessor.change_value_to(target,BlockThat.ignores_exceptions(() => dependency_registry.get_dependency_of(accessor.accessor_type)));
+                accessor.change_value_to(target,BlockThat.ignores_exceptions(() => dependency_registry.get_dependency_of(accessor.accessor_type, accessor.name)));
             });
         }
     }
