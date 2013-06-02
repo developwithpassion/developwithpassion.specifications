@@ -9,8 +9,7 @@ namespace developwithpassion.specifications.faking
     public interface IManageTheDependenciesForASUT :IProvideDependencies
     {
         object get_dependency_of(Type dependency_type, string name);
-        object get_dependency_of(Type dependency_type);
-        bool has_been_provided_an(Type dependency_type);
+        bool has_been_provided_an(Type dependency_type, string name);
     }
 
     public class DependenciesRegistry<SUT> : IManageTheDependenciesForASUT
@@ -18,6 +17,7 @@ namespace developwithpassion.specifications.faking
         public IDictionary<Type, IDictionary<string, object>> explicit_dependencies = new Dictionary<Type, IDictionary<string, object>>();
         IResolveADependencyForTheSUT dependency_resolver;
         IManageFakes fake_gateway;
+        const string default_dependency = "";
 
         public DependenciesRegistry(IResolveADependencyForTheSUT dependency_resolver,IManageFakes fake_gateway)
         {
@@ -25,19 +25,20 @@ namespace developwithpassion.specifications.faking
             this.fake_gateway = fake_gateway;
         }
 
-        public bool has_been_provided_an(Type dependency_type)
+        public bool has_been_provided_an(Type dependency_type, string name)
         {
-            return explicit_dependencies.ContainsKey(dependency_type);
-        }
+            if(explicit_dependencies.ContainsKey(dependency_type) 
+                && (explicit_dependencies[dependency_type].ContainsKey(default_dependency) || explicit_dependencies[dependency_type].ContainsKey(name)))
+            {
+                return true;
+            }
 
-        public object get_dependency_of(Type dependency_type)
-        {
-            return get_dependency_of(dependency_type, "");
+            return false;
         }
 
         public object get_dependency_of(Type dependency_type, string name)
         {
-            return (this.explicit_dependencies.ContainsKey(dependency_type)
+            return (this.has_been_provided_an(dependency_type, name)
                 ? this.get_explicit_dependency(dependency_type, name)
                 : this.dependency_resolver.resolve(dependency_type));
         }
@@ -49,7 +50,7 @@ namespace developwithpassion.specifications.faking
 
         public Dependency on<Dependency>(Dependency value)
         {
-            add_explicit_dependency(typeof(Dependency), value, "");
+            add_explicit_dependency(typeof(Dependency), value, default_dependency);
             return value;
         }
 
@@ -59,6 +60,11 @@ namespace developwithpassion.specifications.faking
             return value;
         }
 
+        protected object get_dependency_of(Type dependency_type)
+        {
+            return get_dependency_of(dependency_type, default_dependency);
+        }
+
         private object get_explicit_dependency(Type dependency_type, string name)
         {
             if (this.explicit_dependencies[dependency_type].ContainsKey(name))
@@ -66,12 +72,7 @@ namespace developwithpassion.specifications.faking
                 return this.explicit_dependencies[dependency_type][name];
             }
 
-            if(this.explicit_dependencies[dependency_type].ContainsKey(""))
-            {
-                return this.explicit_dependencies[dependency_type][""];
-            }
-            
-            return GetDefault(dependency_type);
+            return this.explicit_dependencies[dependency_type][default_dependency];
         }
 
         private void add_explicit_dependency(Type dependency_type, object value, string name)
@@ -89,15 +90,6 @@ namespace developwithpassion.specifications.faking
             {
                 this.explicit_dependencies[dependency_type].Add(name, value);    
             }
-        }
-
-        private static object GetDefault(Type type)
-        {
-            if (type.IsValueType)
-            {
-                return Activator.CreateInstance(type);
-            }
-            return null;
         }
     }
 }

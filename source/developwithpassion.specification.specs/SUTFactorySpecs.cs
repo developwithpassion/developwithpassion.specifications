@@ -20,8 +20,8 @@ namespace developwithpassion.specification.specs
                 command = fake.an<IDbCommand>();
                 non_ctor_dependency_visitor = fake.an<IUpdateNonCtorDependenciesOnAnItem>();
                 dependency_registry = fake.an<IManageTheDependenciesForASUT>();
-                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Return(connection);
-                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbCommand))).Return(command);
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection), "connection")).Return(connection);
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbCommand), "command")).Return(command);
             };
 
             protected static DefaultSUTFactory<ItemToBeCreated> create_sut<ItemToBeCreated>()
@@ -97,7 +97,7 @@ namespace developwithpassion.specification.specs
                 when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked
             {
                 Establish c = () =>
-                    dependency_registry.setup(x => x.get_dependency_of(typeof(SomeOtherType))).Throw(original_exception);
+                    dependency_registry.setup(x => x.get_dependency_of(typeof(SomeOtherType), "other")).Throw(original_exception);
 
                 Because b = () =>
                     spec.catch_exception(() => sut.create());
@@ -112,7 +112,7 @@ namespace developwithpassion.specification.specs
                 Establish c = () =>
                 {
                     the_item = new SomeOtherType(3);
-                    dependency_registry.setup(x => x.get_dependency_of(typeof(SomeOtherType))).Return(the_item);
+                    dependency_registry.setup(x => x.get_dependency_of(typeof(SomeOtherType), "other")).Return(the_item);
                 };
 
                 Because b = () =>
@@ -133,7 +133,9 @@ namespace developwithpassion.specification.specs
             };
 
             Because b = () =>
+            {
                 result = sut.create();
+            };
 
             static ItemToCreate created_item;
             static ItemToCreate result;

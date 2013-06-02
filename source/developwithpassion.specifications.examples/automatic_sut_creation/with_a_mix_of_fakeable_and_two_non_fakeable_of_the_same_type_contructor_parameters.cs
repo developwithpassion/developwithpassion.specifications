@@ -94,8 +94,8 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
             It should_have_default_date_time_for_end_time = () =>
                 sut.end_date.ShouldEqual(DateTime.MinValue);
             
-            It should_have_expected_date_on_property = () =>
-                sut.date_on_property.ShouldEqual(DateTime.MinValue);
+            It should_have_not_set_the_property_dependency = () =>
+                sut.date_on_property.ShouldEqual(DateTime.MaxValue);
 
             It should_return_the_sum = () =>
                 result.ShouldEqual(5);
@@ -104,7 +104,7 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
             static DateTime expected_current_date;
             static DateTime expected_date_on_property;
         }
-       
+        
         public delegate void SomeDelegate();
 
         public class Calculator
@@ -121,6 +121,7 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
                 this.current_date = current_date;
                 this.end_date = end_date;
                 this.some_delegate = some_delegate;
+                this.date_on_property = DateTime.MaxValue;
             }
 
             public DateTime current_date { get; private set; }

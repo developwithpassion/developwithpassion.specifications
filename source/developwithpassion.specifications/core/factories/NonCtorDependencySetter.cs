@@ -28,7 +28,7 @@ namespace developwithpassion.specifications.core.factories
 
             var accessors_to_update = item.GetType().all_accessors(accessor_flags)
                 .Where(
-                    field => has_no_value_specification.matches(field) || dependency_registry.has_been_provided_an(field.accessor_type));
+                    field => has_no_value_specification.matches(field) || dependency_registry.has_been_provided_an(field.accessor_type, field.name));
 
             attempt_to_update_all_of_the_accessors(accessors_to_update,item);
         }

@@ -32,9 +32,9 @@ namespace developwithpassion.specification.specs
             Establish c = () =>
             {
                 item = new ItemThatInherits();
-                dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection)))
+                dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection), "connection"))
                     .Return(true);
-                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection)))
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection), "connection"))
                     .Return(fake.an<IDbConnection>());
             };
 
@@ -67,9 +67,9 @@ namespace developwithpassion.specification.specs
             Establish c = () =>
             {
                 item = new ItemToUpdate();
-                dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection)))
+                dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection), "connection"))
                     .Return(true);
-                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection)))
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection), "connection"))
                     .Return(fake.an<IDbConnection>());
             };
 
@@ -91,8 +91,8 @@ namespace developwithpassion.specification.specs
             Establish c = () =>
             {
                 original_exception = new Exception();
-                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Throw(original_exception);
-                dependency_registry.setup(x => x.get_dependency_of(typeof(IDataAdapter))).Return(fake.an<IDataAdapter>());
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection), "connection")).Throw(original_exception);
+                dependency_registry.setup(x => x.get_dependency_of(typeof(IDataAdapter), "adapter")).Return(fake.an<IDataAdapter>());
                 item = new AnItem();
             };
 
@@ -127,7 +127,7 @@ namespace developwithpassion.specification.specs
                     Establish c = () =>
                     {
                         the_connection_from_the_registry = fake.an<IDbConnection>();
-                        dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Return(
+                        dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection), "connection")).Return(
                             the_connection_from_the_registry);
                         item = new ItemToUpdate();
                     };
@@ -167,8 +167,8 @@ namespace developwithpassion.specification.specs
                     Establish c = () =>
                     {
                         the_connection_from_the_registry = fake.an<IDbConnection>();
-                        dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection))).Return(true);
-                        dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Return(
+                        dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection), "connection")).Return(true);
+                        dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection), "connection")).Return(
                             the_connection_from_the_registry);
                         original_connection = fake.an<IDbConnection>();
                         item = new ItemToUpdate {connection = original_connection};
@@ -199,8 +199,8 @@ namespace developwithpassion.specification.specs
                     Establish c = () =>
                     {
                         item = new SomeItem();
-                        dependency_registry.setup(x => x.has_been_provided_an(typeof(SomeItem))).Return(true);
-                        dependency_registry.setup(x => x.get_dependency_of(typeof(SomeItem))).Return(
+                        dependency_registry.setup(x => x.has_been_provided_an(typeof(SomeItem), "some_item")).Return(true);
+                        dependency_registry.setup(x => x.get_dependency_of(typeof(SomeItem), "some_item")).Return(
                             item);
                         target = new ItemWithInitializer();
                     };
