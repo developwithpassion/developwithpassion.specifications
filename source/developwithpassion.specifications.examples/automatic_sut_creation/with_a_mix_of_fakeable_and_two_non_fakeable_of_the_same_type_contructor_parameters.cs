@@ -7,33 +7,18 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
 {
     public class with_a_mix_of_fakeable_and_two_non_fakeable_of_the_same_type_contructor_parameters
     {
-        public abstract class base_calculator_specification : Observes<Calculator>
-        {
-            protected static Exception catch_exception(Action action)
-            {
-                try
-                {
-                    action();
-                }
-                catch (Exception e)
-                {
-                    return e;
-                }
-
-                return null;
-            }
-        }
-
         [Subject(typeof(Calculator))]
-        public class when_adding_two_numbers_with_two_date_times_by_name : base_calculator_specification
+        public class when_adding_two_numbers_with_specific_date_and_times : Observes<Calculator>
         {
             private Establish c = () =>
             {
                 var dateTime = DateTime.Now;
                 expected_current_date = dateTime;
                 expected_end_date = dateTime.Add(TimeSpan.FromDays(8));
+                expected_date_on_property = dateTime.Add(TimeSpan.FromDays(16));
                 depends.on(expected_current_date, "current_date");
                 depends.on(expected_end_date, "end_date"); 
+                depends.on(expected_date_on_property, "date_on_property"); 
             };
             
             Because b = () =>
@@ -44,6 +29,9 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
 
             It should_have_expected_end_date = () =>
                 sut.end_date.ShouldEqual(expected_end_date);
+            
+            It should_have_expected_date_on_property = () =>
+                sut.date_on_property.ShouldEqual(expected_date_on_property);
 
             It should_return_the_sum = () =>
                 result.ShouldEqual(5);
@@ -51,104 +39,72 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
             static int result;
             static DateTime expected_end_date;
             static DateTime expected_current_date;
+            static DateTime expected_date_on_property;
         }
         
         [Subject(typeof(Calculator))]
-        public class when_adding_two_numbers_with_two_date_times_without_name : base_calculator_specification
+        public class when_adding_two_numbers_with_specific_date_and_time_and_default_date_and_time : Observes<Calculator>
         {
             private Establish c = () =>
             {
                 var dateTime = DateTime.Now;
                 expected_current_date = dateTime;
-                expected_end_date = dateTime.Add(TimeSpan.FromDays(8));
-                depends.on(expected_current_date);
-                caught_exception = catch_exception(() => depends.on(expected_end_date));
-            };
-
-            It should_have_expected_exception = () =>
-                caught_exception.Message.ShouldEqual("To specify multiple System.DateTime, use depends.on(value, name)");
-
-            static DateTime expected_end_date;
-            static DateTime expected_current_date;
-            static Exception caught_exception;
-        }
-        
-        [Subject(typeof(Calculator))]
-        public class when_adding_two_numbers_with_two_date_times_one_with_name_and_other_without_name : base_calculator_specification
-        {
-            private Establish c = () =>
-            {
-                var dateTime = DateTime.Now;
-                expected_current_date = dateTime;
-                expected_end_date = dateTime.Add(TimeSpan.FromDays(8));
+                expected_date_on_property = dateTime.Add(TimeSpan.FromDays(16));
                 depends.on(expected_current_date, "current_date");
-                caught_exception_when_second_depends_is_called = catch_exception(() => depends.on(expected_end_date));
-                sut_factory.during_create(sut_creation =>
-                                              {
-                                                  caught_exception_when_creating_sut = catch_exception(() => sut_creation());
-                                                  return null;
-                                              });
+                depends.on(expected_date_on_property, "date_on_property"); 
             };
+            
+            Because b = () =>
+                result = sut.add(2, 3);
 
-            It should_throw_expected_exception_when_second_depends_is_called = () =>
-                caught_exception_when_second_depends_is_called.Message.ShouldEqual("To specify multiple System.DateTime, use depends.on(value, name)");
+            It should_have_expected_current_date = () =>
+                sut.current_date.ShouldEqual(expected_current_date);
 
-            It should_throw_expected_exception_during_sut_creation = () =>
-                caught_exception_when_creating_sut.Message.ShouldEqual("You must specify dependency of type System.DateTime and name end_date, use depends.on(value, name)");
+            It should_have_default_date_time_for_end_time = () =>
+                sut.end_date.ShouldEqual(DateTime.MinValue);
+            
+            It should_have_expected_date_on_property = () =>
+                sut.date_on_property.ShouldEqual(expected_date_on_property);
 
-            static DateTime expected_end_date;
+            It should_return_the_sum = () =>
+                result.ShouldEqual(5);
+
+            static int result;
             static DateTime expected_current_date;
-            static Exception caught_exception_when_second_depends_is_called;
-            static Exception caught_exception_when_creating_sut;
+            static DateTime expected_date_on_property;
         }
         
         [Subject(typeof(Calculator))]
-        public class when_adding_two_numbers_with_two_date_times_but_only_specifying_one_by_name : base_calculator_specification
+        public class when_adding_two_numbers_with_specific_date_and_time_and_no_default_date_and_time : Observes<Calculator>
         {
             private Establish c = () =>
             {
                 var dateTime = DateTime.Now;
                 expected_current_date = dateTime;
+                expected_date_on_property = dateTime.Add(TimeSpan.FromDays(16));
                 depends.on(expected_current_date, "current_date");
-                sut_factory.during_create(sut_creation =>
-                                              {
-                                                  caught_exception_when_creating_sut = catch_exception(() => sut_creation());
-                                                  return null;
-                                              });
             };
+            
+            Because b = () =>
+                result = sut.add(2, 3);
 
-            It should_throw_expected_exception_during_sut_creation = () =>
-                caught_exception_when_creating_sut.Message.ShouldEqual("You must specify dependency of type System.DateTime and name end_date, use depends.on(value, name)");
+            It should_have_expected_current_date = () =>
+                sut.current_date.ShouldEqual(expected_current_date);
 
+            It should_have_default_date_time_for_end_time = () =>
+                sut.end_date.ShouldEqual(DateTime.MinValue);
+            
+            It should_have_expected_date_on_property = () =>
+                sut.date_on_property.ShouldEqual(DateTime.MinValue);
+
+            It should_return_the_sum = () =>
+                result.ShouldEqual(5);
+
+            static int result;
             static DateTime expected_current_date;
-            static Exception caught_exception_when_creating_sut;
+            static DateTime expected_date_on_property;
         }
-        
-        [Subject(typeof(Calculator))]
-        public class when_adding_two_numbers_with_two_date_times_specified_by_name_but_one_name_is_wrong : base_calculator_specification
-        {
-            private Establish c = () =>
-            {
-                var dateTime = DateTime.Now;
-                expected_current_date = dateTime;
-                depends.on(expected_current_date, "current_date");
-                depends.on(expected_current_date.AddDays(8), "endDate");
-                sut_factory.during_create(sut_creation =>
-                                              {
-                                                  caught_exception_when_creating_sut = catch_exception(() => sut_creation());
-                                                  return null;
-                                              });
-            };
-
-            It should_throw_expected_exception_during_sut_creation = () =>
-                caught_exception_when_creating_sut.Message.ShouldEqual("You must specify dependency of type System.DateTime and name end_date, use depends.on(value, name)");
-
-            static DateTime expected_current_date;
-            static Exception caught_exception_when_creating_sut;
-        }
-
-        
-        
+       
         public delegate void SomeDelegate();
 
         public class Calculator
@@ -170,6 +126,8 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
             public DateTime current_date { get; private set; }
 
             public DateTime end_date { get; private set; }
+
+            public DateTime date_on_property { get; set; }
 
             public int add(int first, int second)
             {
