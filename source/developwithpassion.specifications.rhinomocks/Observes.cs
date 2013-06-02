@@ -1,3 +1,4 @@
+using System;
 using developwithpassion.specifications.observations;
 using Machine.Fakes.Adapters.Rhinomocks;
 

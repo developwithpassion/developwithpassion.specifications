@@ -61,7 +61,18 @@ namespace developwithpassion.specifications.faking
 
         private object get_explicit_dependency(Type dependency_type, string name)
         {
-            return this.explicit_dependencies[dependency_type][name];
+            if(!this.explicit_dependencies[dependency_type].ContainsKey(name) 
+                && !this.explicit_dependencies[dependency_type].ContainsKey(""))
+            {
+                throw new Exception(string.Format("You must specify dependency of type {0} and name {1}, use depends.on(value, name)", dependency_type, name));
+            }
+            
+            if(this.explicit_dependencies[dependency_type].ContainsKey(name))
+            {
+                return this.explicit_dependencies[dependency_type][name];    
+            }
+
+            return this.explicit_dependencies[dependency_type][""];
         }
 
         private void add_explicit_dependency(Type dependency_type, object value, string name)
@@ -70,7 +81,13 @@ namespace developwithpassion.specifications.faking
             {
                 this.explicit_dependencies.Add(dependency_type, new Dictionary<string, object>());
             }
-            
+
+            if (this.explicit_dependencies[dependency_type].ContainsKey("")
+                || (name == "" && this.explicit_dependencies[dependency_type].Count > 0))
+            {
+                throw new Exception(string.Format("To specify multiple {0}, use depends.on(value, name)", dependency_type));
+            }
+
             this.explicit_dependencies[dependency_type].Add(name, value);
         }
     }
