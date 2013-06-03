@@ -12,10 +12,10 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
         {
             private Establish c = () =>
             {
-                var dateTime = DateTime.Now;
-                expected_current_date = dateTime;
-                expected_end_date = dateTime.Add(TimeSpan.FromDays(8));
-                expected_date_on_property = dateTime.Add(TimeSpan.FromDays(16));
+                var date_time = DateTime.Now;
+                expected_current_date = date_time;
+                expected_end_date = date_time.Add(TimeSpan.FromDays(8));
+                expected_date_on_property = date_time.Add(TimeSpan.FromDays(16));
                 depends.on(expected_current_date, "current_date");
                 depends.on(expected_end_date, "end_date"); 
                 depends.on(expected_date_on_property, "date_on_property"); 
@@ -43,13 +43,13 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
         }
         
         [Subject(typeof(Calculator))]
-        public class when_adding_two_numbers_with_specific_date_and_time_and_default_date_and_time : Observes<Calculator>
+        public class when_adding_two_numbers_with_specific_date_and_time_for_property_and_parameter : Observes<Calculator>
         {
             private Establish c = () =>
             {
-                var dateTime = DateTime.Now;
-                expected_current_date = dateTime;
-                expected_date_on_property = dateTime.Add(TimeSpan.FromDays(16));
+                var date_time = DateTime.Now;
+                expected_current_date = date_time;
+                expected_date_on_property = date_time.Add(TimeSpan.FromDays(16));
                 depends.on(expected_current_date, "current_date");
                 depends.on(expected_date_on_property, "date_on_property"); 
             };
@@ -73,15 +73,83 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
             static DateTime expected_current_date;
             static DateTime expected_date_on_property;
         }
+
         
+        [Subject(typeof(Calculator))]
+        public class when_adding_two_numbers_with_specific_date_and_time_for_property_and_default_for_parameters : Observes<Calculator>
+        {
+            private Establish c = () =>
+            {
+                var date_time = DateTime.Now;
+                expected_date = date_time;
+                expected_date_on_property = date_time.Add(TimeSpan.FromDays(16));
+                depends.on(expected_date);
+                depends.on(expected_date_on_property, "date_on_property"); 
+            };
+            
+            Because b = () =>
+                result = sut.add(2, 3);
+
+            It should_have_default_date_time_for_current_date = () =>
+                sut.current_date.ShouldEqual(expected_date);
+
+            It should_have_default_date_time_for_end_time = () =>
+                sut.end_date.ShouldEqual(expected_date);
+            
+            It should_have_expected_date_on_property = () =>
+                sut.date_on_property.ShouldEqual(expected_date_on_property);
+
+            It should_return_the_sum = () =>
+                result.ShouldEqual(5);
+
+            static int result;
+            static DateTime expected_date;
+            static DateTime expected_date_on_property;
+        }
+        
+        [Subject(typeof(Calculator))]
+        public class when_adding_two_numbers_with_specific_date_and_time_for_property_and_parameter_and_other_parameter_default : Observes<Calculator>
+        {
+            private Establish c = () =>
+            {
+                var date_time = DateTime.Now;
+                expected_current_date = date_time;
+                expected_end_date = date_time.Add(TimeSpan.FromDays(8));
+                expected_date_on_property = date_time.Add(TimeSpan.FromDays(16));
+                depends.on(expected_current_date, "current_date");
+                depends.on(expected_end_date);
+                depends.on(expected_date_on_property, "date_on_property"); 
+            };
+            
+            Because b = () =>
+                result = sut.add(2, 3);
+
+            It should_have_expected_current_date = () =>
+                sut.current_date.ShouldEqual(expected_current_date);
+
+            It should_have_expected_end_date = () =>
+                sut.end_date.ShouldEqual(expected_end_date);
+            
+            It should_have_expected_date_on_property = () =>
+                sut.date_on_property.ShouldEqual(expected_date_on_property);
+
+            It should_return_the_sum = () =>
+                result.ShouldEqual(5);
+
+            static int result;
+            static DateTime expected_current_date;
+            static DateTime expected_date_on_property;
+            static object expected_end_date;
+        }
+
         [Subject(typeof(Calculator))]
         public class when_adding_two_numbers_with_specific_date_and_time_and_no_default_date_and_time : Observes<Calculator>
         {
             private Establish c = () =>
             {
-                var dateTime = DateTime.Now;
-                expected_current_date = dateTime;
-                expected_date_on_property = dateTime.Add(TimeSpan.FromDays(16));
+                var date_time = DateTime.Now;
+                expected_current_date = date_time;
+                expected_date_on_property = date_time.Add(TimeSpan.FromDays(16));
                 depends.on(expected_current_date, "current_date");
             };
             
