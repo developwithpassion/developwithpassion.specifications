@@ -33,20 +33,81 @@ namespace developwithpassion.specification.specs
             protected static IDbConnection the_connection;
         }
 
-        public class when_asked_if_it_has_an_explicit_dependency_and_it_has_it_by_name : concern
+        public class when_creating_sut_with_a_default_dependency_for_idbconnection : concern
         {
             Establish c = () =>
             {
-                dependencies_by_name_for_idbconnection = new Dictionary<string, object>() { { "", the_connection } };
+                dependencies_by_name_for_idbconnection = new Dictionary<string, object>() { { sut.default_dependency_name, the_connection } };
                 dependencies.Add(typeof(IDbConnection), dependencies_by_name_for_idbconnection);
             };
 
             It should_make_the_decision_based_on_whether_an_explicit_dependency_was_registered = () =>
             {
                 sut.has_been_provided_an(typeof(IDbConnection), "connection").ShouldBeTrue();
+                sut.has_been_provided_an(typeof(IDbConnection), sut.default_dependency_name).ShouldBeTrue();
                 sut.has_been_provided_an(typeof(IDbCommand), "command").ShouldBeFalse();
             };
 
+            private static object result;
+        }
+        
+        public class when_creating_sut_with_a_default_dependency_and_specific_dependency_for_idbconnection : concern
+        {
+            Establish c = () =>
+            {
+                specific_connection = fake.an<IDbConnection>();
+                dependencies_by_name_for_idbconnection = new Dictionary<string, object>()
+                                                             {
+                                                                 { sut.default_dependency_name, the_connection },
+                                                                 { "connection", specific_connection}
+                                                             };
+                dependencies.Add(typeof(IDbConnection), dependencies_by_name_for_idbconnection);
+            };
+
+            It should_make_the_decision_based_on_whether_an_explicit_dependency_was_registered = () =>
+            {
+                sut.has_been_provided_an(typeof(IDbConnection), "connection").ShouldBeTrue();
+                sut.has_been_provided_an(typeof(IDbConnection), sut.default_dependency_name).ShouldBeTrue();
+                sut.has_been_provided_an(typeof(IDbCommand), "command").ShouldBeFalse();
+            };
+            
+            It should_have_expected_default_connection = () =>
+            {
+                sut.get_dependency_of(typeof(IDbConnection), sut.default_dependency_name).ShouldEqual(the_connection);
+            };
+            
+            It should_have_expected_specific_connection = () =>
+            {
+                sut.get_dependency_of(typeof(IDbConnection), "connection").ShouldEqual(specific_connection);
+            };
+
+            static object result;
+            static IDbConnection specific_connection;
+        }
+        
+        public class when_creating_sut_without_default_dependency_but_with_specific_dependency_for_idbconnection : concern
+        {
+            Establish c = () =>
+            {
+                specific_connection = fake.an<IDbConnection>();
+                dependencies_by_name_for_idbconnection = new Dictionary<string, object>() { { "connection", specific_connection} };
+                dependencies.Add(typeof(IDbConnection), dependencies_by_name_for_idbconnection);
+            };
+
+            It should_make_the_decision_based_on_whether_an_explicit_dependency_was_registered = () =>
+            {
+                sut.has_been_provided_an(typeof(IDbConnection), "connection").ShouldBeTrue();
+                sut.has_been_provided_an(typeof(IDbConnection), sut.default_dependency_name).ShouldBeFalse();
+                sut.has_been_provided_an(typeof(IDbCommand), "command").ShouldBeFalse();
+            };
+            
+            It should_have_expected_specific_connection = () =>
+            {
+                sut.get_dependency_of(typeof(IDbConnection), "connection").ShouldEqual(specific_connection);
+            };
+
+            static object result;
+            static IDbConnection specific_connection;
         }
 
         public class when_getting_a_default_dependency : concern
@@ -55,7 +116,7 @@ namespace developwithpassion.specification.specs
             {
                 private Establish c = () =>
                 {
-                    dependencies_by_name_for_idbconnection = new Dictionary<string, object>() { { "", the_connection } };
+                    dependencies_by_name_for_idbconnection = new Dictionary<string, object>() { { sut.default_dependency_name, the_connection } };
                     dependencies.Add(typeof(IDbConnection), dependencies_by_name_for_idbconnection);
                 };
 
@@ -85,6 +146,42 @@ namespace developwithpassion.specification.specs
             }
         }
         
+        public class when_getting_a_specific_dependency : concern
+        {
+            public class and_the_dependency_has_been_explicitly_provided_with_a_name : when_getting_a_default_dependency
+            {
+                private Establish c = () =>
+                {
+                    dependencies_by_name_for_idbconnection = new Dictionary<string, object>() { { "connection", the_connection } };
+                    dependencies.Add(typeof(IDbConnection), dependencies_by_name_for_idbconnection);
+                };
+
+                Because b = () =>
+                    result = sut.get_dependency_of(typeof(IDbConnection), "connection");
+
+                It should_return_the_item_that_was_registered = () =>
+                    result.ShouldEqual(the_connection);
+
+                static object result;
+            }
+
+            public class and_the_dependency_was_not_explicitly_provided : when_getting_a_default_dependency
+            {
+                Establish c = () =>
+                {
+                    dependency_resolver.setup(x => x.resolve(typeof(IDbConnection))).Return(the_connection);
+                };
+
+                Because b = () =>
+                    result = sut.get_dependency_of(typeof(IDbConnection), "connection");
+
+                It should_return_the_item_created_by_the_dependency_resolver = () =>
+                    result.ShouldEqual(the_connection);
+
+                static object result;
+            }
+        }
+        
         public class when_storing_default_dependencies : concern
         {
             public class and_it_has_not_already_been_stored : when_storing_default_dependencies
@@ -98,7 +195,7 @@ namespace developwithpassion.specification.specs
                     result = sut.on(the_connection);
 
                 private It should_be_stored_in_the_default_underlying_dependencies = () =>
-                    dependencies[typeof(IDbConnection)][""].ShouldEqual(the_connection);
+                    dependencies[typeof(IDbConnection)][sut.default_dependency_name].ShouldEqual(the_connection);
 
                 It should_return_the_instance_being_registered = () =>
                     result.ShouldEqual(the_connection);
@@ -118,7 +215,7 @@ namespace developwithpassion.specification.specs
                     result = sut.on(the_new_connection);
 
                 It should_replace_the_existing_default_instance = () =>
-                    dependencies[typeof(IDbConnection)][""].ShouldEqual(the_new_connection);
+                    dependencies[typeof(IDbConnection)][sut.default_dependency_name].ShouldEqual(the_new_connection);
 
                 It should_return_the_instance_being_registered = () =>
                     result.ShouldEqual(the_new_connection);
@@ -139,7 +236,7 @@ namespace developwithpassion.specification.specs
                     result = sut.on<IDbConnection>();
 
                 private It should_store_the_item_created_by_the_fake_gateway_as_the_default = () =>
-                    dependencies[typeof(IDbConnection)][""].ShouldEqual(the_connection_created_by_the_fake_gateway);
+                    dependencies[typeof(IDbConnection)][sut.default_dependency_name].ShouldEqual(the_connection_created_by_the_fake_gateway);
 
                 It should_return_the_item_created_by_the_fake_gateway = () =>
                     result = the_connection_created_by_the_fake_gateway;

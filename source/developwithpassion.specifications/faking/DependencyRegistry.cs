@@ -10,6 +10,7 @@ namespace developwithpassion.specifications.faking
     {
         object get_dependency_of(Type dependency_type, string name);
         bool has_been_provided_an(Type dependency_type, string name);
+        string default_dependency_name { get; }
     }
 
     public class DependenciesRegistry<SUT> : IManageTheDependenciesForASUT
@@ -34,6 +35,11 @@ namespace developwithpassion.specifications.faking
             }
 
             return false;
+        }
+
+        public string default_dependency_name
+        {
+            get { return default_dependency; }
         }
 
         public object get_dependency_of(Type dependency_type, string name)

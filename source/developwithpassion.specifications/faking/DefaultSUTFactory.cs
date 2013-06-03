@@ -9,20 +9,18 @@ namespace developwithpassion.specifications.faking
         public Func<SUT> actual_factory;
         IManageTheDependenciesForASUT manage_the_dependencies_for_asut;
         IUpdateNonCtorDependenciesOnAnItem non_ctor_dependency_visitor;
-        Func<Func<SUT>, SUT> actual_sut_create_wrapper;
-
+        
         public DefaultSUTFactory(IManageTheDependenciesForASUT manage_the_dependencies_for_asut,
                                  IUpdateNonCtorDependenciesOnAnItem non_ctor_dependency_visitor)
         {
             this.actual_factory = create_automatically;
-            this.actual_sut_create_wrapper = sut_creator => sut_creator();
             this.manage_the_dependencies_for_asut = manage_the_dependencies_for_asut;
             this.non_ctor_dependency_visitor = non_ctor_dependency_visitor;
         }
 
         public SUT create()
         {
-            return  actual_sut_create_wrapper(() => this.actual_factory());
+            return  this.actual_factory();
         }
 
         SUT create_automatically()
@@ -39,11 +37,6 @@ namespace developwithpassion.specifications.faking
         public void create_using(Func<SUT> specific_factory)
         {
             this.actual_factory = specific_factory;
-        }
-
-        public void during_create(Func<Func<SUT>, SUT> sut_create_wrapper)
-        {
-            actual_sut_create_wrapper = sut_create_wrapper;
         }
 
         public Dependency on<Dependency>() where Dependency : class
