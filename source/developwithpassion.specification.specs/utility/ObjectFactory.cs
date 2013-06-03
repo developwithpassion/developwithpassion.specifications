@@ -35,7 +35,7 @@ namespace developwithpassion.specification.specs.utility
         {
             var fakes_adapter = create_fakes_adapter<Target>();
             return MainControllerFactory.new_instance().downcast_to<MainControllerFactory>()
-                .dependency_registry_factory.create(fakes_adapter, create_sut_dependency_resolver<Target>(fakes_adapter));
+                .dependency_registry_factory.create<Target>(fakes_adapter, create_sut_dependency_resolver<Target>(fakes_adapter));
         }
 
         public static IUpdateNonCtorDependenciesOnAnItem create_visitor<Target>() where Target : class

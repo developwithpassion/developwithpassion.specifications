@@ -22,7 +22,7 @@ namespace developwithpassion.specifications.core.factories
         {
             var fakes_accessor = this.fakes_gateway_factory.create<Class, Engine>();
             var fakes_resolver = this.fakes_adapter_factory.create(fakes_accessor);
-            var dependency_registry = this.dependency_registry_factory.create(fakes_accessor,
+            var dependency_registry = this.dependency_registry_factory.create<Class>(fakes_accessor,
                                                                               fakes_resolver);
             var sut_factory = this.sut_factory_provider.create<Class>(dependency_registry,
                                                                       non_ctor_dependency_visitor_factory.create(
