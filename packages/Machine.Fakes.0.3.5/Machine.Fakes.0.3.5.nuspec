@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Machine.Fakes</id>
+    <version>0.3.5</version>
+    <authors>The machine project</authors>
+    <owners>The machine project</owners>
+    <licenseUrl>http://github.com/machine/machine.fakes/raw/dev/License.txt</licenseUrl>
+    <projectUrl>http://github.com/machine/machine.fakes</projectUrl>
+    <iconUrl>http://github.com/machine/machine.fakes/raw/dev/machine.fakes.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Machine.Fakes attempts to simplify the usage of such frameworks on top of Machine.Specifications by helping to reduce a lot of the typical fake framwork related clutter code in specifications. If you choose so, Machine.Fakes even helps you to stay mostly independent of a concrete fake framework by providing a little wrapper API and a provider model for fake frameworks.</description>
+    <tags>tdd bdd testing unittest fakes mocks mspec mfakes</tags>
+    <dependencies>
+      <dependency id="Machine.Specifications" version="[0.5.6.0]" />
+    </dependencies>
+  </metadata>
+</package>
