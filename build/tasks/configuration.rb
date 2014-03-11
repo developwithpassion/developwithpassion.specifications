@@ -15,7 +15,7 @@ task :configure do
     :specs =>
     {
       :runner_options => ["-x","example"],
-      :tools_folder => delayed{File.join("packages","Machine.Specifications.0.6.2","tools")},
+      :tools_folder => delayed{File.join("packages","Machine.Specifications.0.7.0","tools")},
       :dir => delayed{configatron.artifacts_dir.join('specs')},
       :report_dir => delayed{configatron.specs.dir.join('report')},
       :assemblies => dynamic{Dir.glob("#{configatron.artifacts_dir}/*specs.dll")},
