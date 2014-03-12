@@ -1,3 +1,5 @@
+
+
 using developwithpassion.specifications.rhinomocks;
 using Machine.Specifications;
 
@@ -12,7 +14,7 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
                 result = sut.add(3, 2);
 
             It should_return_the_sum = () =>
-                result.ShouldEqual(5);
+                5.ShouldEqual(result);
 
             static int result;
         }

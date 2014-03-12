@@ -1,6 +1,7 @@
 using System.Data;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.rhinomocks;
+using Machine.Fakes;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.examples.fake_interaction
@@ -28,7 +29,7 @@ namespace developwithpassion.specifications.examples.fake_interaction
                 result = sut.add(2, 3);
 
             It should_run_a_command = () =>
-                command.received(x => x.ExecuteNonQuery());
+                command.WasToldTo(x => x.ExecuteNonQuery());
 
             It should_return_the_sum = () =>
                 result.ShouldEqual(5);

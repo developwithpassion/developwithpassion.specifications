@@ -1,6 +1,6 @@
 using System.Data;
-using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.rhinomocks;
+using Machine.Fakes;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.examples.fake_interaction
@@ -21,8 +21,9 @@ namespace developwithpassion.specifications.examples.fake_interaction
 
             It should_open_the_connection = () =>
                 //the received method is how you assert whether a call was made to a fake
-                connection.received(x => x.Open());
+                connection.WasToldTo(x => x.Open());
 
+            
             It should_return_the_sum = () =>
                 result.ShouldEqual(5);
 
