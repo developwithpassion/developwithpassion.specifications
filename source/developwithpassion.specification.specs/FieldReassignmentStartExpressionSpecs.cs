@@ -5,6 +5,7 @@ using developwithpassion.specifications.rhinomocks;
 using Machine.Specifications;
 using Rhino.Mocks;
 
+
 namespace developwithpassion.specification.specs
 {
     public class FieldReassignmentStartExpressionSpecs
