@@ -1,0 +1,1908 @@
+<html>
+<head>
+  <title>Machine.Specifications Report</title>
+  <style type="text/css">body {
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: .9em;
+}
+
+.count {
+  color: lightgrey;
+}
+
+.failure, .notimplemented, .ignored {
+  color: red;
+  font-weight: bold;
+  display: inline;
+}
+
+.notimplemented {
+  color: orange;
+}
+
+.ignored {
+  color: gold;
+}
+
+p.exception_type {
+  color: black;
+  font-weight: bold;
+  display: inline;
+}
+
+pre.exception_message {
+  border-style: dashed;
+  border-color: #FF828D;
+  border-width: thin;
+  background-color: #FFD2CF;
+  white-space: pre-wrap; /* CSS2.1 compliant */
+  white-space: -moz-pre-wrap; /* Mozilla-based browsers */
+  white-space: o-pre-wrap; /* Opera 7+ */
+  padding: 1em;
+}
+
+hr {
+  color: lightgrey;
+  border: 1px solid lightgrey;
+  height: 1px;
+}
+
+ul.prev-next {
+  padding: 0;
+  margin: 0;
+  font-size: 2em;
+  }
+  
+.spec ul.prev-next {
+  float: right;
+  right: 30%;
+  position: absolute;
+  margin-top: -1em;
+  }
+
+ul.prev-next li {
+  display: inline;
+  padding: 0;
+  margin: 0;
+}
+
+ul.prev-next li a {
+  color: lightgrey;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0 .3em;
+  border: 1px solid lightgrey;
+}
+
+ul.prev-next li.failure a {
+  border-color: red;
+}
+
+ul.prev-next li.notimplemented a {
+  border-color: orange;
+}
+
+ul.prev-next li.ignored a {
+  border-color: gold;
+}
+
+ul.prev-next li.failure a:hover {
+  background-color: red;
+  color: #fff;
+}
+
+ul.prev-next li.notimplemented a:hover {
+  background-color: orange;
+  color: #000;
+}
+
+ul.prev-next li.ignored a:hover {
+  background-color: gold;
+  color: #000;
+}
+
+ul.prev-next li.back a:hover {
+  background-color: #444;
+  color: #fff;
+}
+
+div.supplement {
+  display: none;
+}
+  
+@media print {
+  ul.prev-next {
+    display: none;
+  }
+}
+  </style>
+</head>
+<body>
+  <ul class="prev-next">
+  </ul>
+  <h1>
+    developwithpassion.specification.specs
+</h1>
+<h2 class="count">
+  25 concerns,
+  86 contexts,
+  94 specifications
+</h2>
+<script type="text/javascript">
+  function toggleVisibility(id, description)
+  {
+    var section = document.getElementById(id);
+    var link = document.getElementById(id + "_link");
+
+    if (section.style.display == "block")
+    {
+      section.style.display = "none";
+      link.innerHTML = "Show " + description;
+    } else
+    {
+      section.style.display = "block";
+      link.innerHTML = "Hide " + description;
+    }
+  };
+</script> 
+  
+  <hr/>
+  <hr/>
+  
+  <h2 class="concern">
+   specifications
+</h2>
+<h3 class="count">
+  3 contexts, 3 specifications
+</h3><h3 class="context">
+  and the sets are different
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="24">should get an exception when trying to make an assertion</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when a change is made in an establish block
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="8">should have caused the change to the field</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when comparing two sets of items
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="23">should not get an exception when trying to make the assertion</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  AccessorHasAValue specifications
+</h2>
+<h3 class="count">
+  3 contexts, 3 specifications
+</h3><h3 class="context">
+  and it represents a class with a value
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="2">should have a value</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and it represents a class without a value
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="3">should not match</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and it represents a struct
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="1">should always have a value</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  AssemblyStore specifications
+</h2>
+<h3 class="count">
+  3 contexts, 3 specifications
+</h3><h3 class="context">
+  when a set of assemblies are added
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="93">they should all be stored in the underlying list</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when an assembly is registered
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="92">should store in in the list of all assemblies to check</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when requesting all of the types
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="94">should return the set of types from any of the assemblies loaded</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  BlockThat specifications
+</h2>
+<h3 class="count">
+  4 contexts, 4 specifications
+</h3><h3 class="context">
+  and a default value was provided
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="7">should return the default value for the return type</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and no default value was specified
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="6">should return the default value for the return type</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the original block does not throw an exception
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="5">should return the return value of the original block</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when ignoring the exceptions around an action block
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="4">should execute the original action without throwing an exception</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  DefaultFieldSwitcherFactory specifications
+</h2>
+<h3 class="count">
+  1 context, 1 specification
+</h3><h3 class="context">
+  when creating a field switcher
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="49">should use the member target registry to create a target to target the member type</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  DefaultObservationController`2 specifications
+</h2>
+<h3 class="count">
+  1 context, 1 specification
+</h3><h3 class="context">
+  when catching an exception around a string based property invocation
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="9">should catch the exception correctly</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  DefaultSUTFactory`1 specifications
+</h2>
+<h3 class="count">
+  11 contexts, 11 specifications
+</h3><h3 class="context">
+  and arguments have not been specifically provided
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="64">should throw the original exception thrown by the dependency resolver</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and no errors occur during the initial instantiation
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="62">should run the non ctor dependency visitor against the created item</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the arguments have been specifically provided
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="65">should be able to be created without issues</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the constructor for the created item does not require a type of the value provided
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="67">should fail to create the item</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when constructing a type that has dependencies specified as a mixture of field properties and ctor args
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="72">should create the item with all dependencies satisfied</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when constructing a type that has struct dependencies that have not been provided
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="71">should be able to create it without issues</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when creating an item and no constructor arguments have been provided
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="66">should return the item created by the greediest constructor</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when provided a specific factory method
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="69">should use the factory method for creation</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when providing a constructor argument for the sut and an explicit factory has been provided
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="70">should not change the value of the sut factory</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when providing a specific constructor parameter for the sut
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="68">should return the value stored by the dependency registry</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when specifying a dependency
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="63">should store the dependency in the dependency registry and return the item it returned</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  DefaultTestStateFor`1 specifications
+</h2>
+<h3 class="count">
+  4 contexts, 6 specifications
+</h3><h3 class="context">
+  when a setup behaviour is registered
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="79">should store it in the list of behaviours to run as part of the setup process</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when a sut behaviour is registered
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="80">should store it in the list of actions to run against the sut</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when running its setup
+</h3>
+<h4 class="count">
+  3 specifications
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="81">should create the sut using the sut factory</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+          <li class="spec"><span id="82">should run all of setup pipeline actions</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+          <li class="spec"><span id="83">should run each of the sut blocks against the sut</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when running its teardown pipeline
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="84">should run each of the finish blocks in all of its pipeline behaviours</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  DependenciesRegistry specifications
+</h2>
+<h3 class="count">
+  6 contexts, 9 specifications
+</h3><h3 class="context">
+  and it has already been stored
+</h3>
+<h4 class="count">
+  2 specifications
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="19">should replace the existing instance</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+          <li class="spec"><span id="20">should return the instance being registered</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and it has not already been stored
+</h3>
+<h4 class="count">
+  2 specifications
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="17">should be stored in the underlying dependencies</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+          <li class="spec"><span id="18">should return the instance being registered</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the dependency has been explicitly provided
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="15">should return the item that was registered</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the dependency is not being provided
+</h3>
+<h4 class="count">
+  2 specifications
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="21">should store the item created by the fake gateway</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+          <li class="spec"><span id="22">should return the item created by the fake gateway</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the dependency was not explicitly provided
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="16">should return the item created by the dependency resolver</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when asked if it has an explicit dependency
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="14">should make the decision based on whether an explicit dependency was registered</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  FakeDelegateFactory specifications
+</h2>
+<h3 class="count">
+  2 contexts, 4 specifications
+</h3><h3 class="context">
+  when creating a delegate for a void delegate type
+</h3>
+<h4 class="count">
+  2 specifications
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="10">should create a delegate of the correct type</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+          <li class="spec"><span id="11">should create a delegate that does not throw an exception when invoked</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when creating an delegate for a close generic type with a return value
+</h3>
+<h4 class="count">
+  2 specifications
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="12">should create a delegate of the correct type</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+          <li class="spec"><span id="13">should create a delegate that return the default return value for the return type</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  FieldMemberAccessor specifications
+</h2>
+<h3 class="count">
+  4 contexts, 4 specifications
+</h3><h3 class="context">
+  and the field is not readonly
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="45">should change the value of the field</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the field is readonly
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="46">should change the value of the field</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when getting its value
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="43">should get the value of the field</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when gettings its accessor type
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="44">should return the type of its field</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  FieldReassignmentStartExpression specifications
+</h2>
+<h3 class="count">
+  2 contexts, 2 specifications
+</h3><h3 class="context">
+  when changing the target that requires a boxing operation to be performed
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="47">should return a field changer that can be used to specify the value for during testing</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when provided the target which it is going to be changing
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="48">should return a field changer that can be used to specify the value for during testing</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  InstanceObservations`3 specifications
+</h2>
+<h3 class="count">
+  4 contexts, 4 specifications
+</h3><h3 class="context">
+  when a test has run its setup
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="73">should be able to modify the test pipeline</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when a test is run and the sut requires dependencies
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="74">should have automatically mocked out the dependencies required by the sut</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when a test is run that requires a sut
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="75">should have automatically created the sut</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when an error occurs during the  test
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="78">should be able to access the exception thrown by the sut</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  ISwapValues specifications
+</h2>
+<h3 class="count">
+  2 contexts, 2 specifications
+</h3><h3 class="context">
+  when constructed
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="50">should use the target to get the original value</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when provided the value to change to
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="51">should provide the pipeline pair that can do the switching</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  MatchExtensions specifications
+</h2>
+<h3 class="count">
+  1 context, 1 specification
+</h3><h3 class="context">
+  when negating a match
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="25">should return a negating matcher with access to the original matcher</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  MemberAccessorFactory specifications
+</h2>
+<h3 class="count">
+  2 contexts, 2 specifications
+</h3><h3 class="context">
+  when getting a member target for a member that represents a field
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="52">should get a field member target</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when getting a member target for a member that represents a property
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="53">should get a field member target</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  NegatingMatcher`1 specifications
+</h2>
+<h3 class="count">
+  1 context, 1 specification
+</h3><h3 class="context">
+  when matching
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="26">should return the opposite result of its original matcher</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  NonCtorDependencySetter specifications
+</h2>
+<h3 class="count">
+  12 contexts, 12 specifications
+</h3><h3 class="context">
+  and a value has been registered in the registry
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="30">should update the fields with the values from the dependency registry</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and a value has not been registered in the registry
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="31">should not update the value of field</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the accessor is initialized in the initializer
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="33">should update the item</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the dependencies were explicitly specified in the registry
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="32">should overwrite the value</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the dependencies were not specified in the registry
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="34">should not override the original accessors</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the registry has a value for the field
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="36">should change the value of the delegate field to the provided value</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the registry has a value for the field
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="38">should change the value of the delegate field to the provided value</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the registry has no value for that field
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="35">should not change their value</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the registry has no value for that field
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="37">should change the value to be non null</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when the dependency manager throws an exception while trying to get a dependency for a accessor
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="29">should carry on attempting to set other dependencies</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when visting an item that has non public accessor
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="28">should not attempt to update the non public accessor</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when visting an item that inherits
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="27">should not attempt to update the accessors on the parent class</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  ObservationPair specifications
+</h2>
+<h3 class="count">
+  2 contexts, 2 specifications
+</h3><h3 class="context">
+  when told to setup
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="60">should only run its teardown block</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when told to teardown
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="59">should only run its teardown block</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  PropertyInfoMemberAccessor specifications
+</h2>
+<h3 class="count">
+  5 contexts, 5 specifications
+</h3><h3 class="context">
+  and the property has a private mutator
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="58">should update the value to the target value</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the property is non writable
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="57">should not attempt to update the value</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  and the property is writable
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="56">should change the value of the field</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when getting its value
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="55">should get the value of the field</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when gettings its accessor type
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="54">should return the type of its property</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  something specifications
+</h2>
+<h3 class="count">
+  1 context, 2 specifications
+</h3><h3 class="context">
+  when run with other behaviours
+</h3>
+<h4 class="count">
+  2 specifications
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="76">should run</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+          <li class="spec"><span id="77">should update the item</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  StringExtensions specifications
+</h2>
+<h3 class="count">
+  1 context, 1 specification
+</h3><h3 class="context">
+  when a string is formatted with arguments
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="61">should return the string formatted with the arguments specified</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  SUTDependencyResolver specifications
+</h2>
+<h3 class="count">
+  4 contexts, 4 specifications
+</h3><h3 class="context">
+  when attempting to resolve a delegate
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="42">should return the delegate created by the delegate builder</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when resolving a reference type
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="39">should dispatch the correct generic call to the fake accessor</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when resolving a string
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="41">should return an empty string</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when resolving a value type
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="40">should return a new instance of the requested value type</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  TypeCastingExtensions specifications
+</h2>
+<h3 class="count">
+  3 contexts, 3 specifications
+</h3><h3 class="context">
+  when a legitimate downcast is made
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="85">should not fail</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when an illegal downcast is attempted
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="86">should throw an invalid cast exception</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when determining if an object is not an instance of a specific type
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="87">should make determination based on whether the object is assignable from the specific type</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h2 class="concern">
+  TypeExtensions specifications
+</h2>
+<h3 class="count">
+  4 contexts, 4 specifications
+</h3><h3 class="context">
+  when a generic type is told to return its proper name
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="88">should return a name that has its generic type arguments expanded</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when a type is told to find its greediest constructor
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="89">should return the constructor that takes the most arguments</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when getting all of the accessors belonging to a type
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="91">should get the items based on the flags</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul><h3 class="context">
+  when told to get a list of fields of certain type
+</h3>
+<h4 class="count">
+  1 specification
+</h4>
+ 
+        <ul>
+          <li class="spec"><span id="90">should only return the fields that match the expected type</span>
+
+
+
+
+ 
+
+ 
+
+          </li>
+        </ul>
+    <hr/>
+</body>
+</html>
