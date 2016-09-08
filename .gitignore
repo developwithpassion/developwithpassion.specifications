@@ -1,7 +1,8 @@
 _UpgradeReport_Files
 UpgradeLog.XML
 source/*/obj
-source/*/bin
+source/bin
+source/project.csproj
 *.chm
 _[Rr]e[Ss]harper.*
 *.csproj.user
@@ -21,3 +22,5 @@ project.nuspec
 distribution
 nuget_key
 *mm_cache.bin
+/packages
+
