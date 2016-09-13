@@ -23,6 +23,7 @@ distribution
 nuget_key
 *mm_cache.bin
 packages
+paket.template
 mspec_command.output
 nupkgs
 aliases
