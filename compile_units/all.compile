@@ -1,0 +1,36 @@
+{
+  name: "code",
+
+  response_file: File.join(settings.response_files_dir,"code.rsp"),
+
+  base_response_template: "source/config/csc.rsp",
+
+  sources: Dir.glob("source/**/*.cs")
+          .select { |item| /TemporaryGenerated/ !~ item }
+          .to_a,
+
+  extra_files: Dir.glob("source/**/*.*")
+        .select { |item| /(bin|obj)/ !~ item }
+        .select { |item| /\.cs/ !~ item }
+        .select { |item| /\.user/ !~ item }
+        .to_a,
+
+  references: settings.all_references.select do |item| 
+           /interop/i !~ item 
+         end,
+
+  assembly: {
+    title: "code",
+    company: "developwithpassion.specifications",
+    product: "code",
+    copyright: "Copyright Develop With Passion®",
+    guid: "96530a97-da3a-4486-af32-894e984fec0d",
+    version: "1.0.0.0"
+  },
+
+  dependent_compiles: [],
+
+  output: File.join(settings.artifacts_dir,"developwithpassion.specifications.dll"),
+
+  target: :library
+}

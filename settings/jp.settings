@@ -1,0 +1,14 @@
+configure({
+  extra_aliases: ['jp.aliases'],
+
+  net_tools_paths: [
+    '/c/Program Files (x86)',
+    '/c/Program Files (x86)/MSBuild/14.0/bin',
+    '/c/utils/vs/2015/Common7/IDE',
+    '/c/utils/vs/2015/Common7/Tools',
+    '/c/utils/vs/2015/VC/BIN',
+    '/c/Windows/Microsoft.NET/Framework/v4.0.30319',
+    '/c/Program Files (x86)/Microsoft SDKs/Windows/v8.1A/bin/NETFX 4.5.1/Tools/x64/',
+    '/c/Program Files (x86)/Microsoft SDKs/Windows/v8.1A/bin/NETFX 4.5.1 Tools'
+  ],
+})

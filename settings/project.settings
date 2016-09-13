@@ -1,0 +1,220 @@
+project = "developwithpassion.specifications"
+target = ENV['target'] || 'Debug'
+
+def filter_libs(libs)
+  libs = libs.select do |file|
+    /x86/ !~ file &&
+      /netstandard/ !~ file &&
+      /net4\d{2}/ !~ file &&
+      /SQLite/ !~ file &&
+      /netcore/ !~ file &&
+      /amd64/ !~ file &&
+      /portable/ !~ file &&
+      /sl5/ !~ file &&
+      /Castle/ !~ file &&
+      /Interop/ !~ file &&
+      /content/ !~ file &&
+      /Oracle/ !~ file &&
+      /mono/i !~ file &&
+      /android/i !~ file
+  end
+
+  libs
+end
+
+configure({
+
+  target: target,
+
+  version: delayed{ENV['VERSION'] || "0.7.2" },
+
+  version_simple: delayed{configatron.version.gsub(/"/,'')},
+
+  main_config_file: "",
+
+  distribution:
+  {
+    dir: "distribution",
+
+    zip:
+    {
+      dir: delayed{configatron.distribution.dir.join("zips")},
+    },
+
+    paket: 
+    {
+      dir: delayed{configatron.distribution.dir.join("paket")},
+    },
+
+    nuget: 
+    {
+      key: dynamic{File.read('nuget_key').chomp if File.readable?('nuget_key')},
+      url: 'https://www.nuget.org/api/v2/package'
+    }
+  },
+
+  edit_project_template: 'source/project.csproj.template',
+
+  all_references: delayed do
+    settings.framework_references +
+      settings.libs
+  end, 
+
+  app_dir: delayed{"source"},
+
+  artifacts_dir: "artifacts",
+
+  automation: {
+    folders_to_create: delayed{[
+      settings.artifacts_dir,
+      settings.artifacts_dir,
+      settings.response_files_dir,
+      settings.specs.dir,
+      settings.specs.report_dir,
+    ]},
+
+    folders_to_clean: delayed{[
+      settings.distribution.dir,
+      settings.artifacts_dir,
+    ]},
+  },
+
+  build_order: [
+    "all"
+  ].select do |unit|
+    "compile_units/#{unit}.compile"
+  end,
+
+  compiler: {
+    warning_level: 1
+  },
+
+  compile_units: Dir.glob("compile_units/*.compile"),
+
+  config_files: dynamic do 
+    Dir.glob([
+      "source/config/**/*.{config,xml}",
+    ])
+  end,
+
+  continuous_testing: {
+    interval: 10
+  },
+
+  config_dir: "source/config",
+
+  framework_references: [
+    "System.Data.dll",
+    "System.dll",
+  ],
+
+  libs: delayed do
+    (settings.package_references + 
+     settings.lib_references)
+  end,
+
+  lib_references: delayed do 
+    UniqueFiles.new(filter_libs(Dir.glob("lib/**/*.{dll,exe}"))).all_files
+  end,
+
+  net_tools_paths: [
+    '/c/Program Files (x86)',
+    '/c/Program Files (x86)/MSBuild/14.0/bin',
+    '/c/utils/vs/2015/Common7/IDE',
+    '/c/utils/vs/2015/Common7/Tools',
+    '/c/utils/vs/2015/VC/BIN',
+    '/c/Windows/Microsoft.NET/Framework/v4.0.30319',
+    '/c/Program Files (x86)/Microsoft SDKs/Windows/v8.1A/bin/NETFX 4.5.1/Tools/x64/',
+    '/c/Program Files (x86)/Microsoft SDKs/Windows/v8.1A/bin/NETFX 4.5.1 Tools'
+  ],
+
+  paket:
+  {
+    packages_folder: 'packages',
+
+    packages_config: 'source/config/packages.config',
+  },
+
+
+  package_references: delayed do 
+    UniqueFiles.new(filter_libs(Dir.glob("packages/**/*.{dll,exe}"))).all_files
+  end,
+
+  project: project,
+
+  response_files_dir: delayed do
+    File.join(settings.artifacts_dir, "response_files")
+  end,
+
+  root_namespace: "developwithpassion.specifications",
+
+  runner_processes: delayed{%W/#{settings.browser.base_name_without_extension} iisexpress node ruby powershell growl chrome chromedriver cmd/},
+
+  specs:
+  {
+    exe: delayed{"#{settings.artifacts_dir}/mspec-clr4.exe"},
+
+    is_build_error: -> (message) do
+      [ /error/,
+        /FAIL/ 
+      ].any? do |pattern|
+        pattern =~ message
+      end
+    end,
+
+    continuous_testing: {
+      ignored_files: [
+        /generated/,
+        /assembly(_)?info/i,
+        /obj\/Debug/i,
+        /App_Start/i,
+      ],
+
+      glob: -> {
+        files = Dir.glob("source/**/*.cs")
+        results = files.select do |file|
+          settings.specs.continuous_testing.ignored_files.all? do |pattern|
+            pattern !~ file
+          end
+        end
+      },
+
+      runner: ->(compile_file) do
+        `thor specs:run_them #{compile_file} --flags=exclude:slow,seed`
+      end
+    },
+
+    flags: delayed{
+      {
+        :html => "#{settings.specs.report_dir}/#{settings.project}.specs.html",
+      }
+    },
+
+    assemblies: dynamic{Dir.glob("#{settings.artifacts_dir}/#{settings.project}.*dll")},
+
+    dir: delayed{File.join(settings.artifacts_dir,"specs")},
+
+    report_dir: delayed{File.join(settings.specs.dir,"report")},
+  },
+
+  test_compile_unit: 'compile_units/sample_spec.compile',
+
+
+  appconfig_settings:  delayed{[
+    { name: "app_name", type: "string", value: 'code' },
+  ]},
+
+  timestamps: {
+
+    verification_file: 'all_timestamps',
+
+    bundles: {
+      node_packages: {
+        files: ['source/package.json',
+                'package.json'].concat(
+                  Dir.glob("source/custom_node_modules/**/package.json"))
+          .concat( Dir.glob("source/custom_node_modules/**/*.js"))
+      },
+    }
+  },
+})
