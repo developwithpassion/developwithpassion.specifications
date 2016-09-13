@@ -22,5 +22,6 @@ project.nuspec
 distribution
 nuget_key
 *mm_cache.bin
-/packages
+packages
+mspec_command.output
 

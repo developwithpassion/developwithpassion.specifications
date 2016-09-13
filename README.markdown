@@ -1,6 +1,6 @@
 # developwithpassion.specifications
 
-developwithpassion.specifications is a formalization of some test utilities that I have been using for the last couple of years. It is written as a thin extension layer on top of the following 2 fantastic libraries:
+developwithpassion.specifications is a lightweight utility layer on top of the following 2 fantastic libraries:
 
 * [Machine.Specifications](https://github.com/machine/machine.specifications)
 * [Machine.Fakes](https://github.com/BjRo/Machine.Fakes)
@@ -12,7 +12,7 @@ With the help of Machine.Fakes it currently can be used to do interaction based 
 * [Rhino.Mocks](https://github.com/ayende/rhino-mocks)
 * [NSubstitute](https://github.com/nsubstitute/NSubstitute)
 
-Thanks to the Machine teams and Bjorn Rochel for the contributions that this library heavily leverages.
+Thanks to the Machine teams and the Fakes team for the contributions that this library heavily leverages.
 
 ## Contributing code
 
