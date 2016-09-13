@@ -1,0 +1,39 @@
+export PATH="$PATH:$(find ./automation/tools -name '.*' -prune -o -type d | tr "\n" ":")"
+
+<% settings.net_tools_paths.each do |tool_path| %>
+PATH=$PATH:<%= tool_path.as_win_path %>
+<% end %>
+
+ROOT=$(pwd)
+
+function ch_root(){
+  pushd $ROOT
+}
+
+alias root=ch_root
+#
+#Aliases for thor tasks
+
+#Compile aliases
+alias cs='root;thor compile:selection;popd'
+alias automation='root;cd automation;popd'
+
+#Edit the main compile unit
+alias edit='root;thor edit:edit compile_units/all.compile;popd'
+
+#Paket Aliases
+alias pi='root;thor paket:install;popd'
+alias pglv='root;thor nuget:get_latest_version;popd'
+alias pup='root;thor paket:update;popd'
+alias ppack='root;thor paket:pack;popd'
+alias ppush='root;thor paket:push;popd'
+
+alias ct='root;thor continuous_testing:run_it compile_units/all.compile;popd'
+alias grs='root;thor growl:start;popd'
+alias exp='root;expands;source aliases;popd'
+alias sr='root;thor specs:run_them compile_units/all.compile --flags=exclude:slow,seed;popd'
+alias sra='root;thor specs:run_them compile_units/all.compile;popd'
+
+function xack(){
+  x.ack $* --ignore-dir=dist --ignore-dir=.features.generated --ignore-dir=source/assets --ignore-dir=packages  --ignore-dir="artifacts"
+}
