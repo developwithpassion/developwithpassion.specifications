@@ -1,0 +1,21 @@
+require_relative 'init'
+
+patterns_to_exclude_from_templates = [
+  /^node_modules/,
+  /.*\/node_modules/,
+  /bower_components/,
+  /web_staging/
+]
+
+ignore = ->(file) do
+  patterns_to_exclude_from_templates.inject(false) do |flag, current_pattern|
+    flag || current_pattern =~ file
+  end
+end
+
+expand do
+  look_for_templates_in "**/*.{erb,mustache}", exclude: ignore
+
+end
+
+
