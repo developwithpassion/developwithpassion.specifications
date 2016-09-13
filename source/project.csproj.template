@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{922EF2FE-820B-4ED5-9D64-7D716E135719}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace><%= settings.root_namespace %></RootNamespace>
+    <AssemblyName><%= settings.root_namespace %></AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <WebGreaseLibPath>..\..\lib</WebGreaseLibPath>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>../<%= settings.artifacts_dir %></OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <% settings.libs.each do |lib| %>
+    <% raw_name = File.basename(lib, File.extname(lib))
+       path = "..\\#{lib}" 
+    %>     
+    <Reference Include="<%=raw_name %>">
+    <HintPath><%= path.win_path %></HintPath>
+    </Reference>   
+    <% end %>
+    <% settings.framework_references.each do |ref| %>     
+    <Reference Include="<%=ref %>" />
+    <% end %>
+  </ItemGroup>
+
+  <ItemGroup>
+    <% settings.compile_unit.sources.each do |file| %>
+    <% file = file.gsub(/source\//, "") %>   
+    <Compile Include="<%= file.win_path %>" />
+    <% end %>
+  </ItemGroup>
+  <ItemGroup>
+    <% settings.compile_unit.extra_files.select do |file|
+      !Dir.exist?(file) 
+    end.each do |file| %>
+    <% file = file.gsub(/source\//, "") %>    
+    <Content Include="<%= file.win_path %>" />
+    <% end %>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,11 @@
+/target:<%= settings.compile_unit.target %>
+/out:<%= settings.compile_unit.output %>
+/nologo
+/debug
+/warn:<%= settings.compiler.warning_level %>
+<% settings.compile_unit.references.each do |ref| %>
+/r:<%= ref.win_path %>
+<% end %>
+<% settings.compile_unit.sources.each do |source| %>
+<%= source.win_path %>
+<% end %>
