@@ -24,4 +24,5 @@ nuget_key
 *mm_cache.bin
 packages
 mspec_command.output
+nupkgs
 
