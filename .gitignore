@@ -28,3 +28,4 @@ mspec_command.output
 nupkgs
 aliases
 Gemfile.lock
+source/app.config
