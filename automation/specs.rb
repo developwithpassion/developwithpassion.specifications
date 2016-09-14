@@ -21,6 +21,8 @@ module Automation
         FileUtils.cp(file, settings.artifacts_dir)
       end
 
+      FileUtils.cp "source/config/redirects.config", File.join(settings.artifacts_dir, "developwithpassion.specifications.dll.config")
+
       flags = default_options.merge(options[:flags])
 
       line = build_runner_line(settings.specs.flags.merge(flags), settings.specs.assemblies)

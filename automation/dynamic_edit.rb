@@ -10,6 +10,8 @@ module Automation
       unit = get_compile_unit(unit)
       configure(compile_unit: unit)
 
+      FileUtils.cp("source/config/redirects.config", "source/app.config")
+
       invoke 'automation:expand', [], {}
       FileUtils.rm edit_file
     end
