@@ -2,9 +2,8 @@ source https://www.nuget.org/api/v2
 cache ./nupkgs versions: current
 
 nuget Machine.Specifications >= 0.11.0
+
 nuget Machine.Specifications.Runner.Console >= 0.10.0-Unstable0005
 nuget Machine.Specifications.Runner.TDNet >= 0.9.0
 nuget Machine.Specifications.Should >= 0.11.0
-nuget Machine.Fakes >= 2.8.0-beta3
-nuget RhinoMocks >= 3.6.0.0
-nuget Machine.Fakes.RhinoMocks >= 2.8.0-beta3
+nuget Machine.Fakes.Moq >= 2.8.0-beta3
