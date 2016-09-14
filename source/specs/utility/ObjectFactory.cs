@@ -2,7 +2,7 @@
 using developwithpassion.specifications.core.factories;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.faking;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Fakes.Sdk;
 
 namespace developwithpassion.specifications.specs.utility
@@ -12,7 +12,7 @@ namespace developwithpassion.specifications.specs.utility
     public static IManageFakes create_fakes_adapter<Target>() where Target : class
     {
       return new FakesAdapter(new SpecificationController<Target>(
-        new RhinoFakeEngine()));
+        new MoqFakeEngine()));
     }
 
     public static ICreateFakeDelegates create_fake_delegate_factory()

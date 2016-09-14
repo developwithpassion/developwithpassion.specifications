@@ -1,14 +1,21 @@
 ﻿using System;
-using System.Data;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.examples.automatic_sut_creation
 {
   public class with_a_mix_of_dependencies_in_the_ctor_properties_and_fields
   {
+    public interface IConnect
+    {
+    }
+
+    public interface IAdapt
+    {
+    }
+
     [Subject(typeof(Calculator))]
-    public class when_adding_two_numbers : use_engine<RhinoFakeEngine>.observe<Calculator>
+    public class when_adding_two_numbers : use_engine<MoqFakeEngine>.observe<Calculator>
     {
       Establish c = () =>
         depends.on(the_date);
@@ -36,12 +43,12 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
 
     public class Calculator
     {
-      IDataAdapter adapter;
-      public IDbConnection connection;
+      IAdapt adapter;
+      public IConnect connection;
       public DateTime current_date { get; set; }
       public SomeDelegate some_delegate;
 
-      public Calculator(IDataAdapter adapter)
+      public Calculator(IAdapt adapter)
       {
         this.adapter = adapter;
       }

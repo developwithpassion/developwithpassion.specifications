@@ -1,17 +1,21 @@
 using System;
-using System.Data;
 using developwithpassion.specifications.assertions.core;
 using developwithpassion.specifications.assertions.type_specificity;
-using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.observations;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.specs
 {
   public class SUTObservationContextSpecs
   {
-    public class concern : use_engine<RhinoFakeEngine>.observe
+    public interface IConnect
+    {
+    }
+    public interface ICommand
+    {
+    }
+    public class concern : use_engine<MoqFakeEngine>.observe
     {
     }
 
@@ -30,14 +34,14 @@ namespace developwithpassion.specifications.specs
 
     public class SomeClassWithDependencies
     {
-      public SomeClassWithDependencies(IDbConnection connection, IDbCommand command)
+      public SomeClassWithDependencies(IConnect connection, ICommand command)
       {
         this.connection = connection;
         this.command = command;
       }
 
-      public IDbCommand command { get; set; }
-      public IDbConnection connection { get; set; }
+      public ICommand command { get; set; }
+      public IConnect connection { get; set; }
     }
 
     [Subject(typeof(InstanceObservations<,,>))]
@@ -59,7 +63,7 @@ namespace developwithpassion.specifications.specs
 
     [Subject(typeof(InstanceObservations<,,>))]
     public class when_a_test_is_run_and_the_sut_requires_dependencies :
-      use_engine<RhinoFakeEngine>.observe<SomeClassWithDependencies>
+      use_engine<MoqFakeEngine>.observe<SomeClassWithDependencies>
     {
       It should_have_automatically_mocked_out_the_dependencies_required_by_the_sut = () =>
       {
@@ -69,14 +73,14 @@ namespace developwithpassion.specifications.specs
     }
 
     [Subject(typeof(InstanceObservations<,,>))]
-    public class when_a_test_is_run_that_requires_a_sut : use_engine<RhinoFakeEngine>.observe<SomeClass>
+    public class when_a_test_is_run_that_requires_a_sut : use_engine<MoqFakeEngine>.observe<SomeClass>
     {
       It should_have_automatically_created_the_sut = () =>
         sut.ShouldBeOfExactType<SomeClass>();
     }
 
     [Subject("something")]
-    public class when_run_with_other_behaviours : use_engine<RhinoFakeEngine>.observe<SomeClass>
+    public class when_run_with_other_behaviours : use_engine<MoqFakeEngine>.observe<SomeClass>
     {
       Behaves_like<OtherBehaviours> behaviours;
 
@@ -85,15 +89,15 @@ namespace developwithpassion.specifications.specs
     }
 
     [Subject(typeof(InstanceObservations<,,>))]
-    public class when_an_error_occurs_during_the__test : use_engine<RhinoFakeEngine>.observe<SomeClassWithDependencies>
+    public class when_an_error_occurs_during_the__test : use_engine<MoqFakeEngine>.observe<SomeClassWithDependencies>
     {
       Because b = () =>
         spec.catch_exception(() => throw_something());
 
       Establish context = delegate
       {
-        connection = fake.an<IDbConnection>();
-        command = fake.an<IDbCommand>();
+        connection = fake.an<IConnect>();
+        command = fake.an<ICommand>();
         sut_factory.create_using(() => new SomeClassWithDependencies(connection, command));
       };
 
@@ -105,8 +109,8 @@ namespace developwithpassion.specifications.specs
       It should_be_able_to_access_the_exception_thrown_by_the_sut = () =>
         spec.exception_thrown.should().be_an<Exception>();
 
-      static IDbCommand command;
-      static IDbConnection connection;
+      static ICommand command;
+      static IConnect connection;
     }
   }
 }

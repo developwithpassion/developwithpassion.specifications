@@ -1,13 +1,22 @@
-using System.Data;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.examples.automatic_sut_creation
 {
+  public interface IConnect
+  {
+    
+  }
+
+  public interface IAdapt
+  {
+    
+  }
+
   public class with_all_fakeable_constructor_parameters_required
   {
     [Subject(typeof(Calculator))]
-    public class when_adding_two_numbers : use_engine<RhinoFakeEngine>.observe<Calculator>
+    public class when_adding_two_numbers : use_engine<MoqFakeEngine>.observe<Calculator>
     {
       Because b = () =>
         result = sut.add(3, 2);
@@ -19,10 +28,10 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
 
     public class Calculator
     {
-      IDbConnection connection;
-      IDbDataAdapter adapter;
+      IConnect connection;
+      IAdapt adapter;
 
-      public Calculator(IDbConnection connection, IDbDataAdapter adapter)
+      public Calculator(IConnect connection, IAdapt adapter)
       {
         this.connection = connection;
         this.adapter = adapter;

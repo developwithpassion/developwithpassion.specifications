@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Reflection;
 using Machine.Specifications;
@@ -10,6 +9,12 @@ namespace developwithpassion.specifications.extensions
   [Subject(typeof(TypeExtensions))]
   public class TypeExtensionsSpecs
   {
+    public interface IConnect
+    {
+    }
+    public interface ICommand
+    {
+    }
     public delegate void SomeThing();
 
     public class SomethingWithParameterfulConstructors
@@ -18,18 +23,18 @@ namespace developwithpassion.specifications.extensions
       public SomeThing second_thing;
       public int third_thing;
 
-      public SomethingWithParameterfulConstructors(IDbConnection connection) : this(connection, null)
+      public SomethingWithParameterfulConstructors(IConnect connection) : this(connection, null)
       {
       }
 
-      public SomethingWithParameterfulConstructors(IDbConnection connection, IDbCommand command)
+      public SomethingWithParameterfulConstructors(IConnect connection, ICommand command)
       {
         this.connection = connection;
         this.command = command;
       }
 
-      public IDbCommand command { get; set; }
-      public IDbConnection connection { get; set; }
+      public ICommand command { get; set; }
+      public IConnect connection { get; set; }
     }
 
     public class when_a_generic_type_is_told_to_return_its_proper_name

@@ -1,5 +1,5 @@
 ﻿using System;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.core
@@ -7,7 +7,7 @@ namespace developwithpassion.specifications.core
   [Subject(typeof(BlockThat))]
   public class BlockThatSpecs
   {
-    public abstract class concern : use_engine<RhinoFakeEngine>.observe
+    public abstract class concern : use_engine<MoqFakeEngine>.observe
     {
     }
 
@@ -45,11 +45,12 @@ namespace developwithpassion.specifications.core
         public class and_no_default_value_was_specified : and_the_original_block_throws_an_exception
         {
           Because b = () =>
-            result = BlockThat.ignores_exceptions(() =>
+          {
+            result = BlockThat.ignores_exceptions<int>(() =>
             {
               throw new NotImplementedException();
-              return 2;
             });
+          };
 
           It should_return_the_default_value_for_the_return_type = () =>
             result.ShouldEqual(default(int));
@@ -61,7 +62,6 @@ namespace developwithpassion.specifications.core
             result = BlockThat.ignores_exceptions(() =>
             {
               throw new NotImplementedException();
-              return 2;
             }, 42);
 
           It should_return_the_default_value_for_the_return_type = () =>

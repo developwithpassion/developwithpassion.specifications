@@ -1,4 +1,4 @@
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.examples
@@ -6,7 +6,7 @@ namespace developwithpassion.specifications.examples
   public class explicitly_creating_the_system_under_test
   {
     [Subject(typeof(Calculator))]
-    public class when_adding_two_numbers : use_engine<RhinoFakeEngine>.observe<Calculator>
+    public class when_adding_two_numbers : use_engine<MoqFakeEngine>.observe<Calculator>
     {
       Establish c = () =>
       {

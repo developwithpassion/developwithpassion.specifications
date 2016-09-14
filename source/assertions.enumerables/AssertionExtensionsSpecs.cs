@@ -3,14 +3,14 @@ using System.Linq;
 using developwithpassion.specifications.assertions.core;
 using developwithpassion.specifications.assertions.type_specificity;
 using developwithpassion.specifications.extensions;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.assertions.enumerables
 {
   public class AssertionExtensionsSpecs
   {
-    public class concern : use_engine<RhinoFakeEngine>.observe
+    public class concern : use_engine<MoqFakeEngine>.observe
     {
     }
 

@@ -4,7 +4,7 @@ using developwithpassion.specifications.assertions.interactions;
 using developwithpassion.specifications.core;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.faking;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications
@@ -16,7 +16,7 @@ namespace developwithpassion.specifications
       public bool was_leveraged;
     }
 
-    public class concern : use_engine<RhinoFakeEngine>.observe
+    public class concern : use_engine<MoqFakeEngine>.observe
     {
       Establish c = () =>
       {

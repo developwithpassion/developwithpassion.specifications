@@ -4,14 +4,14 @@ using developwithpassion.specifications.assertions.interactions;
 using developwithpassion.specifications.core.reflection;
 using developwithpassion.specifications.dsl.fieldswitching;
 using developwithpassion.specifications.extensions;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.specs
 {
   public class FieldSwitcherSpecs
   {
-    public class concern : use_engine<RhinoFakeEngine>.observe<ISwapValues, MemberTargetValueSwapper>
+    public class concern : use_engine<MoqFakeEngine>.observe<ISwapValues, MemberTargetValueSwapper>
     {
       Establish c = () =>
       {

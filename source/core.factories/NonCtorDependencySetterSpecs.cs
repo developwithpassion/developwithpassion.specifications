@@ -1,20 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
 using developwithpassion.specifications.assertions.interactions;
 using developwithpassion.specifications.faking;
 using developwithpassion.specifications.specs.utility;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.core.factories
 {
+  public interface IConnect
+  {
+    
+  }
+
+  public interface IAdapt
+  {
+    
+  }
+
   [Subject(typeof(NonCtorDependencySetter))]
   public class NonCtorDependencySetterSpecs
   {
-    public abstract class concern : use_engine<RhinoFakeEngine>.observe
+    public abstract class concern : use_engine<MoqFakeEngine>.observe
     {
       Establish c = () =>
       {
@@ -31,10 +40,10 @@ namespace developwithpassion.specifications.core.factories
       Establish c = () =>
       {
         item = new ItemThatInherits();
-        dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection)))
+        dependency_registry.setup(x => x.has_been_provided_an(typeof(IConnect)))
           .Return(true);
-        dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection)))
-          .Return(fake.an<IDbConnection>());
+        dependency_registry.setup(x => x.get_dependency_of(typeof(IConnect)))
+          .Return(fake.an<IConnect>());
       };
 
       Because b = () =>
@@ -50,11 +59,11 @@ namespace developwithpassion.specifications.core.factories
 
       public class ItemThatInherits : List<Assembly>
       {
-        public IDbConnection connection;
-        IDbConnection other_connection;
+        public IConnect connection;
+        IConnect other_connection;
         public Expression<Func<int, bool>> Matcher;
 
-        public IDbConnection the_other()
+        public IConnect the_other()
         {
           return other_connection;
         }
@@ -66,10 +75,10 @@ namespace developwithpassion.specifications.core.factories
       Establish c = () =>
       {
         item = new ItemToUpdate();
-        dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection)))
+        dependency_registry.setup(x => x.has_been_provided_an(typeof(IConnect)))
           .Return(true);
-        dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection)))
-          .Return(fake.an<IDbConnection>());
+        dependency_registry.setup(x => x.get_dependency_of(typeof(IConnect)))
+          .Return(fake.an<IConnect>());
       };
 
       Because b = () =>
@@ -90,8 +99,8 @@ namespace developwithpassion.specifications.core.factories
       Establish c = () =>
       {
         original_exception = new Exception();
-        dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Throw(original_exception);
-        dependency_registry.setup(x => x.get_dependency_of(typeof(IDataAdapter))).Return(fake.an<IDataAdapter>());
+        dependency_registry.setup(x => x.get_dependency_of(typeof(IConnect))).Throw(original_exception);
+        dependency_registry.setup(x => x.get_dependency_of(typeof(IAdapt))).Return(fake.an<IAdapt>());
         item = new AnItem();
       };
 
@@ -106,11 +115,11 @@ namespace developwithpassion.specifications.core.factories
 
       public class AnItem
       {
-        public IDbConnection connection;
-        public IDataAdapter adapter;
-        IDbConnection other_connection;
+        public IConnect connection;
+        public IAdapt adapter;
+        IConnect other_connection;
 
-        public IDbConnection the_other()
+        public IConnect the_other()
         {
           return other_connection;
         }
@@ -125,8 +134,8 @@ namespace developwithpassion.specifications.core.factories
         {
           Establish c = () =>
           {
-            the_connection_from_the_registry = fake.an<IDbConnection>();
-            dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Return(
+            the_connection_from_the_registry = fake.an<IConnect>();
+            dependency_registry.setup(x => x.get_dependency_of(typeof(IConnect))).Return(
               the_connection_from_the_registry);
             item = new ItemToUpdate();
           };
@@ -138,7 +147,7 @@ namespace developwithpassion.specifications.core.factories
             item.connection.ShouldEqual(the_connection_from_the_registry);
 
           static ItemToUpdate item;
-          static IDbConnection the_connection_from_the_registry;
+          static IConnect the_connection_from_the_registry;
         }
 
         public class and_a_value_has_not_been_registered_in_the_registry : and_the_accessors_have_not_been_set
@@ -165,11 +174,11 @@ namespace developwithpassion.specifications.core.factories
         {
           Establish c = () =>
           {
-            the_connection_from_the_registry = fake.an<IDbConnection>();
-            dependency_registry.setup(x => x.has_been_provided_an(typeof(IDbConnection))).Return(true);
-            dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Return(
+            the_connection_from_the_registry = fake.an<IConnect>();
+            dependency_registry.setup(x => x.has_been_provided_an(typeof(IConnect))).Return(true);
+            dependency_registry.setup(x => x.get_dependency_of(typeof(IConnect))).Return(
               the_connection_from_the_registry);
-            original_connection = fake.an<IDbConnection>();
+            original_connection = fake.an<IConnect>();
             item = new ItemToUpdate {connection = original_connection};
           };
 
@@ -180,8 +189,8 @@ namespace developwithpassion.specifications.core.factories
             item.connection.ShouldEqual(the_connection_from_the_registry);
 
           static ItemToUpdate item;
-          static IDbConnection the_connection_from_the_registry;
-          static IDbConnection original_connection;
+          static IConnect the_connection_from_the_registry;
+          static IConnect original_connection;
         }
 
         public class and_the_accessor_is_initialized_in_the_initializer : and_the_accessors_have_been_set
@@ -219,7 +228,7 @@ namespace developwithpassion.specifications.core.factories
         {
           Establish c = () =>
           {
-            original_connection = fake.an<IDbConnection>();
+            original_connection = fake.an<IConnect>();
             item = new ItemToUpdate {connection = original_connection};
           };
 
@@ -230,15 +239,14 @@ namespace developwithpassion.specifications.core.factories
             item.connection.ShouldEqual(original_connection);
 
           static ItemToUpdate item;
-          static IDbConnection the_connection_from_the_registry;
-          static IDbConnection original_connection;
+          static IConnect original_connection;
         }
       }
     }
 
     public class integration
     {
-      public class concern : use_engine<RhinoFakeEngine>.observe
+      public class concern : use_engine<MoqFakeEngine>.observe
       {
         Establish c = () =>
         {
@@ -319,10 +327,10 @@ namespace developwithpassion.specifications.core.factories
 
     public class ItemToUpdate
     {
-      public IDbConnection connection;
-      IDbConnection other_connection;
+      public IConnect connection;
+      IConnect other_connection;
 
-      public IDbConnection the_other()
+      public IConnect the_other()
       {
         return other_connection;
       }

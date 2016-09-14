@@ -1,4 +1,4 @@
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.examples
@@ -6,7 +6,7 @@ namespace developwithpassion.specifications.examples
   public class performing_setup_against_the_sut
   {
     [Subject(typeof(Accumulator))]
-    public class when_it_has_visited_its_second_item : use_engine<RhinoFakeEngine>.observe<Accumulator>
+    public class when_it_has_visited_its_second_item : use_engine<MoqFakeEngine>.observe<Accumulator>
     {
       Establish c = () =>
         //Use the sut_setup.run method to trigger a method against the sut

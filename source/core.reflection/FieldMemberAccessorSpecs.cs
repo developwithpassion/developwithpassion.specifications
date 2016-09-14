@@ -1,6 +1,6 @@
 using System;
 using System.Reflection;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.core.reflection
@@ -14,7 +14,7 @@ namespace developwithpassion.specifications.core.reflection
       public static readonly string read_only_value = "lah";
     }
 
-    public class concern : use_engine<RhinoFakeEngine>.observe<MemberAccessor, FieldMemberAccessor>
+    public class concern : use_engine<MoqFakeEngine>.observe<MemberAccessor, FieldMemberAccessor>
     {
       Establish c = delegate
       {

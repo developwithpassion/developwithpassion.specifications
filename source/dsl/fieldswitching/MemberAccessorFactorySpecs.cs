@@ -3,14 +3,14 @@ using developwithpassion.specifications.assertions.core;
 using developwithpassion.specifications.assertions.type_specificity;
 using developwithpassion.specifications.core.reflection;
 using developwithpassion.specifications.extensions;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.dsl.fieldswitching
 {
   public class MemberAccessorFactorySpecs
   {
-    public class concern : use_engine<RhinoFakeEngine>.observe<ICreateAnAccessorForAMember, MemberAccessorFactory>
+    public class concern : use_engine<MoqFakeEngine>.observe<ICreateAnAccessorForAMember, MemberAccessorFactory>
     {
       Establish c = delegate
       {

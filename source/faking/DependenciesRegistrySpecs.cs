@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using developwithpassion.specifications.assertions.interactions;
 using developwithpassion.specifications.core;
 using developwithpassion.specifications.extensions;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.faking
@@ -12,7 +11,15 @@ namespace developwithpassion.specifications.faking
   [Subject(typeof(DependenciesRegistry))]
   public class DependenciesRegistrySpecs
   {
-    public abstract class concern : use_engine<RhinoFakeEngine>.observe
+    public interface IConnect
+    {
+    }
+
+    public interface ICommand
+    {
+    }
+
+    public abstract class concern : use_engine<MoqFakeEngine>.observe
     {
       Establish c = () =>
       {
@@ -33,13 +40,13 @@ namespace developwithpassion.specifications.faking
     {
       Establish c = () =>
       {
-        dependencies.Add(typeof(IDbConnection), fake.an<IDbConnection>());
+        dependencies.Add(typeof(IConnect), fake.an<IConnect>());
       };
 
       It should_make_the_decision_based_on_whether_an_explicit_dependency_was_registered = () =>
       {
-        sut.has_been_provided_an(typeof(IDbConnection)).ShouldBeTrue();
-        sut.has_been_provided_an(typeof(IDbCommand)).ShouldBeFalse();
+        sut.has_been_provided_an(typeof(IConnect)).ShouldBeTrue();
+        sut.has_been_provided_an(typeof(ICommand)).ShouldBeFalse();
       };
     }
 
@@ -49,36 +56,36 @@ namespace developwithpassion.specifications.faking
       {
         Establish c = () =>
         {
-          the_connection = fake.an<IDbConnection>();
-          dependencies.Add(typeof(IDbConnection), the_connection);
+          the_connection = fake.an<IConnect>();
+          dependencies.Add(typeof(IConnect), the_connection);
         };
 
         Because b = () =>
-          result = sut.get_dependency_of(typeof(IDbConnection));
+          result = sut.get_dependency_of(typeof(IConnect));
 
         It should_return_the_item_that_was_registered = () =>
           result.ShouldEqual(the_connection);
 
         static object result;
-        static IDbConnection the_connection;
+        static IConnect the_connection;
       }
 
       public class and_the_dependency_was_not_explicitly_provided : when_getting_a_dependency
       {
         Establish c = () =>
         {
-          the_connection = fake.an<IDbConnection>();
-          dependency_resolver.setup(x => x.resolve(typeof(IDbConnection))).Return(the_connection);
+          the_connection = fake.an<IConnect>();
+          dependency_resolver.setup(x => x.resolve(typeof(IConnect))).Return(the_connection);
         };
 
         Because b = () =>
-          result = sut.get_dependency_of(typeof(IDbConnection));
+          result = sut.get_dependency_of(typeof(IConnect));
 
         It should_return_the_item_created_by_the_dependency_resolver = () =>
           result.ShouldEqual(the_connection);
 
         static object result;
-        static IDbConnection the_connection;
+        static IConnect the_connection;
       }
     }
 
@@ -88,28 +95,28 @@ namespace developwithpassion.specifications.faking
       {
         Establish c = () =>
         {
-          the_connection = fake.an<IDbConnection>();
+          the_connection = fake.an<IConnect>();
         };
 
         Because b = () =>
           result = sut.on(the_connection);
 
         It should_be_stored_in_the_underlying_dependencies = () =>
-          dependencies[typeof(IDbConnection)].ShouldEqual(the_connection);
+          dependencies[typeof(IConnect)].ShouldEqual(the_connection);
 
         It should_return_the_instance_being_registered = () =>
           result.ShouldEqual(the_connection);
 
-        static IDbConnection the_connection;
-        static IDbConnection result;
+        static IConnect the_connection;
+        static IConnect result;
       }
 
       public class and_it_has_already_been_stored : when_storing_a_dependency
       {
         Establish c = () =>
         {
-          the_connection = fake.an<IDbConnection>();
-          the_new_connection = fake.an<IDbConnection>();
+          the_connection = fake.an<IConnect>();
+          the_new_connection = fake.an<IConnect>();
           sut.on(the_connection);
         };
 
@@ -117,35 +124,35 @@ namespace developwithpassion.specifications.faking
           result = sut.on(the_new_connection);
 
         It should_replace_the_existing_instance = () =>
-          dependencies[typeof(IDbConnection)].ShouldEqual(the_new_connection);
+          dependencies[typeof(IConnect)].ShouldEqual(the_new_connection);
 
         It should_return_the_instance_being_registered = () =>
           result.ShouldEqual(the_new_connection);
 
-        static IDbConnection the_connection;
-        static IDbConnection result;
-        static IDbConnection the_new_connection;
+        static IConnect the_connection;
+        static IConnect result;
+        static IConnect the_new_connection;
       }
 
       public class and_the_dependency_is_not_being_provided : when_storing_a_dependency
       {
         Establish c = () =>
         {
-          the_connection_created_by_the_fake_gateway = fake.an<IDbConnection>();
-          fake_gateway.setup(x => x.the<IDbConnection>()).Return(the_connection_created_by_the_fake_gateway);
+          the_connection_created_by_the_fake_gateway = fake.an<IConnect>();
+          fake_gateway.setup(x => x.the<IConnect>()).Return(the_connection_created_by_the_fake_gateway);
         };
 
         Because b = () =>
-          result = sut.on<IDbConnection>();
+          result = sut.on<IConnect>();
 
         It should_store_the_item_created_by_the_fake_gateway = () =>
-          dependencies[typeof(IDbConnection)].ShouldEqual(the_connection_created_by_the_fake_gateway);
+          dependencies[typeof(IConnect)].ShouldEqual(the_connection_created_by_the_fake_gateway);
 
         It should_return_the_item_created_by_the_fake_gateway = () =>
           result = the_connection_created_by_the_fake_gateway;
 
-        static IDbConnection the_connection_created_by_the_fake_gateway;
-        static IDbConnection result;
+        static IConnect the_connection_created_by_the_fake_gateway;
+        static IConnect result;
       }
     }
   }

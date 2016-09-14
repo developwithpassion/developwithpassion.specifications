@@ -1,13 +1,21 @@
-using System.Data;
 using Machine.Fakes;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.examples.fake_interaction
 {
   public class with_dependencies
   {
-    public abstract class concern : use_engine<RhinoFakeEngine>.observe<Calculator>
+    public interface IConnect
+    {
+      void Open();
+    }
+
+    public interface IAdapt
+    {
+    }
+
+    public abstract class concern : use_engine<MoqFakeEngine>.observe<Calculator>
     {
     }
 
@@ -16,7 +24,7 @@ namespace developwithpassion.specifications.examples.fake_interaction
     {
       Establish c = () =>
       {
-        connection = depends.on<IDbConnection>();
+        connection = depends.on<IConnect>();
       };
 
       Because b = () =>
@@ -30,14 +38,14 @@ namespace developwithpassion.specifications.examples.fake_interaction
         result.ShouldEqual(5);
 
       static int result;
-      static IDbConnection connection;
+      static IConnect connection;
     }
 
     public class Calculator
     {
-      IDbConnection connection;
+      IConnect connection;
 
-      public Calculator(IDbConnection connection)
+      public Calculator(IConnect connection)
       {
         this.connection = connection;
       }

@@ -1,6 +1,6 @@
 using System;
 using System.Reflection;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.core.reflection
@@ -8,7 +8,7 @@ namespace developwithpassion.specifications.core.reflection
   [Subject(typeof(PropertyInfoMemberAccessor))]
   public class PropertyInfoMemberAccessorSpecs
   {
-    public class concern : use_engine<RhinoFakeEngine>.observe<MemberAccessor, PropertyInfoMemberAccessor>
+    public class concern : use_engine<MoqFakeEngine>.observe<MemberAccessor, PropertyInfoMemberAccessor>
     {
       Establish c = delegate
       {

@@ -3,7 +3,7 @@ using developwithpassion.specifications.assertions.core;
 using developwithpassion.specifications.assertions.type_specificity;
 using developwithpassion.specifications.core.factories;
 using developwithpassion.specifications.extensions;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications
@@ -13,15 +13,15 @@ namespace developwithpassion.specifications
   {
     public class integration
     {
-      public abstract class concern : use_engine<RhinoFakeEngine>.observe
+      public abstract class concern : use_engine<MoqFakeEngine>.observe
       {
         Establish c = () =>
         {
-          sut = MainControllerFactory.new_instance().create_main_controller<AnItem, RhinoFakeEngine>()
-            .downcast_to<DefaultObservationController<AnItem, RhinoFakeEngine>>();
+          sut = MainControllerFactory.new_instance().create_main_controller<AnItem, MoqFakeEngine>()
+            .downcast_to<DefaultObservationController<AnItem, MoqFakeEngine>>();
         };
 
-        protected static DefaultObservationController<AnItem, RhinoFakeEngine> sut;
+        protected static DefaultObservationController<AnItem, MoqFakeEngine> sut;
       }
 
       public class when_catching_an_exception_around_a_string_based_property_invocation : concern

@@ -1,9 +1,9 @@
 using System.Reflection;
 using developwithpassion.specifications.assertions.interactions;
-using developwithpassion.specifications.extensions;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
-using Rhino.Mocks;
+using Moq;
+using It = Machine.Specifications.It;
 
 namespace developwithpassion.specifications.dsl.fieldswitching
 {
@@ -15,14 +15,14 @@ namespace developwithpassion.specifications.dsl.fieldswitching
       public static int some_value_that_will_be_boxed = 0x42;
     }
 
-    public class concern : use_engine<RhinoFakeEngine>.observe<FieldReassignmentStartExpression>
+    public class concern : use_engine<MoqFakeEngine>.observe<FieldReassignmentStartExpression>
     {
       Establish c = delegate
       {
         member_info = typeof(TypeWithAStaticField).GetField("some_value");
         switcher_factory = depends.on<FieldSwitcherFactory>();
         switcher = fake.an<ISwapValues>();
-        switcher_factory.setup(x => x.create_to_target(Arg<MemberInfo>.Is.NotNull)).Return(switcher);
+        switcher_factory.setup(x => x.create_to_target(Moq.It.IsNotNull<MemberInfo>())).Return(switcher);
       };
 
       protected static MemberInfo member_info;

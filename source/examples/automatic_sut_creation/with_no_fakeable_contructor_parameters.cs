@@ -1,5 +1,5 @@
 using System;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.examples.automatic_sut_creation
@@ -7,7 +7,7 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
   public class with_no_fakeable_contructor_parameters
   {
     [Subject(typeof(Calculator))]
-    public class when_adding_2_numbers : use_engine<RhinoFakeEngine>.observe<Calculator>
+    public class when_adding_2_numbers : use_engine<MoqFakeEngine>.observe<Calculator>
     {
       Establish c = () =>
       {

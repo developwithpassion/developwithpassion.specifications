@@ -1,4 +1,4 @@
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.examples
@@ -6,10 +6,10 @@ namespace developwithpassion.specifications.examples
   public class coding_to_contracts
   {
     [Subject(typeof(Calculator))]
-    public class when_adding_2_numbers : use_engine<RhinoFakeEngine>.observe<ICalculate, Calculator>
+    public class when_adding_2_numbers : use_engine<MoqFakeEngine>.observe<ICalculate, Calculator>
     {
       Because b = () =>
-        //when inheriting from use_engine<RhinoFakeEngine>.observe<Contract,Class> the sut field
+        //when inheriting from use_engine<MoqFakeEngine>.observe<Contract,Class> the sut field
         //will be of the contract type
         //to get access to the class instance, you can use the concrete_sut
         //field (mostly if you want to make direct assertions against the class of the

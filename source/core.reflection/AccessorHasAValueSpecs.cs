@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
 using developwithpassion.specifications.assertions.interactions;
-using developwithpassion.specifications.extensions;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.core.reflection
@@ -11,7 +8,25 @@ namespace developwithpassion.specifications.core.reflection
   [Subject(typeof(AccessorHasAValue))]
   public class AccessorHasAValueSpecs
   {
-    public abstract class concern : use_engine<RhinoFakeEngine>.observe
+    public interface IConnect
+    {
+    }
+
+    public class Connector : IConnect
+    {
+      
+    }
+
+    public interface IAdapt
+    {
+    }
+
+    public class Adapter : IAdapt
+    {
+      
+    }
+
+    public abstract class concern : use_engine<MoqFakeEngine>.observe
     {
       Establish c = () =>
       {
@@ -45,8 +60,8 @@ namespace developwithpassion.specifications.core.reflection
       {
         Establish c = () =>
         {
-          accessor.setup(x => x.accessor_type).Return(typeof(SqlConnection));
-          accessor.setup(x => x.get_value(target)).Return(new SqlConnection());
+          accessor.setup(x => x.accessor_type).Return(typeof(Connector));
+          accessor.setup(x => x.get_value(target)).Return(new Connector());
         };
 
         Because b = () =>
@@ -60,7 +75,7 @@ namespace developwithpassion.specifications.core.reflection
       {
         Establish c = () =>
         {
-          accessor = new FakeAccesor {accessor_type = typeof(SqlConnection)};
+          accessor = new FakeAccesor {accessor_type = typeof(Connector)};
         };
 
         Because b = () =>
@@ -103,7 +118,7 @@ namespace developwithpassion.specifications.core.reflection
 
     public class TheItem
     {
-      public IDbConnection connection { get; set; }
+      public IConnect connection { get; set; }
       public int number { get; set; }
     }
   }

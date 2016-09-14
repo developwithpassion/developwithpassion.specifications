@@ -1,11 +1,9 @@
 using System;
-using System.Data;
 using developwithpassion.specifications.assertions.core;
 using developwithpassion.specifications.assertions.interactions;
 using developwithpassion.specifications.core;
-using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.specs.utility;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.faking
@@ -13,16 +11,30 @@ namespace developwithpassion.specifications.faking
   [Subject(typeof(DefaultSUTFactory<>))]
   public class SUTFactorySpecs
   {
-    public class concern : use_engine<RhinoFakeEngine>.observe
+    public interface IConnect
+    {
+    }
+    public interface ICommand
+    {
+    }
+
+    public interface IReadData
+    {
+    }
+
+    public interface IAdapt
+    {
+    }
+    public class concern : use_engine<MoqFakeEngine>.observe
     {
       Establish base_setup = delegate
       {
-        connection = fake.an<IDbConnection>();
-        command = fake.an<IDbCommand>();
+        connection = fake.an<IConnect>();
+        command = fake.an<ICommand>();
         non_ctor_dependency_visitor = fake.an<IUpdateNonCtorDependenciesOnAnItem>();
         dependency_registry = fake.an<IManageTheDependenciesForASUT>();
-        dependency_registry.setup(x => x.get_dependency_of(typeof(IDbConnection))).Return(connection);
-        dependency_registry.setup(x => x.get_dependency_of(typeof(IDbCommand))).Return(command);
+        dependency_registry.setup(x => x.get_dependency_of(typeof(IConnect))).Return(connection);
+        dependency_registry.setup(x => x.get_dependency_of(typeof(ICommand))).Return(command);
       };
 
       protected static DefaultSUTFactory<ItemToBeCreated> create_sut<ItemToBeCreated>()
@@ -31,8 +43,8 @@ namespace developwithpassion.specifications.faking
           non_ctor_dependency_visitor);
       }
 
-      protected static IDbCommand command;
-      protected static IDbConnection connection;
+      protected static ICommand command;
+      protected static IConnect connection;
       protected static IManageTheDependenciesForASUT dependency_registry;
       protected static IUpdateNonCtorDependenciesOnAnItem non_ctor_dependency_visitor;
     }
@@ -77,16 +89,16 @@ namespace developwithpassion.specifications.faking
     {
       Establish c = () =>
       {
-        dependency_registry.setup(x => x.on<IDbConnection>()).Return(connection);
+        dependency_registry.setup(x => x.on<IConnect>()).Return(connection);
       };
 
       Because b = () =>
-        result = sut.on<IDbConnection>();
+        result = sut.on<IConnect>();
 
       It should_store_the_dependency_in_the_dependency_registry_and_return_the_item_it_returned = () =>
         result.ShouldEqual(connection);
 
-      static IDbConnection result;
+      static IConnect result;
     }
 
     public class when_creating_a_type_that_has_constructor_parameters_that_cant_be_faked :
@@ -151,7 +163,6 @@ namespace developwithpassion.specifications.faking
     {
       public class AnItemToCreate
       {
-        int other;
       }
 
       Establish c = () =>
@@ -162,7 +173,6 @@ namespace developwithpassion.specifications.faking
       Because b = () =>
         result = sut.create();
 
-      static AnItemToCreate created_item;
       static AnItemToCreate result;
       static DefaultSUTFactory<AnItemToCreate> sut;
 
@@ -230,7 +240,7 @@ namespace developwithpassion.specifications.faking
       static DefaultSUTFactory<ItemToCreate> sut;
     }
 
-    public class integration : use_engine<RhinoFakeEngine>.observe
+    public class integration : use_engine<MoqFakeEngine>.observe
     {
       protected static IManageFakes manage_fakes;
       protected static ICreateFakeDelegates FakeDelegatesFactory;
@@ -282,22 +292,21 @@ namespace developwithpassion.specifications.faking
 
         static DefaultSUTFactory<item_with_dependencies_in_ctor_in_fields_and_in_properties> sut;
         static item_with_dependencies_in_ctor_in_fields_and_in_properties result;
-        static Func<string, string> to_lower;
       }
 
       public class item_with_dependencies_in_ctor_in_fields_and_in_properties
       {
-        IDbConnection connection;
-        public IDataReader reader;
-        public IDataAdapter adapter { get; set; }
+        IConnect connection;
+        public IReadData reader;
+        public IAdapt adapter { get; set; }
         public Func<string, string> Configuration = item => item.ToUpper();
 
-        public item_with_dependencies_in_ctor_in_fields_and_in_properties(IDbConnection connection)
+        public item_with_dependencies_in_ctor_in_fields_and_in_properties(IConnect connection)
         {
           this.connection = connection;
         }
 
-        public IDbConnection get_the_connection()
+        public IConnect get_the_connection()
         {
           return connection;
         }
@@ -306,16 +315,16 @@ namespace developwithpassion.specifications.faking
 
     public class ItemWithNonFakeableCtorParameters2
     {
-      public IDbConnection connection2 { get; set; }
-      public IDbCommand command;
-      public IDbConnection connection;
+      public IConnect connection2 { get; set; }
+      public ICommand command;
+      public IConnect connection;
       public int number;
       public int number2;
       public DateTime date;
       public Func<int, bool> condition;
 
-      public ItemWithNonFakeableCtorParameters2(IDbConnection connection, IDbCommand command,
-        IDbConnection connection2, int number,
+      public ItemWithNonFakeableCtorParameters2(IConnect connection, ICommand command,
+        IConnect connection2, int number,
         int number2, DateTime date, Func<int, bool> condition)
       {
         this.connection2 = connection2;
@@ -330,10 +339,10 @@ namespace developwithpassion.specifications.faking
 
     public class ItemToCreate
     {
-      public IDbCommand command;
-      public IDbConnection connection;
+      public ICommand command;
+      public IConnect connection;
 
-      public ItemToCreate(IDbConnection connection, IDbCommand command)
+      public ItemToCreate(IConnect connection, ICommand command)
       {
         this.connection = connection;
         this.command = command;
@@ -342,11 +351,11 @@ namespace developwithpassion.specifications.faking
 
     public class ItemWithNonFakeableCtorParameters
     {
-      public IDbCommand command;
-      public IDbConnection connection;
+      public ICommand command;
+      public IConnect connection;
       public SomeOtherType other;
 
-      public ItemWithNonFakeableCtorParameters(IDbConnection connection, IDbCommand command, SomeOtherType other)
+      public ItemWithNonFakeableCtorParameters(IConnect connection, ICommand command, SomeOtherType other)
       {
         this.connection = connection;
         this.command = command;

@@ -1,13 +1,21 @@
-using System.Security.Principal;
-using System.Threading;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.specs
 {
   public class ChangeSpecs
   {
-    public class concern : use_engine<RhinoFakeEngine>.observe
+    public interface ISpecifySecurity
+    {
+      bool IsInRole(string name);
+    }
+
+    public class TheThread
+    {
+      public static ISpecifySecurity CurrentPrincipal { get; set; }
+    }
+
+    public class concern : use_engine<MoqFakeEngine>.observe
     {
     }
 
@@ -34,14 +42,14 @@ namespace developwithpassion.specifications.specs
     {
       Establish c = delegate
       {
-        principal = fake.an<IPrincipal>();
-        spec.change(() => Thread.CurrentPrincipal).to(principal);
+        principal = fake.an<ISpecifySecurity>();
+        spec.change(() => TheThread.CurrentPrincipal).to(principal);
       };
 
       It should_have_the_fake_principal_being_used_as_the_principal = () =>
-        Thread.CurrentPrincipal.ShouldEqual(principal);
+        TheThread.CurrentPrincipal.ShouldEqual(principal);
 
-      static IPrincipal principal;
+      static ISpecifySecurity principal;
     }
   }
 }

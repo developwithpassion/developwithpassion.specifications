@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using developwithpassion.specifications.assertions.interactions;
 using developwithpassion.specifications.core;
 using developwithpassion.specifications.extensions;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.faking
 {
   public class SUTDependencyResolverSpecs
   {
-    public class concern : use_engine<RhinoFakeEngine>.observe<IResolveADependencyForTheSUT,
+    public class concern : use_engine<MoqFakeEngine>.observe<IResolveADependencyForTheSUT,
       SUTDependencyResolver>
     {
       protected static IManageFakes accessor;
@@ -78,7 +78,6 @@ namespace developwithpassion.specifications.faking
       It should_return_an_empty_string = () =>
         result.ShouldEqual(string.Empty);
 
-      static IDictionary<Type, object> pairs;
       static object result;
     }
 
@@ -102,7 +101,6 @@ namespace developwithpassion.specifications.faking
       It should_return_the_delegate_created_by_the_delegate_builder = () =>
         result.ShouldEqual(random_delegate);
 
-      static IDictionary<Type, object> pairs;
       static object result;
       static object random_delegate;
       static ICreateFakeDelegates _fakeDelegateBuilder;

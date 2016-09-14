@@ -1,4 +1,4 @@
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.examples.automatic_sut_creation
@@ -6,7 +6,7 @@ namespace developwithpassion.specifications.examples.automatic_sut_creation
   public class with_no_constructor_parameters_required
   {
     [Subject(typeof(Calculator))]
-    public class when_adding_two_numbers : use_engine<RhinoFakeEngine>.observe<Calculator>
+    public class when_adding_two_numbers : use_engine<MoqFakeEngine>.observe<Calculator>
     {
       Because b = () =>
         result = sut.add(3, 2);

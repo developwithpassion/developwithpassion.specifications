@@ -2,7 +2,7 @@ using System.Reflection;
 using developwithpassion.specifications.assertions.interactions;
 using developwithpassion.specifications.core.reflection;
 using developwithpassion.specifications.extensions;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.dsl.fieldswitching
@@ -14,7 +14,7 @@ namespace developwithpassion.specifications.dsl.fieldswitching
       public static string static_value { get; set; }
     }
 
-    public class concern : use_engine<RhinoFakeEngine>.observe<FieldSwitcherFactory, DefaultFieldSwitcherFactory>
+    public class concern : use_engine<MoqFakeEngine>.observe<FieldSwitcherFactory, DefaultFieldSwitcherFactory>
     {
       Establish c = () =>
       {

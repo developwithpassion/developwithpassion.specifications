@@ -1,11 +1,11 @@
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications
 {
   public class ObservationPairSpecs
   {
-    public class concern : use_engine<RhinoFakeEngine>.observe<ObservationPair>
+    public class concern : use_engine<MoqFakeEngine>.observe<ObservationPair>
     {
       Establish c = () =>
       {

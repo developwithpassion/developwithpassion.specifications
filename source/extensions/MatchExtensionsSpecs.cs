@@ -1,7 +1,7 @@
 ﻿using developwithpassion.specifications.assertions.core;
 using developwithpassion.specifications.assertions.type_specificity;
 using developwithpassion.specifications.core;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.extensions
@@ -9,7 +9,7 @@ namespace developwithpassion.specifications.extensions
   [Subject(typeof(MatchExtensions))]
   public class MatchExtensionsSpecs
   {
-    public abstract class concern : use_engine<RhinoFakeEngine>.observe
+    public abstract class concern : use_engine<MoqFakeEngine>.observe
     {
     }
 

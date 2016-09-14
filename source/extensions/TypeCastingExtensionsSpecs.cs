@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using developwithpassion.specifications.assertions.core;
 using developwithpassion.specifications.assertions.type_specificity;
-using Machine.Fakes.Adapters.Rhinomocks;
+using Machine.Fakes.Adapters.Moq;
 using Machine.Specifications;
 
 namespace developwithpassion.specifications.extensions
@@ -33,7 +33,7 @@ namespace developwithpassion.specifications.extensions
     }
 
     [Subject(typeof(TypeCastingExtensions))]
-    public class when_an_illegal_downcast_is_attempted : use_engine<RhinoFakeEngine>.observe
+    public class when_an_illegal_downcast_is_attempted : use_engine<MoqFakeEngine>.observe
     {
       Because b = () =>
         spec.catch_exception(() => 2.downcast_to<DateTime>());
