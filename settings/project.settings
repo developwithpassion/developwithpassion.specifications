@@ -5,13 +5,14 @@ def filter_libs(libs)
   libs = libs.select do |file|
     /x86/ !~ file &&
       /netstandard/ !~ file &&
-      /net4\d{2}/ !~ file &&
       /SQLite/ !~ file &&
       /netcore/ !~ file &&
       /amd64/ !~ file &&
+      /net35/ !~ file &&
+      /net40-client/ !~ file &&
       /portable/ !~ file &&
+      /sl4/ !~ file &&
       /sl5/ !~ file &&
-      /Castle/ !~ file &&
       /Interop/ !~ file &&
       /content/ !~ file &&
       /Oracle/ !~ file &&
